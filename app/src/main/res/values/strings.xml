@@ -3,4 +3,5 @@
   <string name="now_playing">Now Playing</string>
   <string name="suggestion">Suggestion</string>
   <string name="content_descr_thumbnail">Movie thumbnail</string>
+  <string name="movie_rating">Rating: %.1f/10</string>
 </resources>

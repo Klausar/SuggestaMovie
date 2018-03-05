@@ -1,6 +1,7 @@
 package de.kaiwidmaier.suggestamovie.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
-import de.kaiwidmaier.suggestamovie.activities.MainActivity;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 
 /**
@@ -24,10 +24,9 @@ import de.kaiwidmaier.suggestamovie.data.Movie;
 public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewMovieAdapter.ViewHolder> {
 
   private static final String TAG = RecyclerViewMovieAdapter.class.getSimpleName();
-  private List<Integer> viewColors = Collections.emptyList();
   private List<Movie> movies;
   private LayoutInflater inflater;
-  private ItemClickListener mClickListener;
+  private ItemClickListener clickListener;
   private Context context;
   private final String imgUrlBasePath ="http://image.tmdb.org/t/p/w342//";
 
@@ -53,7 +52,6 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     if(movie.getPosterPath() != null) {
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
       Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
-      //TODO: Placeholder image
       Picasso.with(context).load(posterUrl).into(holder.thumbnail);
     }
   }
@@ -66,17 +64,17 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
 
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public ImageView thumbnail = itemView.findViewById(R.id.img_thumbnail_recycler);
+    ImageView thumbnail = itemView.findViewById(R.id.img_thumbnail_recycler);
 
     public ViewHolder(View itemView) {
       super(itemView);
-      ImageView thumbnail = itemView.findViewById(R.id.img_thumbnail_recycler);
+      thumbnail = itemView.findViewById(R.id.img_thumbnail_recycler);
       itemView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-      if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+      if (clickListener != null) clickListener.onItemClick(view, getAdapterPosition());
     }
   }
 
@@ -85,9 +83,8 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     return movies.get(id);
   }
 
-
   public void setClickListener(ItemClickListener itemClickListener) {
-    this.mClickListener = itemClickListener;
+    this.clickListener = itemClickListener;
   }
 
 

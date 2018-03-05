@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+  android:id="@+id/layout_movie"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -9,16 +10,45 @@
   android:layout_height="match_parent"
   tools:context="de.kaiwidmaier.suggestamovie.activities.MovieActivity">
 
-  <TextView
-    android:id="@+id/text_movie_title"
-    android:textSize="20sp"
-    android:text="Movie Title"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
-  <ImageView
-    android:id="@+id/img_thumbnail_movie"
+  <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:contentDescription="@string/content_descr_thumbnail"/>
+    android:orientation="horizontal">
+    <ImageView
+      android:id="@+id/img_thumbnail_movie"
+      android:paddingTop="16dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@string/content_descr_thumbnail"/>
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+      <TextView
+        android:id="@+id/text_movie_title"
+        android:textSize="20sp"
+        android:padding="16dp"
+        android:textStyle="bold"
+        android:text="Movie Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+      <TextView
+        android:id="@+id/text_movie_rating"
+        android:drawableRight="@drawable/ic_star_rate_black"
+        android:padding="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+  </LinearLayout>
+
+  <ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp">
+    <TextView
+      android:id="@+id/text_movie_description"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+  </ScrollView>
 
 </LinearLayout>
