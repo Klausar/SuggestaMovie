@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">Suggest a Movie</string>
+  <string name="now_playing">Now Playing</string>
+  <string name="suggestion">Suggestion</string>
+</resources>
