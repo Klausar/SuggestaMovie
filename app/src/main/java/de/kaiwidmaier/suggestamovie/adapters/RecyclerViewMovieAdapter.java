@@ -53,8 +53,8 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     if(movie.getPosterPath() != null) {
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
       Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
-      //TODO: Better placeholder image
-      Picasso.with(context).load(posterUrl).placeholder(android.R.drawable.sym_def_app_icon).error(android.R.drawable.sym_def_app_icon).into(holder.thumbnail);
+      //TODO: Placeholder image
+      Picasso.with(context).load(posterUrl).into(holder.thumbnail);
     }
   }
 
