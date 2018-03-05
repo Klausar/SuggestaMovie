@@ -2,4 +2,5 @@
   <string name="app_name">Suggest a Movie</string>
   <string name="now_playing">Now Playing</string>
   <string name="suggestion">Suggestion</string>
+  <string name="content_descr_thumbnail">Movie thumbnail</string>
 </resources>

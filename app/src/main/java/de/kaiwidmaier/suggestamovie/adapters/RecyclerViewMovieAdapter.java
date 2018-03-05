@@ -2,6 +2,7 @@ package de.kaiwidmaier.suggestamovie.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import de.kaiwidmaier.suggestamovie.data.Movie;
 
 public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewMovieAdapter.ViewHolder> {
 
+  private static final String TAG = RecyclerViewMovieAdapter.class.getSimpleName();
   private List<Integer> viewColors = Collections.emptyList();
   private List<Movie> movies;
   private LayoutInflater inflater;
@@ -49,8 +51,10 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   public void onBindViewHolder(ViewHolder holder, int position) {
     Movie movie = movies.get(position);
     if(movie.getPosterPath() != null) {
-      String image_url = imgUrlBasePath + movie.getPosterPath();
-      Picasso.with(context).load(image_url).placeholder(android.R.drawable.sym_def_app_icon).error(android.R.drawable.sym_def_app_icon).into(holder.thumbnail);
+      String posterUrl = imgUrlBasePath + movie.getPosterPath();
+      Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
+      //TODO: Better placeholder image
+      Picasso.with(context).load(posterUrl).placeholder(android.R.drawable.sym_def_app_icon).error(android.R.drawable.sym_def_app_icon).into(holder.thumbnail);
     }
   }
 
@@ -62,11 +66,11 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
 
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    public ImageView thumbnail = itemView.findViewById(R.id.img_thumbnail);
+    public ImageView thumbnail = itemView.findViewById(R.id.img_thumbnail_recycler);
 
     public ViewHolder(View itemView) {
       super(itemView);
-      ImageView thumbnail = itemView.findViewById(R.id.img_thumbnail);
+      ImageView thumbnail = itemView.findViewById(R.id.img_thumbnail_recycler);
       itemView.setOnClickListener(this);
     }
 

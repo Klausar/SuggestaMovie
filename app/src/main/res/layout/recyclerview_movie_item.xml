@@ -6,9 +6,11 @@
 
 
     <ImageView
-      android:id="@+id/img_thumbnail"
+      android:id="@+id/img_thumbnail_recycler"
+      android:contentDescription="@string/content_descr_thumbnail"
       android:paddingTop="16dp"
       android:paddingRight="16dp"
+      android:paddingEnd="16dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
 

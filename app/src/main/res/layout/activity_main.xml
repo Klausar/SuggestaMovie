@@ -7,15 +7,18 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:paddingLeft="16dp"
+              android:paddingStart="16dp"
+              android:paddingRight="16dp"
+              android:paddingEnd="16dp"
+              android:paddingTop="32dp"
               tools:context="de.kaiwidmaier.suggestamovie.activities.MainActivity">
 
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="20dp"
+    android:textSize="20sp"
     android:textStyle="bold"
-    android:layout_marginTop="32dp"
-    android:text="Now Playing"/>
+    android:text="@string/now_playing"/>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recycler_now_playing"
@@ -28,8 +31,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="32dp"
-    android:textSize="20dp"
+    android:textSize="20sp"
     android:textStyle="bold"
-    android:text="Suggestion"/>
+    android:text="@string/suggestion"/>
 
 </LinearLayout>

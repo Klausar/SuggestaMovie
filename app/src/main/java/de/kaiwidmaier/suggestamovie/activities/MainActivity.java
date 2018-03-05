@@ -1,5 +1,6 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onItemClick(View view, int position) {
             Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());
+            Intent movieIntent = new Intent(MainActivity.this, MovieActivity.class);
+            movieIntent.putExtra("movie", movieAdapter.getItem(position));
+            startActivity(movieIntent);
           }
         });
       }
