@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @SuppressWarnings("unused")
-public class Movie implements Parcelable {
+public class Movie implements Parcelable{
 
   @SerializedName("poster_path")
   private String posterPath;
@@ -181,13 +181,14 @@ public class Movie implements Parcelable {
     this.voteAverage = voteAverage;
   }
 
+
   protected Movie(Parcel in) {
     posterPath = in.readString();
     adult = in.readByte() != 0x00;
     overview = in.readString();
     releaseDate = in.readString();
     if (in.readByte() == 0x01) {
-      genreIds = new ArrayList<>();
+      genreIds = new ArrayList<Integer>();
       in.readList(genreIds, Integer.class.getClassLoader());
     } else {
       genreIds = null;

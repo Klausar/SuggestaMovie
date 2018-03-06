@@ -2,15 +2,19 @@ package de.kaiwidmaier.suggestamovie.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,7 +32,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   private LayoutInflater inflater;
   private ItemClickListener clickListener;
   private Context context;
-  private final String imgUrlBasePath ="http://image.tmdb.org/t/p/w342//";
+  private final String imgUrlBasePath ="http://image.tmdb.org/t/p/w500//";
 
 
   public RecyclerViewMovieAdapter(Context context, List<Movie> movies) {
@@ -48,11 +52,11 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    Movie movie = movies.get(position);
+    final Movie movie = movies.get(position);
     if(movie.getPosterPath() != null) {
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
       Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
-      Picasso.with(context).load(posterUrl).into(holder.thumbnail);
+      Picasso.with(context).load(posterUrl).placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.thumbnail);
     }
   }
 
