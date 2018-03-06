@@ -22,6 +22,8 @@
     </activity>
     <activity android:name=".activities.MovieActivity">
     </activity>
+    <activity android:name=".activities.DiscoverActivity">
+    </activity>
   </application>
 
 </manifest>

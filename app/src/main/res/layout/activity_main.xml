@@ -6,11 +6,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:paddingLeft="16dp"
-              android:paddingStart="16dp"
-              android:paddingRight="16dp"
-              android:paddingEnd="16dp"
-              android:paddingTop="32dp"
+              android:padding="16dp"
               tools:context="de.kaiwidmaier.suggestamovie.activities.MainActivity">
 
   <TextView
@@ -18,21 +14,27 @@
     android:layout_height="wrap_content"
     android:textSize="20sp"
     android:textStyle="bold"
-    android:text="@string/now_playing"/>
+    android:text="@string/watchlist"/>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recycler_now_playing"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minHeight="190dp"
     android:orientation="horizontal"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
-  <TextView
+  <Button
+    android:id="@+id/btn_discover"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:padding="16dp"
     android:layout_marginTop="32dp"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    android:text="@string/suggestion"/>
+    android:backgroundTint="@color/colorPrimary"
+    android:drawableLeft="@drawable/ic_movie_white_24dp"
+    android:drawablePadding="8dp"
+    android:textColor="@color/colorWhite"
+    android:layout_gravity="center"
+    android:text="@string/btn_find"/>
 
 </LinearLayout>

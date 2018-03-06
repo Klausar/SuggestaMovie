@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:rsb="http://schemas.android.com/apk/res-auto"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:padding="16dp"
+  tools:context="de.kaiwidmaier.suggestamovie.activities.DiscoverActivity">
+
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="20sp"
+    android:text="Year of release"/>
+
+
+    <org.florescu.android.rangeseekbar.RangeSeekBar
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      rsb:absoluteMaxValue="2018"
+      rsb:absoluteMinValue="1930"/>
+
+  <View
+    android:layout_width="fill_parent"
+    android:layout_height="2dip"
+    android:layout_marginTop="16dp"
+    android:background="#808080" />
+
+  <CheckBox
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:text="Include adult"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:text="Minimum Rating:"/>
+
+    <SeekBar
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:max="10"
+      android:min="0"
+      android:thumbTint="#80808080"/>
+
+    </LinearLayout>
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:text="Genres (Leave unchecked to include all):"/>
+
+
+</LinearLayout>

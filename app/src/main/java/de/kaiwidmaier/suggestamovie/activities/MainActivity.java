@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
   private static Retrofit retrofit;
   private RecyclerView recyclerView;
+  private Button btnDiscover;
 
   //TheMovieDB API Key
   private final static String API_KEY = BuildConfig.API_KEY;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     recyclerView = findViewById(R.id.recycler_now_playing);
+    btnDiscover = findViewById(R.id.btn_discover);
     connectAndGetApiData();
   }
 
