@@ -7,4 +7,6 @@
   <string name="btn_find">Discover</string>
   <string name="watchlist">Watchlist</string>
   <string name="include_adult">Include adult results</string>
+  <string name="release_year">Year of release:</string>
+  <string name="rating">Rating:</string>
 </resources>

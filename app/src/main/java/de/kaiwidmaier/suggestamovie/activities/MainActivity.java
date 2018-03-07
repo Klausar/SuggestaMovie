@@ -52,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     recyclerView = findViewById(R.id.recycler_now_playing);
     btnDiscover = findViewById(R.id.btn_discover);
+    btnDiscover.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent discoverIntent = new Intent(MainActivity.this, DiscoverActivity.class);
+        startActivity(discoverIntent);
+      }
+    });
     connectAndGetApiData();
   }
 

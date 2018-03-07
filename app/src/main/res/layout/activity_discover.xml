@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:rsb="http://schemas.android.com/apk/res-auto"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:rsb="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -10,31 +10,38 @@
   android:padding="16dp"
   tools:context="de.kaiwidmaier.suggestamovie.activities.DiscoverActivity">
 
-
-  <TextView
-    android:layout_width="wrap_content"
+  <LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:text="Year of release"/>
+    android:orientation="horizontal">
 
-
-    <org.florescu.android.rangeseekbar.RangeSeekBar
-      android:layout_width="match_parent"
+    <TextView
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      rsb:absoluteMaxValue="2018"
-      rsb:absoluteMinValue="1930"/>
+      android:layout_gravity="center"
+      android:layout_weight="0.2"
+      android:text="@string/release_year"/>
 
-  <View
-    android:layout_width="fill_parent"
-    android:layout_height="2dip"
-    android:layout_marginTop="16dp"
-    android:background="#808080" />
+  <org.florescu.android.rangeseekbar.RangeSeekBar
+    android:id="@+id/seekbar_release"
+    app:showLabels="false"
+    app:valuesAboveThumbs="true"
+    app:textAboveThumbsColor="@color/colorAccent"
+    android:layout_weight="0.5"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"/>
+
+</LinearLayout>
 
   <CheckBox
+    android:id="@+id/checkbox_include_adult"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:text="Include adult"/>
+    android:layout_marginTop="32dp"
+    android:buttonTint="@color/colorPrimary"
+    android:text="@string/include_adult"
+    android:textColor="#808080"/>
+
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -42,20 +49,25 @@
     android:orientation="horizontal">
 
     <TextView
-      android:layout_width="wrap_content"
+      android:id="@+id/text_rating_label"
+      android:layout_weight="0.2"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
-      android:text="Minimum Rating:"/>
+      android:layout_gravity="bottom"
+      android:text="@string/rating"/>
 
-    <SeekBar
-      android:layout_width="match_parent"
+    <org.florescu.android.rangeseekbar.RangeSeekBar
+      android:id="@+id/seekbar_rating"
+      android:layout_weight="0.5"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:max="10"
-      android:min="0"
-      android:thumbTint="#80808080"/>
+      app:showLabels="false"
+      app:textAboveThumbsColor="@color/colorAccent"
+      app:valuesAboveThumbs="true"
+      android:layout_marginTop="16dp"/>
 
-    </LinearLayout>
+  </LinearLayout>
 
   <TextView
     android:layout_width="wrap_content"
