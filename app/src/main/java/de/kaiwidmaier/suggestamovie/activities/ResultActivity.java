@@ -1,17 +1,15 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import java.util.List;
 import java.util.Locale;
 
-import de.kaiwidmaier.suggestamovie.BuildConfig;
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
 import de.kaiwidmaier.suggestamovie.data.Movie;
@@ -23,35 +21,32 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static de.kaiwidmaier.suggestamovie.activities.MainActivity.API_KEY;
+import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 
-public class MainActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity {
 
-  private static final String TAG = MainActivity.class.getSimpleName();
-  public static final String BASE_URL = "http://api.themoviedb.org/3/";
+  private static final String TAG = ResultActivity.class.getSimpleName();
   private static Retrofit retrofit;
-  private RecyclerView recyclerWatchlist;
-  private Button btnDiscover;
-
-  //TheMovieDB API Key
-  public final static String API_KEY = BuildConfig.API_KEY;
+  private RecyclerView recyclerResults;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    recyclerWatchlist = findViewById(R.id.recycler_watchlist);
-    btnDiscover = findViewById(R.id.btn_discover);
-    btnDiscover.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent discoverIntent = new Intent(MainActivity.this, DiscoverActivity.class);
-        startActivity(discoverIntent);
-      }
-    });
+    setContentView(R.layout.activity_result);
+
+    recyclerResults = findViewById(R.id.recycler_results);
     connectAndGetApiData();
   }
 
   public void connectAndGetApiData() {
+
+    Intent intent = getIntent();
+    String releaseDateMin = intent.getStringExtra("releaseDateMin");
+    String releaseDateMax = intent.getStringExtra("releaseDateMax");
+    int ratingMin = intent.getIntExtra("ratingMin", 0);
+    int ratingMax =  intent.getIntExtra("ratingMax", 10);
+    boolean adult =  intent.getBooleanExtra("adult", false);
 
     if (retrofit == null) {
       retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -59,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
 
-    Call<MovieResponse> call = movieApiService.getNowPlayingMovies(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry());
+    Call<MovieResponse> call = movieApiService.getMovie(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(),
+      null, adult, releaseDateMin, releaseDateMax, ratingMin, ratingMax, null, null);
 
     Log.d(TAG, "Current language: " + Locale.getDefault().toString());
     Log.d(TAG, "Current region: " + Locale.getDefault().getCountry());
@@ -68,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
         List<Movie> movies = response.body().getResults();
-        final RecyclerViewMovieAdapter movieAdapter = new RecyclerViewMovieAdapter(MainActivity.this, movies);
-        recyclerWatchlist.setAdapter(movieAdapter);
+        final RecyclerViewMovieAdapter movieAdapter = new RecyclerViewMovieAdapter(ResultActivity.this, movies);
+        recyclerResults.setAdapter(movieAdapter);
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Number of movies received: " + movies.size());
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onItemClick(View view, int position) {
             Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());
-            Intent movieIntent = new Intent(MainActivity.this, MovieActivity.class);
+            Intent movieIntent = new Intent(ResultActivity.this, MovieActivity.class);
             movieIntent.putExtra("movie", movieAdapter.getItem(position));
             startActivity(movieIntent);
           }
@@ -91,5 +87,4 @@ public class MainActivity extends AppCompatActivity {
       }
     });
   }
-
 }

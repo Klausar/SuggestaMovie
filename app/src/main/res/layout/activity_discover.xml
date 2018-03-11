@@ -7,73 +7,109 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
-  android:padding="16dp"
   tools:context="de.kaiwidmaier.suggestamovie.activities.DiscoverActivity">
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
-      android:layout_width="0dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_weight="0.2"
-      android:text="@string/release_year"/>
+      android:drawableLeft="@drawable/ic_date_range_black_24dp"
+      android:drawablePadding="4dp"
+      android:text="@string/release_year"
+      android:textColor="@color/colorBlack"/>
 
-  <org.florescu.android.rangeseekbar.RangeSeekBar
-    android:id="@+id/seekbar_release"
-    app:showLabels="false"
-    app:valuesAboveThumbs="true"
-    app:textAboveThumbsColor="@color/colorAccent"
-    android:layout_weight="0.5"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"/>
+    <org.florescu.android.rangeseekbar.RangeSeekBar
+      android:id="@+id/seekbar_release"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:showLabels="false"
+      app:textAboveThumbsColor="@color/colorGrey"
+      app:valuesAboveThumbs="true"/>
 
-</LinearLayout>
+  </LinearLayout>
 
-  <CheckBox
-    android:id="@+id/checkbox_include_adult"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="32dp"
-    android:buttonTint="@color/colorPrimary"
-    android:text="@string/include_adult"
-    android:textColor="#808080"/>
-
+  <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dip"
+    android:layout_marginTop="16dp"
+    android:background="@color/colorGrey"/>
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
-      android:id="@+id/text_rating_label"
-      android:layout_weight="0.2"
-      android:layout_width="0dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:layout_gravity="bottom"
-      android:text="@string/rating"/>
+      android:drawableLeft="@drawable/ic_star_black_24dp"
+      android:drawablePadding="4dp"
+      android:text="@string/rating"
+      android:textColor="@color/colorBlack"/>
 
     <org.florescu.android.rangeseekbar.RangeSeekBar
       android:id="@+id/seekbar_rating"
-      android:layout_weight="0.5"
-      android:layout_width="0dp"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:showLabels="false"
-      app:textAboveThumbsColor="@color/colorAccent"
-      app:valuesAboveThumbs="true"
-      android:layout_marginTop="16dp"/>
+      app:textAboveThumbsColor="@color/colorGrey"
+      app:valuesAboveThumbs="true"/>
 
   </LinearLayout>
 
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+  <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dip"
     android:layout_marginTop="16dp"
-    android:text="Genres (Leave unchecked to include all):"/>
+    android:background="@color/colorGrey"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Switch
+      android:id="@+id/checkbox_include_adult"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:drawableLeft="@drawable/ic_person_black_24dp"
+      android:drawablePadding="4dp"
+      android:text="@string/include_adult"
+      android:textColor="@color/colorBlack"/>
+
+  </LinearLayout>
+
+  <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dip"
+    android:background="@color/colorGrey"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/genres"
+      android:textColor="@color/colorBlack"/>
+
+    <Button
+      android:id="@+id/btn_start_discover"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Go"/>
+
+  </LinearLayout>
 
 
 </LinearLayout>
