@@ -19,6 +19,10 @@ public class DataHelper extends Application{
     this.watchlist = watchlist;
   }
 
+  public ArrayList<Movie> getWatchlist(){
+    return watchlist;
+  }
+
   @Override
   public void onCreate() {
     super.onCreate();

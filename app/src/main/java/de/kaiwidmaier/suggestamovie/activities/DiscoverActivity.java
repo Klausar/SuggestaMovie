@@ -3,6 +3,7 @@ package de.kaiwidmaier.suggestamovie.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +18,7 @@ import de.kaiwidmaier.suggestamovie.R;
 
 public class DiscoverActivity extends AppCompatActivity {
 
+  private static final String TAG = DiscoverActivity.class.getSimpleName();
   private RangeSeekBar<Integer> seekbarRelease;
   private RangeSeekBar<Integer> seekbarRating;
   private Switch switchAdult;
@@ -32,14 +34,25 @@ public class DiscoverActivity extends AppCompatActivity {
     switchAdult = findViewById(R.id.checkbox_include_adult);
     btnSearch = findViewById(R.id.btn_start_discover);
 
-    seekbarRelease.setRangeValues(1930, Calendar.getInstance().get(Calendar.YEAR));
+    final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    seekbarRelease.setRangeValues(1930, currentYear);
     seekbarRating.setRangeValues(0, 10);
 
     btnSearch.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         String releaseDateMin = seekbarRelease.getSelectedMinValue() + "-01-01"; //e.g. 1954-01-01
-        String releaseDateMax = seekbarRelease.getSelectedMaxValue() + "-12-31"; //e.g. 2016-12-31
+        String releaseDateMax;
+
+        //Only allow dates up to today to exclude movies that haven't been released yet
+        if(seekbarRelease.getSelectedMaxValue() == currentYear){
+          releaseDateMax = String.format("%s-%s-%s", currentYear, Calendar.getInstance().get(Calendar.MONTH)+1, Calendar.getInstance().get(Calendar.DAY_OF_MONTH)); //e.g. 2018-03-12
+        }
+        else{
+          releaseDateMax = seekbarRelease.getSelectedMaxValue() + "-12-31"; //e.g. 2018-12-31;
+        }
+        Log.d(TAG, releaseDateMax);
+
         int ratingMin = seekbarRating.getSelectedMinValue();
         int ratingMax = seekbarRating.getSelectedMaxValue();
         boolean adult = switchAdult.isChecked();

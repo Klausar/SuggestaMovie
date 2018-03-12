@@ -23,5 +23,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+  
 
 </LinearLayout>

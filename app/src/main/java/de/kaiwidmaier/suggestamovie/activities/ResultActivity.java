@@ -2,16 +2,20 @@ package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 
 import java.util.List;
 import java.util.Locale;
 
+import de.kaiwidmaier.suggestamovie.BuildConfig;
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewThumbnailAdapter;
@@ -24,7 +28,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static de.kaiwidmaier.suggestamovie.activities.MainActivity.API_KEY;
 import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 
 public class ResultActivity extends AppCompatActivity {
@@ -32,6 +35,10 @@ public class ResultActivity extends AppCompatActivity {
   private static final String TAG = ResultActivity.class.getSimpleName();
   private static Retrofit retrofit;
   private RecyclerView recyclerResults;
+  private ScrollView scrollView;
+
+  //TheMovieDB API Key
+  public final static String API_KEY = BuildConfig.API_KEY;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +88,7 @@ public class ResultActivity extends AppCompatActivity {
           public void onItemClick(View view, int position) {
             Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());
             Intent movieIntent = new Intent(ResultActivity.this, MovieActivity.class);
-            movieIntent.putExtra("movie", movieAdapter.getItem(position));
+            movieIntent.putExtra("movie", (Parcelable) movieAdapter.getItem(position));
             startActivity(movieIntent);
           }
         });

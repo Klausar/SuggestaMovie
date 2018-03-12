@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 
 @SuppressWarnings("unused")
-public class Movie implements Parcelable{
+public class Movie implements Parcelable, Serializable{
 
   @SerializedName("poster_path")
   private String posterPath;

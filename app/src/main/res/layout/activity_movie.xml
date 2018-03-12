@@ -19,6 +19,7 @@
       android:paddingTop="16dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:src="@drawable/placeholder_thumbnail"
       android:contentDescription="@string/content_descr_thumbnail"/>
     <LinearLayout
       android:layout_width="wrap_content"
@@ -38,7 +39,8 @@
         android:layout_height="wrap_content"/>
       <TextView
         android:id="@+id/text_movie_rating"
-        android:drawableRight="@drawable/ic_star_rate_black"
+        android:drawableLeft="@drawable/ic_star_black_24dp"
+        android:drawableStart="@drawable/ic_star_black_24dp"
         android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

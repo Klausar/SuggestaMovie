@@ -3,7 +3,7 @@
   <string name="now_playing">Now Playing</string>
   <string name="suggestion">Suggestion</string>
   <string name="content_descr_thumbnail">Movie thumbnail</string>
-  <string name="movie_rating">Rating: %.1f/10</string>
+  <string name="rating_format">Rating: %.1f/10</string>
   <string name="btn_find">Discover</string>
   <string name="watchlist">Watchlist</string>
   <string name="include_adult">Include adult results</string>
@@ -11,4 +11,5 @@
   <string name="rating">Rating</string>
   <string name="genres">Genres</string>
   <string name="results">Results</string>
+  <string name="release_format">Release: %s</string>
 </resources>

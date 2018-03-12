@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Kai on 04.03.2018.
  */
 
-// This class contains all fetched movies and extra information
+// Contains all fetched movies and extra information
 public class MovieResponse {
 
     @SerializedName("page")

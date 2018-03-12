@@ -1,9 +1,6 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -11,8 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-import com.squareup.picasso.Transformation;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.data.Movie;
@@ -46,7 +41,7 @@ public class MovieActivity extends AppCompatActivity {
   private void fillData(){
     textTitle.setText(movie.getTitle());
     textDescription.setText(movie.getOverview());
-    textRating.setText(String.format(getString(R.string.movie_rating), movie.getVoteAverage()));
+    textRating.setText(String.format(getString(R.string.rating_format), movie.getVoteAverage()));
     Picasso.with(this).load(imgUrlBasePath + movie.getPosterPath()).into(imgPoster);
 
   }
