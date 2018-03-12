@@ -12,6 +12,7 @@ import java.util.Locale;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
+import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewThumbnailAdapter;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;

@@ -8,12 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import de.kaiwidmaier.suggestamovie.BuildConfig;
 import de.kaiwidmaier.suggestamovie.R;
-import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
+import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewThumbnailAdapter;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
@@ -68,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
         List<Movie> movies = response.body().getResults();
-        final RecyclerViewMovieAdapter movieAdapter = new RecyclerViewMovieAdapter(MainActivity.this, movies);
+        final RecyclerViewThumbnailAdapter movieAdapter = new RecyclerViewThumbnailAdapter(MainActivity.this, movies);
         recyclerWatchlist.setAdapter(movieAdapter);
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Number of movies received: " + movies.size());
 
-        movieAdapter.setClickListener(new RecyclerViewMovieAdapter.ItemClickListener() {
+        movieAdapter.setClickListener(new RecyclerViewThumbnailAdapter.ItemClickListener() {
           @Override
           public void onItemClick(View view, int position) {
             Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());

@@ -5,16 +5,44 @@
               android:layout_height="wrap_content">
 
 
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
     <ImageView
-      android:id="@+id/img_thumbnail_recycler"
-      android:contentDescription="@string/content_descr_thumbnail"
+      android:id="@+id/img_thumbnail_movie_recycler"
       android:paddingTop="16dp"
-      android:paddingRight="16dp"
-      android:paddingEnd="16dp"
-      android:maxHeight="190dp"
-      android:adjustViewBounds="true"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="@string/content_descr_thumbnail"/>
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+      <TextView
+        android:id="@+id/text_movie_title_recycler"
+        android:textSize="20sp"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp"
+        android:paddingRight="16dp"
+        android:paddingEnd="16dp"
+        android:textStyle="bold"
+        android:text="Movie Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+  </LinearLayout>
+
+  <ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp">
+    <TextView
+      android:id="@+id/text_movie_description_recycler"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
+  </ScrollView>
 
 
 </LinearLayout>
