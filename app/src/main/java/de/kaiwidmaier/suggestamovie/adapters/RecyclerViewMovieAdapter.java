@@ -64,38 +64,21 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
       holder.txtRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate()));
 
       //Favorite Button
-      //TODO: Solution only temporary, working on better one
-      boolean watchlistContains = false;
-      for(Movie movieWatchlist : watchlist){
-        if(movieWatchlist.getTitle().equals(movie.getTitle())){
-          watchlistContains = true;
-        }
-      }
-      if(watchlistContains){
+      if(watchlist.contains(movie)){
         holder.btnFavorite.setImageResource(R.drawable.ic_star_yellow_48dp);
       }
       else{
         holder.btnFavorite.setImageResource(R.drawable.ic_star_border_yellow_48dp);
       }
-
       holder.btnFavorite.setOnClickListener(new View.OnClickListener() {
-
         Serializer serializer = new Serializer(context);
         boolean watchlistContains = false;
 
         @Override
         public void onClick(View view) {
 
-          Movie watchlistMovie = null;
-          for(Movie movieWatchlist : watchlist){
-            if(movieWatchlist.getTitle().equals(movie.getTitle())){
-              watchlistContains = true;
-              watchlistMovie = movieWatchlist;
-            }
-          }
-
-          if(watchlistContains){
-            watchlist.remove(watchlistMovie);
+          if(watchlist.contains(movie)){
+            watchlist.remove(movie);
             holder.btnFavorite.setImageResource(R.drawable.ic_star_border_yellow_48dp);
             serializer.writeWatchlist(watchlist);
           }

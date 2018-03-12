@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Kai on 04.03.2018.
@@ -256,6 +257,20 @@ public class Movie implements Parcelable, Serializable{
       dest.writeByte((byte) (0x01));
       dest.writeDouble(voteAverage);
     }
+  }
+
+  //Because data changes, equal movies have to be determined by id & title
+  @Override
+  public boolean equals(final Object o){
+    if(this == o) return true;
+    if(o == null || getClass() != o.getClass()) return false;
+    Movie movie = (Movie) o;
+    return movie.getId().equals(id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, id);
   }
 
   @SuppressWarnings("unused")
