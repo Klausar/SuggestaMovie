@@ -1,8 +1,10 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +39,9 @@ public class ResultActivity extends AppCompatActivity {
     setContentView(R.layout.activity_result);
 
     recyclerResults = findViewById(R.id.recycler_results);
+    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerResults.getContext(), DividerItemDecoration.VERTICAL);
+    recyclerResults.addItemDecoration(dividerItemDecoration);
+
     connectAndGetApiData();
   }
 

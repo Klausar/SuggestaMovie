@@ -27,9 +27,6 @@ public class DiscoverActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_discover);
 
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    getSupportActionBar().setDisplayShowHomeEnabled(true);
-
     seekbarRelease = findViewById(R.id.seekbar_release);
     seekbarRating = findViewById(R.id.seekbar_rating);
     switchAdult = findViewById(R.id.checkbox_include_adult);
