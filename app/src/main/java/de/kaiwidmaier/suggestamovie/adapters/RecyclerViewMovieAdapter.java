@@ -6,10 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   private static final String TAG = RecyclerViewMovieAdapter.class.getSimpleName();
   private List<Movie> movies;
   private LayoutInflater inflater;
-  private final String imgUrlBasePath ="http://image.tmdb.org/t/p/w500//";
+  private final String imgUrlBasePath = "http://image.tmdb.org/t/p/w500//";
   private RecyclerViewMovieAdapter.ItemClickListener clickListener;
   private Context context;
   private ArrayList<Movie> watchlist;
@@ -57,7 +58,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   @Override
   public void onBindViewHolder(final RecyclerViewMovieAdapter.ViewHolder holder, int position) {
     final Movie movie = movies.get(position);
-    if(movie.getPosterPath() != null) {
+    if (movie.getPosterPath() != null) {
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
       Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
       Picasso.with(context).load(posterUrl).placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
@@ -65,35 +66,28 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
       holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate()));
 
-      //Favorite Button
-      if(!showBtnFavorite){
+      if (!showBtnFavorite) {
         holder.btnFavorite.setVisibility(View.GONE);
       }
-      if(watchlist.contains(movie)){
-        holder.btnFavorite.setImageResource(R.drawable.ic_star_yellow_48dp);
+      if (watchlist.contains(movie)) {
+        holder.btnFavorite.setLiked(true);
+      } else {
+        holder.btnFavorite.setLiked(false);
       }
-      else{
-        holder.btnFavorite.setImageResource(R.drawable.ic_star_border_yellow_48dp);
-      }
-      holder.btnFavorite.setOnClickListener(new View.OnClickListener() {
+      holder.btnFavorite.setOnLikeListener(new OnLikeListener() {
         Serializer serializer = new Serializer(context);
-        boolean watchlistContains = false;
+        @Override
+        public void liked(LikeButton likeButton) {
+          watchlist.add(movie);
+          notifyDataSetChanged();
+          serializer.writeWatchlist(watchlist);
+        }
 
         @Override
-        public void onClick(View view) {
-
-          if(watchlist.contains(movie)){
-            watchlist.remove(movie);
-            notifyDataSetChanged();
-            holder.btnFavorite.setImageResource(R.drawable.ic_star_border_yellow_48dp);
-            serializer.writeWatchlist(watchlist);
-          }
-          else{
-            watchlist.add(movie);
-            notifyDataSetChanged();
-            holder.btnFavorite.setImageResource(R.drawable.ic_star_yellow_48dp);
-            serializer.writeWatchlist(watchlist);
-          }
+        public void unLiked(LikeButton likeButton) {
+          watchlist.remove(movie);
+          notifyDataSetChanged();
+          serializer.writeWatchlist(watchlist);
         }
       });
     }
@@ -111,15 +105,15 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     TextView textTitle;
     TextView textRating;
     TextView textRelease;
-    ImageButton btnFavorite;
+    LikeButton btnFavorite;
 
     public ViewHolder(View itemView) {
       super(itemView);
-      imgThumbnail = itemView.findViewById(R.id.img_thumbnail_movie_recycler);
-      textTitle = itemView.findViewById(R.id.text_movie_title_recycler);
-      textRating = itemView.findViewById(R.id.text_movie_rating_recycler);
-      textRelease = itemView.findViewById(R.id.text_movie_release_recycler);
-      btnFavorite = itemView.findViewById(R.id.btn_favorite_recycler);
+      imgThumbnail = itemView.findViewById(R.id.img_thumbnail_movie);
+      textTitle = itemView.findViewById(R.id.text_movie_title);
+      textRating = itemView.findViewById(R.id.text_movie_rating);
+      textRelease = itemView.findViewById(R.id.text_movie_release);
+      btnFavorite = itemView.findViewById(R.id.btn_favorite);
       itemView.setOnClickListener(this);
     }
 

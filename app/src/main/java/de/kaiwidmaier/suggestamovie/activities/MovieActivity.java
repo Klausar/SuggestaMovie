@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class MovieActivity extends AppCompatActivity {
   private TextView textRating;
   private TextView textRelease;
   private ImageView imgPoster;
-  private ImageButton btnFavorite;
+  private LikeButton btnFavorite;
   private ArrayList<Movie> watchlist;
 
   @Override
@@ -56,30 +58,24 @@ public class MovieActivity extends AppCompatActivity {
     textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate()));
     Picasso.with(this).load(imgUrlBasePath + movie.getPosterPath()).into(imgPoster);
 
-    //Favorite Button
     if(watchlist.contains(movie)){
-      btnFavorite.setImageResource(R.drawable.ic_star_yellow_48dp);
+      btnFavorite.setLiked(true);
     }
     else{
-      btnFavorite.setImageResource(R.drawable.ic_star_border_yellow_48dp);
+      btnFavorite.setLiked(false);
     }
-    btnFavorite.setOnClickListener(new View.OnClickListener() {
+    btnFavorite.setOnLikeListener(new OnLikeListener() {
       Serializer serializer = new Serializer(MovieActivity.this);
-      boolean watchlistContains = false;
+      @Override
+      public void liked(LikeButton likeButton) {
+        watchlist.add(movie);
+        serializer.writeWatchlist(watchlist);
+      }
 
       @Override
-      public void onClick(View view) {
-
-        if(watchlist.contains(movie)){
-          watchlist.remove(movie);
-          btnFavorite.setImageResource(R.drawable.ic_star_border_yellow_48dp);
-          serializer.writeWatchlist(watchlist);
-        }
-        else{
-          watchlist.add(movie);
-          btnFavorite.setImageResource(R.drawable.ic_star_yellow_48dp);
-          serializer.writeWatchlist(watchlist);
-        }
+      public void unLiked(LikeButton likeButton) {
+        watchlist.remove(movie);
+        serializer.writeWatchlist(watchlist);
       }
     });
   }
