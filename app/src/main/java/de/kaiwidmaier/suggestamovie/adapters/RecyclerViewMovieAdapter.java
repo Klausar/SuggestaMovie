@@ -34,13 +34,15 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   private RecyclerViewMovieAdapter.ItemClickListener clickListener;
   private Context context;
   private ArrayList<Movie> watchlist;
+  private boolean showBtnFavorite;
 
 
-  public RecyclerViewMovieAdapter(Context context, List<Movie> movies) {
+  public RecyclerViewMovieAdapter(Context context, List<Movie> movies, boolean showBtnFavorite) {
     this.inflater = LayoutInflater.from(context);
     this.movies = movies;
     this.context = context;
     this.watchlist = ((DataHelper) context.getApplicationContext()).getWatchlist();
+    this.showBtnFavorite = showBtnFavorite;
   }
 
 
@@ -64,6 +66,9 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
       holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate()));
 
       //Favorite Button
+      if(!showBtnFavorite){
+        holder.btnFavorite.setVisibility(View.GONE);
+      }
       if(watchlist.contains(movie)){
         holder.btnFavorite.setImageResource(R.drawable.ic_star_yellow_48dp);
       }
@@ -79,11 +84,13 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
           if(watchlist.contains(movie)){
             watchlist.remove(movie);
+            notifyDataSetChanged();
             holder.btnFavorite.setImageResource(R.drawable.ic_star_border_yellow_48dp);
             serializer.writeWatchlist(watchlist);
           }
           else{
             watchlist.add(movie);
+            notifyDataSetChanged();
             holder.btnFavorite.setImageResource(R.drawable.ic_star_yellow_48dp);
             serializer.writeWatchlist(watchlist);
           }

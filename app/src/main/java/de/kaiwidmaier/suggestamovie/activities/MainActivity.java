@@ -3,7 +3,9 @@ package de.kaiwidmaier.suggestamovie.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,7 @@ import java.util.Locale;
 
 import de.kaiwidmaier.suggestamovie.BuildConfig;
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewThumbnailAdapter;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
@@ -32,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
   private static final String TAG = MainActivity.class.getSimpleName();
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
   private RecyclerView recyclerWatchlist;
-  private Button btnDiscover;
-  private RecyclerViewThumbnailAdapter movieAdapter;
+  private FloatingActionButton btnDiscover;
+  private RecyclerViewMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
 
   @Override
@@ -45,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     watchlist = ((DataHelper) this.getApplication()).getWatchlist();
 
-    movieAdapter = new RecyclerViewThumbnailAdapter(MainActivity.this, watchlist);
-    movieAdapter.setClickListener(new RecyclerViewThumbnailAdapter.ItemClickListener() {
+    movieAdapter = new RecyclerViewMovieAdapter(MainActivity.this, watchlist, false);
+    movieAdapter.setClickListener(new RecyclerViewMovieAdapter.ItemClickListener() {
       @Override
       public void onItemClick(View view, int position) {
         Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());
