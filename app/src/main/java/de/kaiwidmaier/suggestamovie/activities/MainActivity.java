@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
   private static final String TAG = MainActivity.class.getSimpleName();
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
-  private static Retrofit retrofit;
   private RecyclerView recyclerWatchlist;
   private Button btnDiscover;
   private RecyclerViewThumbnailAdapter movieAdapter;
@@ -76,5 +75,10 @@ public class MainActivity extends AppCompatActivity {
       movieAdapter.notifyDataSetChanged();
     }
     super.onResume();
+  }
+
+  @Override
+  public void onBackPressed() {
+    finish();
   }
 }
