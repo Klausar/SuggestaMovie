@@ -59,9 +59,9 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
       Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
       Picasso.with(context).load(posterUrl).placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
-      holder.txtTitle.setText(movie.getTitle());
-      holder.txtRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
-      holder.txtRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate()));
+      holder.textTitle.setText(movie.getTitle());
+      holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
+      holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate()));
 
       //Favorite Button
       if(watchlist.contains(movie)){
@@ -101,17 +101,17 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     ImageView imgThumbnail;
-    TextView txtTitle;
-    TextView txtRating;
-    TextView txtRelease;
+    TextView textTitle;
+    TextView textRating;
+    TextView textRelease;
     ImageButton btnFavorite;
 
     public ViewHolder(View itemView) {
       super(itemView);
       imgThumbnail = itemView.findViewById(R.id.img_thumbnail_movie_recycler);
-      txtTitle = itemView.findViewById(R.id.text_movie_title_recycler);
-      txtRating = itemView.findViewById(R.id.text_movie_rating_recycler);
-      txtRelease = itemView.findViewById(R.id.text_movie_release_recycler);
+      textTitle = itemView.findViewById(R.id.text_movie_title_recycler);
+      textRating = itemView.findViewById(R.id.text_movie_rating_recycler);
+      textRelease = itemView.findViewById(R.id.text_movie_release_recycler);
       btnFavorite = itemView.findViewById(R.id.btn_favorite_recycler);
       itemView.setOnClickListener(this);
     }
