@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.xml.transform.Result;
+
 import de.kaiwidmaier.suggestamovie.BuildConfig;
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
@@ -74,7 +76,7 @@ public class ResultActivity extends AppCompatActivity {
       public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
         if (!recyclerView.canScrollVertically(1) && isMoreDataAvailable) {
-          connectAndGetApiData(++page);
+          connectAndGetApiData(page);
         }
       }
     });
@@ -102,6 +104,7 @@ public class ResultActivity extends AppCompatActivity {
         List<Movie> movies = response.body().getResults();
         if(movieAdapter == null){
           movieAdapter = new RecyclerViewMovieAdapter(ResultActivity.this, movies, true);
+          recyclerResults.setAdapter(movieAdapter);
         }
         else{
           Parcelable recyclerViewState;
@@ -109,8 +112,7 @@ public class ResultActivity extends AppCompatActivity {
           movieAdapter.addAll(movies);
           recyclerResults.getLayoutManager().onRestoreInstanceState(recyclerViewState); //Restores scroll position after notifyDataSetChanged()
         }
-        recyclerResults.setAdapter(movieAdapter);
-
+        ResultActivity.this.page++;
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Number of movies received: " + movies.size());
 
