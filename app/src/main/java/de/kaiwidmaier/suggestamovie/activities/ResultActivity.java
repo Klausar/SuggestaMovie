@@ -39,7 +39,8 @@ public class ResultActivity extends AppCompatActivity {
   private static final String TAG = ResultActivity.class.getSimpleName();
   private static Retrofit retrofit;
   private RecyclerView recyclerResults;
-  RecyclerViewMovieAdapter movieAdapter;
+  private RecyclerViewMovieAdapter movieAdapter;
+  private boolean isLoading = false;
 
   //Intent extras
   String releaseDateMin;
@@ -70,12 +71,12 @@ public class ResultActivity extends AppCompatActivity {
     recyclerResults.addItemDecoration(dividerItemDecoration);
     recyclerResults.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-      boolean isMoreDataAvailable = true;
-
       @Override
       public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
-        if (!recyclerView.canScrollVertically(1) && isMoreDataAvailable) {
+        if (!recyclerView.canScrollVertically(1) && !isLoading) {
+          isLoading = true;
+          Log.d(TAG, "Updating RecyclerView");
           connectAndGetApiData(page);
         }
       }
@@ -109,11 +110,15 @@ public class ResultActivity extends AppCompatActivity {
         else{
           Parcelable recyclerViewState;
           recyclerViewState = recyclerResults.getLayoutManager().onSaveInstanceState();
-          movieAdapter.addAll(movies);
+          if(!movieAdapter.containsAll(movies)){
+            movieAdapter.addAll(movies);
+          }
           recyclerResults.getLayoutManager().onRestoreInstanceState(recyclerViewState); //Restores scroll position after notifyDataSetChanged()
         }
         ResultActivity.this.page++;
+        isLoading = false;
         Log.d(TAG, "Request URL: " + response.raw().request().url());
+        Log.d(TAG, "Current Page: " + response.body().getPage());
         Log.d(TAG, "Number of movies received: " + movies.size());
 
         movieAdapter.setClickListener(new RecyclerViewMovieAdapter.ItemClickListener() {

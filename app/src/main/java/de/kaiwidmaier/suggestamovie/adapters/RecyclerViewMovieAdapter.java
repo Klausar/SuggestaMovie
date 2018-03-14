@@ -32,7 +32,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   private static final String TAG = RecyclerViewMovieAdapter.class.getSimpleName();
   private List<Movie> movies;
   private LayoutInflater inflater;
-  private final String imgUrlBasePath = "http://image.tmdb.org/t/p/w500//";
+  private final String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
   private RecyclerViewMovieAdapter.ItemClickListener clickListener;
   private Context context;
   private ArrayList<Movie> watchlist;
@@ -57,7 +57,9 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     return viewHolder;
   }
 
-
+  public boolean containsAll(List<Movie> movies){
+    return this.movies.containsAll(movies);
+  }
 
   @Override
   public void onBindViewHolder(final RecyclerViewMovieAdapter.ViewHolder holder, int position) {
@@ -65,7 +67,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     if (movie.getPosterPath() != null) {
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
       Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
-      Picasso.with(context).load(posterUrl).placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
+      Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
       holder.textTitle.setText(movie.getTitle());
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
       holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate()));

@@ -20,6 +20,7 @@
       android:adjustViewBounds="true"
       android:contentDescription="@string/content_descr_thumbnail"
       android:maxHeight="210dp"
+      android:minHeight="210dp"
       android:src="@drawable/placeholder_thumbnail"/>
 
     <LinearLayout
