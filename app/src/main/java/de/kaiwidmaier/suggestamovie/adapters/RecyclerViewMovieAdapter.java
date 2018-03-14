@@ -14,6 +14,7 @@ import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
@@ -25,7 +26,7 @@ import de.kaiwidmaier.suggestamovie.persistence.Serializer;
  * Created by Kai on 12.03.2018.
  */
 
-public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewMovieAdapter.ViewHolder> {
+public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewMovieAdapter.ViewHolder> implements ItemTouchHelperAdapter{
 
 
   private static final String TAG = RecyclerViewMovieAdapter.class.getSimpleName();
@@ -36,6 +37,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   private Context context;
   private ArrayList<Movie> watchlist;
   private boolean showBtnFavorite;
+  final Serializer serializer;
 
 
   public RecyclerViewMovieAdapter(Context context, List<Movie> movies, boolean showBtnFavorite) {
@@ -44,6 +46,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     this.context = context;
     this.watchlist = ((DataHelper) context.getApplicationContext()).getWatchlist();
     this.showBtnFavorite = showBtnFavorite;
+    serializer = new Serializer(context);
   }
 
 
@@ -53,6 +56,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     RecyclerViewMovieAdapter.ViewHolder viewHolder = new RecyclerViewMovieAdapter.ViewHolder(view);
     return viewHolder;
   }
+
 
 
   @Override
@@ -75,7 +79,6 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
         holder.btnFavorite.setLiked(false);
       }
       holder.btnFavorite.setOnLikeListener(new OnLikeListener() {
-        Serializer serializer = new Serializer(context);
         @Override
         public void liked(LikeButton likeButton) {
           watchlist.add(movie);
@@ -123,7 +126,6 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     }
   }
 
-
   public Movie getItem(int id) {
     return movies.get(id);
   }
@@ -135,6 +137,29 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
   public interface ItemClickListener {
     void onItemClick(View view, int position);
+  }
+
+  @Override
+  public void onItemDismiss(int position) {
+    watchlist.remove(position);
+    notifyItemRemoved(position);
+    serializer.writeWatchlist(watchlist);
+  }
+
+  @Override
+  public boolean onItemMove(int fromPosition, int toPosition) {
+    if (fromPosition < toPosition) {
+      for (int i = fromPosition; i < toPosition; i++) {
+        Collections.swap(watchlist, i, i + 1);
+      }
+    } else {
+      for (int i = fromPosition; i > toPosition; i--) {
+        Collections.swap(watchlist, i, i - 1);
+      }
+    }
+    notifyItemMoved(fromPosition, toPosition);
+    serializer.writeWatchlist(watchlist);
+    return true;
   }
 
 }

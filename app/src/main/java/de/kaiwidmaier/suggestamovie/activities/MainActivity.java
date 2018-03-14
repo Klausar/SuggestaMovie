@@ -5,29 +5,18 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
-import de.kaiwidmaier.suggestamovie.BuildConfig;
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
-import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewThumbnailAdapter;
+import de.kaiwidmaier.suggestamovie.adapters.utils.SimpleItemTouchHelperCallback;
 import de.kaiwidmaier.suggestamovie.data.Movie;
-import de.kaiwidmaier.suggestamovie.data.MovieResponse;
-import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -61,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
 
     recyclerWatchlist.setAdapter(movieAdapter);
 
+    //Swipe to remove and long press to change position
+    ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(movieAdapter);
+    ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+    touchHelper.attachToRecyclerView(recyclerWatchlist);
+
     btnDiscover = findViewById(R.id.btn_discover);
     btnDiscover.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -70,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
       }
     });
   }
-
 
   @Override
   protected void onResume() {
