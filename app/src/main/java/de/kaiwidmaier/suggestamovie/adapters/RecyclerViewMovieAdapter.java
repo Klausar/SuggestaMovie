@@ -102,6 +102,10 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     return movies.size();
   }
 
+  public void addAll(List<Movie> movies){
+    this.movies.addAll(movies);
+    notifyDataSetChanged();
+  }
 
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     ImageView imgThumbnail;

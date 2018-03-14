@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,6 +37,15 @@ public class ResultActivity extends AppCompatActivity {
   private static final String TAG = ResultActivity.class.getSimpleName();
   private static Retrofit retrofit;
   private RecyclerView recyclerResults;
+  RecyclerViewMovieAdapter movieAdapter;
+
+  //Intent extras
+  String releaseDateMin;
+  String releaseDateMax;
+  int ratingMin;
+  int ratingMax;
+  boolean adult;
+  int page;
 
   //TheMovieDB API Key
   public final static String API_KEY = BuildConfig.API_KEY;
@@ -45,21 +55,34 @@ public class ResultActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_result);
 
+    Intent intent = getIntent();
+    releaseDateMin = intent.getStringExtra("releaseDateMin");
+    releaseDateMax = intent.getStringExtra("releaseDateMax");
+    ratingMin = intent.getIntExtra("ratingMin", 0);
+    ratingMax =  intent.getIntExtra("ratingMax", 10);
+    adult =  intent.getBooleanExtra("adult", false);
+    page = 1;
+
     recyclerResults = findViewById(R.id.recycler_results);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerResults.getContext(), DividerItemDecoration.VERTICAL);
     recyclerResults.addItemDecoration(dividerItemDecoration);
+    recyclerResults.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-    connectAndGetApiData();
+      boolean isMoreDataAvailable = true;
+
+      @Override
+      public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        super.onScrollStateChanged(recyclerView, newState);
+        if (!recyclerView.canScrollVertically(1) && isMoreDataAvailable) {
+          connectAndGetApiData(++page);
+        }
+      }
+    });
+
+    connectAndGetApiData(page);
   }
 
-  public void connectAndGetApiData() {
-
-    Intent intent = getIntent();
-    String releaseDateMin = intent.getStringExtra("releaseDateMin");
-    String releaseDateMax = intent.getStringExtra("releaseDateMax");
-    int ratingMin = intent.getIntExtra("ratingMin", 0);
-    int ratingMax =  intent.getIntExtra("ratingMax", 10);
-    boolean adult =  intent.getBooleanExtra("adult", false);
+  public void connectAndGetApiData(final int page) {
 
     if (retrofit == null) {
       retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -68,7 +91,7 @@ public class ResultActivity extends AppCompatActivity {
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
 
     Call<MovieResponse> call = movieApiService.getMovie(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(),
-      null, adult, releaseDateMin, releaseDateMax, ratingMin, ratingMax, null, null);
+      null, adult, releaseDateMin, releaseDateMax, ratingMin, ratingMax, null, null, page);
 
     Log.d(TAG, "Current language: " + Locale.getDefault().toString());
     Log.d(TAG, "Current region: " + Locale.getDefault().getCountry());
@@ -77,7 +100,15 @@ public class ResultActivity extends AppCompatActivity {
       @Override
       public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
         List<Movie> movies = response.body().getResults();
-        final RecyclerViewMovieAdapter movieAdapter = new RecyclerViewMovieAdapter(ResultActivity.this, movies, true);
+        if(movieAdapter == null){
+          movieAdapter = new RecyclerViewMovieAdapter(ResultActivity.this, movies, true);
+        }
+        else{
+          Parcelable recyclerViewState;
+          recyclerViewState = recyclerResults.getLayoutManager().onSaveInstanceState();
+          movieAdapter.addAll(movies);
+          recyclerResults.getLayoutManager().onRestoreInstanceState(recyclerViewState); //Restores scroll position after notifyDataSetChanged()
+        }
         recyclerResults.setAdapter(movieAdapter);
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
@@ -101,7 +132,7 @@ public class ResultActivity extends AppCompatActivity {
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              connectAndGetApiData();
+              connectAndGetApiData(page);
             }
           });
         mSnackbar.show();
