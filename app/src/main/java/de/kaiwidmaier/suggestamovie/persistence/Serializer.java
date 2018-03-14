@@ -22,7 +22,7 @@ public class Serializer {
 
   private Context context;
   private static final String TAG = Serializer.class.getSimpleName();
-
+  private String fileName = "watchlist.ser";
 
   public Serializer(Context context){
     this.context = context;
@@ -30,7 +30,7 @@ public class Serializer {
 
   public void writeWatchlist(ArrayList<Movie> watchlist){
     try {
-      FileOutputStream fos = context.openFileOutput("watchlist.ser", Context.MODE_PRIVATE);
+      FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
       ObjectOutputStream oos = new ObjectOutputStream(fos);
       oos.writeObject(watchlist);
       oos.close();
@@ -43,7 +43,7 @@ public class Serializer {
 
   public ArrayList<Movie> readWatchlist() {
     try {
-      FileInputStream fis = context.openFileInput("watchlist.ser");
+      FileInputStream fis = context.openFileInput(fileName);
       ObjectInputStream ois = new ObjectInputStream(fis);
       ArrayList<Movie> watchlist = (ArrayList<Movie>) ois.readObject();
       ois.close();

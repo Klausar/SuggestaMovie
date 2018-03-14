@@ -3,6 +3,7 @@ package de.kaiwidmaier.suggestamovie.activities;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -35,7 +36,6 @@ public class ResultActivity extends AppCompatActivity {
   private static final String TAG = ResultActivity.class.getSimpleName();
   private static Retrofit retrofit;
   private RecyclerView recyclerResults;
-  private ScrollView scrollView;
 
   //TheMovieDB API Key
   public final static String API_KEY = BuildConfig.API_KEY;
@@ -97,6 +97,14 @@ public class ResultActivity extends AppCompatActivity {
       @Override
       public void onFailure(Call<MovieResponse> call, Throwable throwable) {
         Log.e(TAG, throwable.toString());
+        Snackbar mSnackbar = Snackbar.make(recyclerResults, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
+          .setAction(getString(R.string.retry), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              connectAndGetApiData();
+            }
+          });
+        mSnackbar.show();
       }
     });
   }
