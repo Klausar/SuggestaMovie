@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
 import java.util.ArrayList;
@@ -40,15 +41,14 @@ public class ResultActivity extends AppCompatActivity {
   private static Retrofit retrofit;
   private RecyclerView recyclerResults;
   private RecyclerViewMovieAdapter movieAdapter;
-  private boolean isLoading = false;
 
   //Intent extras
-  String releaseDateMin;
-  String releaseDateMax;
-  int ratingMin;
-  int ratingMax;
-  boolean adult;
-  int page;
+  private String releaseDateMin;
+  private String releaseDateMax;
+  private int ratingMin;
+  private int ratingMax;
+  private boolean adult;
+  private int page;
 
   //TheMovieDB API Key
   public final static String API_KEY = BuildConfig.API_KEY;
@@ -74,8 +74,8 @@ public class ResultActivity extends AppCompatActivity {
       @Override
       public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
-        if (!recyclerView.canScrollVertically(1) && !isLoading) {
-          isLoading = true;
+        if (!recyclerView.canScrollVertically(1) && !movieAdapter.isLoading()) {
+          movieAdapter.setLoading(true);
           Log.d(TAG, "Updating RecyclerView");
           connectAndGetApiData(page);
         }
@@ -118,7 +118,7 @@ public class ResultActivity extends AppCompatActivity {
           recyclerResults.getLayoutManager().onRestoreInstanceState(recyclerViewState); //Restores scroll position after notifyDataSetChanged()
         }
         ResultActivity.this.page++;
-        isLoading = false;
+        movieAdapter.setLoading(false);
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Current Page: " + response.body().getPage());
         Log.d(TAG, "Number of movies received: " + movies.size());

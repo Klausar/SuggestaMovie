@@ -38,6 +38,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   private ArrayList<Movie> watchlist;
   private boolean showBtnFavorite;
   final Serializer serializer;
+  private boolean loading;
 
 
   public RecyclerViewMovieAdapter(Context context, List<Movie> movies, boolean showBtnFavorite) {
@@ -95,6 +96,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
       });
     }
   }
+
 
 
   @Override
@@ -164,6 +166,14 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     notifyItemMoved(fromPosition, toPosition);
     serializer.writeWatchlist(watchlist);
     return true;
+  }
+
+  public void setLoading(boolean loading){
+    this.loading = loading;
+  }
+
+  public boolean isLoading(){
+    return loading;
   }
 
 }
