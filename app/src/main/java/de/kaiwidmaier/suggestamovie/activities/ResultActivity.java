@@ -110,6 +110,8 @@ public class ResultActivity extends AppCompatActivity {
         else{
           Parcelable recyclerViewState;
           recyclerViewState = recyclerResults.getLayoutManager().onSaveInstanceState();
+
+          //Prevents duplicates with bad connection
           if(!movieAdapter.containsAll(movies)){
             movieAdapter.addAll(movies);
           }

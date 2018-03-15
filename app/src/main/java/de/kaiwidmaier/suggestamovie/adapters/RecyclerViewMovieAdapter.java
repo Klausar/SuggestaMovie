@@ -84,14 +84,12 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
         @Override
         public void liked(LikeButton likeButton) {
           watchlist.add(movie);
-          notifyDataSetChanged();
           serializer.writeWatchlist(watchlist);
         }
 
         @Override
         public void unLiked(LikeButton likeButton) {
           watchlist.remove(movie);
-          notifyDataSetChanged();
           serializer.writeWatchlist(watchlist);
         }
       });
@@ -116,7 +114,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     TextView textRelease;
     LikeButton btnFavorite;
 
-    public ViewHolder(View itemView) {
+    private ViewHolder(View itemView) {
       super(itemView);
       imgThumbnail = itemView.findViewById(R.id.img_thumbnail_movie);
       textTitle = itemView.findViewById(R.id.text_movie_title);
