@@ -6,7 +6,8 @@
               android:paddingBottom="16dp"
               android:paddingTop="16dp"
               android:orientation="vertical"
-              android:adjustViewBounds="true">
+              android:adjustViewBounds="true"
+              android:transitionName="@string/transition_movie">
 
   <RelativeLayout
     android:layout_width="wrap_content"
@@ -27,10 +28,9 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:layout_toRightOf="@+id/img_thumbnail_movie"
       android:layout_toEndOf="@+id/img_thumbnail_movie"
-      android:paddingLeft="16dp"
-      android:paddingStart="16dp">
+      android:paddingStart="16dp"
+      android:paddingEnd="16dp">
 
       <TextView
         android:id="@+id/text_movie_title"
@@ -45,7 +45,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_star_black_24dp"
-        android:drawableLeft="@drawable/ic_star_black_24dp"
         android:ellipsize="end"
         android:paddingTop="16dp"
         android:text="Rating: 7.4/10"/>
@@ -55,7 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_date_range_black_24dp"
-        android:drawableLeft="@drawable/ic_date_range_black_24dp"
         android:ellipsize="end"
         android:paddingTop="16dp"
         android:text="Release: 2018-01-02"/>

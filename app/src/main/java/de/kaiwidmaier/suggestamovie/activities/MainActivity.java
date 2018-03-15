@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -44,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());
         Intent movieIntent = new Intent(MainActivity.this, MovieActivity.class);
         movieIntent.putExtra("movie", (Parcelable) movieAdapter.getItem(position));
-        startActivity(movieIntent);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, view, getString(R.string.transition_movie));
+        ActivityCompat.startActivity(MainActivity.this, movieIntent, options.toBundle());
       }
     });
 

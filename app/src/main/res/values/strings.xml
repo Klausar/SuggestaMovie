@@ -14,4 +14,5 @@
   <string name="release_format">Release: %s</string>
   <string name="unable_connect">Unable to connect</string>
   <string name="retry">RETRY</string>
+  <string name="transition_movie">transition_movie</string>
 </resources>

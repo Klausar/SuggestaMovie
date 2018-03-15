@@ -1,29 +1,23 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import javax.xml.transform.Result;
 
 import de.kaiwidmaier.suggestamovie.BuildConfig;
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
-import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewThumbnailAdapter;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
@@ -129,7 +123,8 @@ public class ResultActivity extends AppCompatActivity {
             Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());
             Intent movieIntent = new Intent(ResultActivity.this, MovieActivity.class);
             movieIntent.putExtra("movie", (Parcelable) movieAdapter.getItem(position));
-            startActivity(movieIntent);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(ResultActivity.this, view, getString(R.string.transition_movie));
+            ActivityCompat.startActivity(ResultActivity.this, movieIntent, options.toBundle());
           }
         });
       }

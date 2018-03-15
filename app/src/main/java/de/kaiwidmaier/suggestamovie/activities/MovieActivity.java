@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.like.LikeButton;
 import com.like.OnLikeListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 
 public class MovieActivity extends AppCompatActivity {
 
-  private final String imgUrlBasePath ="http://image.tmdb.org/t/p/w500//";
+  private final String imgUrlBasePath ="http://image.tmdb.org/t/p/w342//";
   private Movie movie;
   private TextView textTitle;
   private TextView textDescription;
@@ -56,7 +57,7 @@ public class MovieActivity extends AppCompatActivity {
     textDescription.setText(movie.getOverview());
     textRating.setText(String.format(getString(R.string.rating_format), movie.getVoteAverage()));
     textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate()));
-    Picasso.with(this).load(imgUrlBasePath + movie.getPosterPath()).into(imgPoster);
+    Picasso.with(this).load(imgUrlBasePath + movie.getPosterPath()).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(imgPoster);
 
     if(watchlist.contains(movie)){
       btnFavorite.setLiked(true);
