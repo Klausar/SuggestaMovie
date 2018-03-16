@@ -1,17 +1,16 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.Switch;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
-import java.time.Year;
 import java.util.Calendar;
 
 import de.kaiwidmaier.suggestamovie.R;
@@ -22,7 +21,7 @@ public class DiscoverActivity extends AppCompatActivity {
   private RangeSeekBar<Integer> seekbarRelease;
   private RangeSeekBar<Integer> seekbarRating;
   private Switch switchAdult;
-  private Button btnSearch;
+  private FloatingActionButton btnSearch;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

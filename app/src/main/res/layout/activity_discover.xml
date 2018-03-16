@@ -1,114 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<android.support.design.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
   tools:context="de.kaiwidmaier.suggestamovie.activities.DiscoverActivity">
 
-  <LinearLayout
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <Switch
-      android:id="@+id/checkbox_include_adult"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:drawablePadding="4dp"
-      android:drawableStart="@drawable/ic_person_black_24dp"
-      android:text="@string/include_adult"
-      android:textColor="@color/colorBlack"/>
 
-  </LinearLayout>
-
-  <View
-    android:layout_width="fill_parent"
-    android:layout_height="1px"
-    android:background="@color/colorGrey"/>
-
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
+    <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:drawablePadding="4dp"
-      android:drawableStart="@drawable/ic_date_range_black_24dp"
-      android:text="@string/release_year"
-      android:textColor="@color/colorBlack"/>
+      android:orientation="vertical">
 
-    <org.florescu.android.rangeseekbar.RangeSeekBar
-      android:id="@+id/seekbar_release"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:showLabels="false"
-      app:textAboveThumbsColor="@color/colorGrey"
-      app:valuesAboveThumbs="true"/>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-  </LinearLayout>
+        <Switch
+          android:id="@+id/checkbox_include_adult"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:drawablePadding="4dp"
+          android:drawableStart="@drawable/ic_person_black_24dp"
+          android:text="@string/include_adult"
+          android:textColor="@color/colorBlack"/>
 
-  <View
-    android:layout_width="fill_parent"
-    android:layout_height="1px"
-    android:layout_marginTop="16dp"
-    android:background="@color/colorGrey"/>
+      </LinearLayout>
 
-  <LinearLayout
-    android:layout_width="match_parent"
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/colorGrey"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawablePadding="4dp"
+          android:drawableStart="@drawable/ic_date_range_black_24dp"
+          android:text="@string/release_year"
+          android:textColor="@color/colorBlack"/>
+
+        <org.florescu.android.rangeseekbar.RangeSeekBar
+          android:id="@+id/seekbar_release"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:showLabels="false"
+          app:textAboveThumbsColor="@color/colorGrey"
+          app:valuesAboveThumbs="true"/>
+
+      </LinearLayout>
+
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorGrey"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawablePadding="4dp"
+          android:drawableStart="@drawable/ic_star_black_24dp"
+          android:text="@string/rating"
+          android:textColor="@color/colorBlack"/>
+
+        <org.florescu.android.rangeseekbar.RangeSeekBar
+          android:id="@+id/seekbar_rating"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:showLabels="false"
+          app:textAboveThumbsColor="@color/colorGrey"
+          app:valuesAboveThumbs="true"/>
+
+      </LinearLayout>
+
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorGrey"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:orientation="vertical">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="16dp"
+          android:text="@string/genres"
+          android:textColor="@color/colorBlack"/>
+
+          <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </ScrollView>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/btn_start_discover"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_gravity="bottom|end"
+    android:layout_marginBottom="16dp"
+    android:layout_marginEnd="16dp"
+    android:drawablePadding="8dp"
+    android:src="@drawable/ic_search_white_48dp"
+    android:textColor="@color/colorWhite"
+    app:backgroundTint="@color/colorPrimary"
+    app:fabSize="normal"/>
 
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:drawablePadding="4dp"
-      android:drawableStart="@drawable/ic_star_black_24dp"
-      android:text="@string/rating"
-      android:textColor="@color/colorBlack"/>
-
-    <org.florescu.android.rangeseekbar.RangeSeekBar
-      android:id="@+id/seekbar_rating"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:showLabels="false"
-      app:textAboveThumbsColor="@color/colorGrey"
-      app:valuesAboveThumbs="true"/>
-
-  </LinearLayout>
-
-  <View
-    android:layout_width="fill_parent"
-    android:layout_height="1px"
-    android:layout_marginTop="16dp"
-    android:background="@color/colorGrey"/>
-
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/genres"
-      android:textColor="@color/colorBlack"/>
-
-    <Button
-      android:id="@+id/btn_start_discover"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Go"/>
-
-  </LinearLayout>
-
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
