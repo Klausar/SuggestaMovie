@@ -4,6 +4,7 @@ import android.app.Application;
 
 import java.util.ArrayList;
 
+import de.kaiwidmaier.suggestamovie.BuildConfig;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 
 /**
@@ -12,6 +13,8 @@ import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 
 public class DataHelper extends Application{
 
+  //TheMovieDB API Key
+  public final static String API_KEY = BuildConfig.API_KEY;
   //Holds watchlist to make it accessible from every activity
   private ArrayList<Movie> watchlist = new ArrayList<>();
 

@@ -28,6 +28,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
+import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -43,9 +44,6 @@ public class ResultActivity extends AppCompatActivity {
   private int ratingMax;
   private boolean adult;
   private int page;
-
-  //TheMovieDB API Key
-  public final static String API_KEY = BuildConfig.API_KEY;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

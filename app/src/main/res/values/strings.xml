@@ -15,6 +15,7 @@
   <string name="unable_connect">Unable to connect</string>
   <string name="retry">RETRY</string>
   <string name="transition_movie">transition_movie</string>
+  <string name="content_descr_genre">Genre icon</string>
 
   <string name="genre_action">Action</string>
   <string name="genre_adventure">Adventure</string>

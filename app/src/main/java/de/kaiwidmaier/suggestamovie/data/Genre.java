@@ -14,12 +14,10 @@ public class Genre {
   private String name;
   @SerializedName("id")
   private int id;
-  private int drawableResId;
 
   public Genre(String name, int id) {
     this.name = name;
     this.id = id;
-    findDrawableResId();
   }
 
   public String getName() {
@@ -30,14 +28,6 @@ public class Genre {
     this.name = name;
   }
 
-  public int getDrawableResId() {
-    return drawableResId;
-  }
-
-  public void setDrawableResId(int drawableResId) {
-    this.drawableResId = drawableResId;
-  }
-
   public int getId() {
     return id;
   }
@@ -46,7 +36,8 @@ public class Genre {
     this.id = id;
   }
 
-  private void findDrawableResId(){
+  public int getDrawableResId(){
+    int drawableResId = R.drawable.ic_genre_action;
     switch(id){
       case 28:
         drawableResId = R.drawable.ic_genre_action;
@@ -106,8 +97,9 @@ public class Genre {
         drawableResId = R.drawable.ic_genre_western;
         break;
       default:
-        return;
+        return drawableResId;
     }
+    return drawableResId;
   }
 
 }
