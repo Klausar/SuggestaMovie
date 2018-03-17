@@ -118,9 +118,9 @@
             android:id="@+id/recycler_genres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"/>
+            android:paddingEnd="16dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
       </LinearLayout>
 
