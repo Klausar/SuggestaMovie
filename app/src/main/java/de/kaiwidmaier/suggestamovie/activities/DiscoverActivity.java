@@ -1,6 +1,7 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -62,6 +63,7 @@ public class DiscoverActivity extends AppCompatActivity {
     btnSearch = findViewById(R.id.btn_start_discover);
     recyclerGenres = findViewById(R.id.recycler_genres);
     recyclerGenres.setLayoutManager(new GridLayoutManager(this, 3));
+    recyclerGenres.setNestedScrollingEnabled(false);
 
     connectAndGetApiData();
 
@@ -124,14 +126,6 @@ public class DiscoverActivity extends AppCompatActivity {
         recyclerGenres.setAdapter(genreAdapter);
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
-
-        genreAdapter.setClickListener(new RecyclerViewGenreAdapter.ItemClickListener() {
-          @Override
-          public void onItemClick(View view, int position) {
-            Log.d(TAG, "Clicked on: " + genreAdapter.getItem(position).getName());
-
-          }
-        });
       }
 
       @Override

@@ -1,14 +1,20 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
@@ -28,6 +34,7 @@ public class MovieActivity extends AppCompatActivity {
   private ImageView imgPoster;
   private LikeButton btnFavorite;
   private ArrayList<Movie> watchlist;
+  private LinearLayout layoutMovie;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,7 @@ public class MovieActivity extends AppCompatActivity {
     imgPoster = findViewById(R.id.img_thumbnail_movie);
     btnFavorite = findViewById(R.id.btn_favorite);
     watchlist = ((DataHelper) this.getApplicationContext()).getWatchlist();
+    layoutMovie = findViewById(R.id.layout_movie_item);
 
     fillData();
   }

@@ -71,7 +71,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
       Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
       holder.textTitle.setText(movie.getTitle());
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
-      holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate()));
+      holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
 
       if (!showBtnFavorite) {
         holder.btnFavorite.setVisibility(View.GONE);

@@ -3,10 +3,11 @@
               android:layout_width="match_parent"
               android:layout_height="210dp"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:paddingBottom="16dp"
-              android:paddingTop="16dp"
+              android:paddingBottom="8dp"
+              android:paddingTop="8dp"
               android:orientation="vertical"
               android:adjustViewBounds="true"
+              android:id="@+id/layout_movie_item"
               android:transitionName="@string/transition_movie">
 
   <RelativeLayout
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/colorBlack"
         android:text="Movie Title"/>
 
       <TextView
@@ -56,7 +58,7 @@
         android:drawableStart="@drawable/ic_date_range_black_24dp"
         android:ellipsize="end"
         android:paddingTop="16dp"
-        android:text="Release: 2018-01-02"/>
+        android:text="Release: 2018"/>
 
     </LinearLayout>
 

@@ -14,10 +14,19 @@ public class Genre {
   private String name;
   @SerializedName("id")
   private int id;
+  private boolean selected;
 
   public Genre(String name, int id) {
     this.name = name;
     this.id = id;
+  }
+
+  public boolean isSelected(){
+    return selected;
+  }
+
+  public void setSelected(boolean selected){
+    this.selected = selected;
   }
 
   public String getName() {
@@ -46,7 +55,7 @@ public class Genre {
         drawableResId = R.drawable.ic_genre_adventure;
         break;
       case 16:
-        //drawableResId = R.drawable.ic_genre_animation;
+        //drawableResId = R.drawable.ic_star_black_24dp;
         break;
       case 35:
         drawableResId = R.drawable.ic_genre_comedy;
