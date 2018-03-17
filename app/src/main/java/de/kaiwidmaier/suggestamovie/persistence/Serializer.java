@@ -9,6 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import de.kaiwidmaier.suggestamovie.data.Genre;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 
 /**
@@ -19,7 +20,8 @@ public class Serializer {
 
   private Context context;
   private static final String TAG = Serializer.class.getSimpleName();
-  private String fileName = "watchlist.ser";
+  private String fileNameWatchlist = "watchlist.ser";
+  private String fileNameGenres = "genres.ser";
 
   public Serializer(Context context){
     this.context = context;
@@ -27,7 +29,7 @@ public class Serializer {
 
   public void writeWatchlist(ArrayList<Movie> watchlist){
     try {
-      FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
+      FileOutputStream fos = context.openFileOutput(fileNameWatchlist, Context.MODE_PRIVATE);
       ObjectOutputStream oos = new ObjectOutputStream(fos);
       oos.writeObject(watchlist);
       oos.close();
@@ -40,12 +42,44 @@ public class Serializer {
 
   public ArrayList<Movie> readWatchlist() {
     try {
-      FileInputStream fis = context.openFileInput(fileName);
+      FileInputStream fis = context.openFileInput(fileNameWatchlist);
       ObjectInputStream ois = new ObjectInputStream(fis);
       ArrayList<Movie> watchlist = (ArrayList<Movie>) ois.readObject();
       ois.close();
       fis.close();
       return watchlist;
+    }
+    catch(IOException e){
+      e.printStackTrace();
+      return new ArrayList<>();
+    }
+    catch(ClassNotFoundException e){
+      e.printStackTrace();
+      return new ArrayList<>();
+    }
+  }
+
+  public void writeGenres(ArrayList<Genre> genres){
+    try {
+      FileOutputStream fos = context.openFileOutput(fileNameGenres, Context.MODE_PRIVATE);
+      ObjectOutputStream oos = new ObjectOutputStream(fos);
+      oos.writeObject(genres);
+      oos.close();
+      fos.close();
+    }
+    catch (IOException e){
+      e.printStackTrace();
+    }
+  }
+
+  public ArrayList<Genre> readGenres() {
+    try {
+      FileInputStream fis = context.openFileInput(fileNameGenres);
+      ObjectInputStream ois = new ObjectInputStream(fis);
+      ArrayList<Genre> genres = (ArrayList<Genre>) ois.readObject();
+      ois.close();
+      fis.close();
+      return genres;
     }
     catch(IOException e){
       e.printStackTrace();

@@ -18,6 +18,7 @@ import android.widget.Switch;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -30,6 +31,7 @@ import de.kaiwidmaier.suggestamovie.data.Genre;
 import de.kaiwidmaier.suggestamovie.data.GenreResponse;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
+import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 import de.kaiwidmaier.suggestamovie.rest.GenreApiService;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
 import retrofit2.Call;
@@ -65,7 +67,7 @@ public class DiscoverActivity extends AppCompatActivity {
     recyclerGenres.setLayoutManager(new GridLayoutManager(this, 3));
     recyclerGenres.setNestedScrollingEnabled(false);
 
-    connectAndGetApiData();
+    setupGenres();
 
     final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
     seekbarRelease.setRangeValues(1930, currentYear);
@@ -88,24 +90,40 @@ public class DiscoverActivity extends AppCompatActivity {
         int ratingMin = seekbarRating.getSelectedMinValue();
         int ratingMax = seekbarRating.getSelectedMaxValue();
         boolean adult = switchAdult.isChecked();
+        String includedGenres = android.text.TextUtils.join("|", genreAdapter.getSelectedGenresIds());
 
-        startResultIntent(releaseDateMin, releaseDateMax, ratingMin, ratingMax, adult);
+        startResultIntent(releaseDateMin, releaseDateMax, ratingMin, ratingMax, adult, includedGenres);
       }
     });
   }
 
-  private void startResultIntent(String releaseDateMin, String releaseDateMax, int ratingMin, int ratingMax, boolean adult) {
+  private void startResultIntent(String releaseDateMin, String releaseDateMax, int ratingMin, int ratingMax, boolean adult, String includedGenres) {
     Intent resultIntent = new Intent(this, ResultActivity.class);
     resultIntent.putExtra("releaseDateMin", releaseDateMin);
     resultIntent.putExtra("releaseDateMax", releaseDateMax);
     resultIntent.putExtra("ratingMin", ratingMin);
     resultIntent.putExtra("ratingMax", ratingMax);
     resultIntent.putExtra("adult", adult);
+    resultIntent.putExtra("includedGenres", includedGenres);
 
     startActivity(resultIntent);
   }
 
-  public void connectAndGetApiData() {
+  private void setupGenres(){
+    Serializer serializer = new Serializer(this);
+    ArrayList<Genre> genres = serializer.readGenres();
+    //Get genres from API and save them to file if not yet saved to file
+    //else use existing file
+    if(genres.size() <= 0){
+      connectAndGetApiData();
+    }
+    else{
+      genreAdapter = new RecyclerViewGenreAdapter(this, genres);
+      recyclerGenres.setAdapter(genreAdapter);
+    }
+  }
+
+  private void connectAndGetApiData() {
 
     if (retrofit == null) {
       retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -121,6 +139,8 @@ public class DiscoverActivity extends AppCompatActivity {
       @Override
       public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
         List<Genre> genres = response.body().getGenres();
+        Serializer serializer = new Serializer(DiscoverActivity.this);
+        serializer.writeGenres((ArrayList<Genre>) genres);
 
         genreAdapter = new RecyclerViewGenreAdapter(DiscoverActivity.this, genres);
         recyclerGenres.setAdapter(genreAdapter);

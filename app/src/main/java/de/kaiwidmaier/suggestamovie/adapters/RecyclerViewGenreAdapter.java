@@ -3,9 +3,14 @@ package de.kaiwidmaier.suggestamovie.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +22,7 @@ import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,9 +41,17 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
   private RecyclerViewGenreAdapter.ItemClickListener clickListener;
 
 
-  public RecyclerViewGenreAdapter(Context context, List<Genre> movies) {
+  public RecyclerViewGenreAdapter(Context context, List<Genre> genres) {
     this.inflater = LayoutInflater.from(context);
-    this.genres = movies;
+    this.genres = genres;
+
+    //Exclude TV-Movie genre
+    for(int i = 0; i < genres.size(); i++){
+      if(genres.get(i).getId() == 10770){
+        genres.remove(i);
+        notifyItemRemoved(i);
+      }
+    }
   }
 
   @Override
@@ -111,4 +125,19 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
     void onItemClick(View view, int position);
   }
 
+  public ArrayList<Genre> getSelectedGenres(){
+    ArrayList<Genre> selectedGenres = new ArrayList<>();
+    for(Genre genre : genres){
+      if(genre.isSelected()) selectedGenres.add(genre);
+    }
+    return selectedGenres;
+  }
+
+  public ArrayList<Integer> getSelectedGenresIds(){
+    ArrayList<Integer> ids = new ArrayList<>();
+    for(Genre genre : genres){
+      if(genre.isSelected()) ids.add(genre.getId());
+    }
+    return ids;
+  }
 }

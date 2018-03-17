@@ -44,6 +44,7 @@ public class ResultActivity extends AppCompatActivity {
   private int ratingMax;
   private boolean adult;
   private int page;
+  private String includedGenres;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class ResultActivity extends AppCompatActivity {
     ratingMin = intent.getIntExtra("ratingMin", 0);
     ratingMax =  intent.getIntExtra("ratingMax", 10);
     adult =  intent.getBooleanExtra("adult", false);
+    includedGenres = intent.getStringExtra("includedGenres");
     page = 1;
 
     recyclerResults = findViewById(R.id.recycler_results);
@@ -86,7 +88,7 @@ public class ResultActivity extends AppCompatActivity {
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
 
     Call<MovieResponse> call = movieApiService.getMovie(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(),
-      null, adult, releaseDateMin, releaseDateMax, ratingMin, ratingMax, null, null, page);
+      null, adult, releaseDateMin, releaseDateMax, ratingMin, ratingMax, includedGenres, null, page);
 
     Log.d(TAG, "Current language: " + Locale.getDefault().toString());
     Log.d(TAG, "Current region: " + Locale.getDefault().getCountry());
@@ -140,12 +142,5 @@ public class ResultActivity extends AppCompatActivity {
         mSnackbar.show();
       }
     });
-  }
-
-  @Override
-  public void onBackPressed() {
-    finish();
-    Intent intent = new Intent(this, MainActivity.class);
-    startActivity(intent);
   }
 }

@@ -1,6 +1,11 @@
 package de.kaiwidmaier.suggestamovie.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 import de.kaiwidmaier.suggestamovie.R;
 
@@ -8,7 +13,7 @@ import de.kaiwidmaier.suggestamovie.R;
  * Created by Kai on 16.03.2018.
  */
 
-public class Genre {
+public class Genre implements Parcelable, Serializable{
 
   @SerializedName("name")
   private String name;
@@ -55,7 +60,7 @@ public class Genre {
         drawableResId = R.drawable.ic_genre_adventure;
         break;
       case 16:
-        //drawableResId = R.drawable.ic_star_black_24dp;
+        drawableResId = R.drawable.ic_genre_animation;
         break;
       case 35:
         drawableResId = R.drawable.ic_genre_comedy;
@@ -111,4 +116,35 @@ public class Genre {
     return drawableResId;
   }
 
+
+  protected Genre(Parcel in) {
+    name = in.readString();
+    id = in.readInt();
+    selected = in.readByte() != 0x00;
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(name);
+    dest.writeInt(id);
+    dest.writeByte((byte) (selected ? 0x01 : 0x00));
+  }
+
+  @SuppressWarnings("unused")
+  public static final Parcelable.Creator<Genre> CREATOR = new Parcelable.Creator<Genre>() {
+    @Override
+    public Genre createFromParcel(Parcel in) {
+      return new Genre(in);
+    }
+
+    @Override
+    public Genre[] newArray(int size) {
+      return new Genre[size];
+    }
+  };
 }
