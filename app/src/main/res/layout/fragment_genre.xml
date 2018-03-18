@@ -5,28 +5,19 @@
   xmlns:sothree="http://schemas.android.com/apk/res-auto"
   android:id="@+id/nestedscrollview_genre"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:background="@color/colorBlack"
+  android:fillViewport="true">
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBlack"
+    android:layout_height="511dp"
     android:orientation="vertical"
     android:padding="32dp">
 
-
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/select_genres"
-      android:textColor="@color/colorWhite"
-      android:textSize="20sp"
-      android:textStyle="bold"/>
-
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="32dp"
       android:drawablePadding="4dp"
       android:drawableStart="@drawable/ic_movie_filter_white_24dp"
       android:text="@string/genres"
@@ -37,8 +28,10 @@
       android:id="@+id/recycler_genres"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginBottom="48dp"
       android:layout_marginTop="8dp"/>
 
 
   </LinearLayout>
+
 </android.support.v4.widget.NestedScrollView>

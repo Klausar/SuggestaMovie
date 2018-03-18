@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Locale;
 
 import de.kaiwidmaier.suggestamovie.R;
-import de.kaiwidmaier.suggestamovie.activities.DiscoverActivity;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewGenreAdapter;
 import de.kaiwidmaier.suggestamovie.data.Genre;
 import de.kaiwidmaier.suggestamovie.data.GenreResponse;
@@ -60,7 +59,6 @@ public class GenreFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View result=inflater.inflate(R.layout.fragment_genre, container, false);
-    LinearLayout editor = result.findViewById(R.id.editor);
     recyclerGenres = result.findViewById(R.id.recycler_genres);
     recyclerGenres.setLayoutManager(new GridLayoutManager(getActivity(), 3));
     recyclerGenres.setNestedScrollingEnabled(false);
@@ -81,6 +79,10 @@ public class GenreFragment extends Fragment {
       genreAdapter = new RecyclerViewGenreAdapter(getActivity(), genres);
       recyclerGenres.setAdapter(genreAdapter);
     }
+  }
+
+  public String getIncludedGenres(){
+    return android.text.TextUtils.join("|", genreAdapter.getSelectedGenresIds());
   }
 
   private void connectAndGetApiData() {
