@@ -42,7 +42,6 @@ public class ResultActivity extends AppCompatActivity {
   private String releaseDateMax;
   private int ratingMin;
   private int ratingMax;
-  private boolean adult;
   private int page;
   private String includedGenres;
 
@@ -56,7 +55,6 @@ public class ResultActivity extends AppCompatActivity {
     releaseDateMax = intent.getStringExtra("releaseDateMax");
     ratingMin = intent.getIntExtra("ratingMin", 0);
     ratingMax =  intent.getIntExtra("ratingMax", 10);
-    adult =  intent.getBooleanExtra("adult", false);
     includedGenres = intent.getStringExtra("includedGenres");
     page = 1;
 
@@ -88,7 +86,7 @@ public class ResultActivity extends AppCompatActivity {
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
 
     Call<MovieResponse> call = movieApiService.getMovie(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(),
-      null, adult, releaseDateMin, releaseDateMax, ratingMin, ratingMax, includedGenres, null, page);
+      null, false, releaseDateMin, releaseDateMax, ratingMin, ratingMax, includedGenres, null, page);
 
     Log.d(TAG, "Current language: " + Locale.getDefault().toString());
     Log.d(TAG, "Current region: " + Locale.getDefault().getCountry());

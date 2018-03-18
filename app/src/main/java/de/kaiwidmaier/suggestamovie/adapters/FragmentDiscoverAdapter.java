@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.ArrayList;
+
+import de.kaiwidmaier.suggestamovie.activities.fragments.GenreFragment;
 import de.kaiwidmaier.suggestamovie.activities.fragments.RangeFragment;
 
 /**
@@ -13,24 +16,26 @@ import de.kaiwidmaier.suggestamovie.activities.fragments.RangeFragment;
 
 public class FragmentDiscoverAdapter extends FragmentPagerAdapter {
   Context context;
+  ArrayList<Fragment> fragments;
 
-  public FragmentDiscoverAdapter(Context context, FragmentManager manager) {
+  public FragmentDiscoverAdapter(Context context, FragmentManager manager, ArrayList<Fragment> fragments) {
     super(manager);
     this.context = context;
+    this.fragments = fragments;
   }
 
   @Override
   public int getCount() {
-    return(10);
+    return fragments.size();
   }
 
   @Override
   public Fragment getItem(int position) {
-    return(RangeFragment.newInstance(position));
+    return fragments.get(position);
   }
 
   @Override
   public String getPageTitle(int position) {
-    return(RangeFragment.getTitle(context, position));
+    return fragments.get(position).getTag();
   }
 }

@@ -63,15 +63,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
+    android:gravity="center"
     android:orientation="vertical">
-
-    <fragment android:name="de.kaiwidmaier.suggestamovie.activities.fragments.RangeFragment"
-              android:id="@+id/headlines_fragment"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content" />
 
   </LinearLayout>
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
-

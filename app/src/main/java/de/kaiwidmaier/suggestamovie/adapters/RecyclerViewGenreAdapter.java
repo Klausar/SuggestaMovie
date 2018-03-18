@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.like.LikeButton;
@@ -65,16 +67,16 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
     final Genre genre = genres.get(position);
     genre.setSelected(true);
     final int selectedColor = Color.parseColor("#8DEF88");
-    final int unselectedColor = Color.parseColor("#fff3f3f3");
+    final int unselectedColor = Color.parseColor("#00000000");
     holder.textName.setText(genre.getName());
     holder.imgIcon.setImageResource(genre.getDrawableResId());
-    holder.layoutGenre.setCardBackgroundColor(selectedColor);
+    holder.layoutGenre.setBackgroundColor(selectedColor);
     holder.layoutGenre.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         genre.setSelected(!genre.isSelected());
         int color = genre.isSelected() ? selectedColor : unselectedColor;
-        holder.layoutGenre.setCardBackgroundColor(color);
+        holder.layoutGenre.setBackgroundColor(color);
 
         if(genre.isSelected()){
           holder.textName.setPaintFlags(holder.textName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
@@ -96,13 +98,13 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     ImageView imgIcon;
     TextView textName;
-    CardView layoutGenre;
+    LinearLayout layoutGenre;
 
     private ViewHolder(View itemView) {
       super(itemView);
       imgIcon = itemView.findViewById(R.id.img_genre_icon);
       textName = itemView.findViewById(R.id.text_genre_name);
-      layoutGenre = itemView.findViewById(R.id.layout_genre_item);
+      layoutGenre = itemView.findViewById(R.id.layout_genre);
       itemView.setOnClickListener(this);
     }
 

@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
   private RecyclerView recyclerWatchlist;
   private FloatingActionButton btnDiscover;
   private RecyclerViewMovieAdapter movieAdapter;
-  private ArrayList<Movie> watchlist;
   private SlidingUpPanelLayout slidingPanel;
+  private ArrayList<Movie> watchlist;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     slidingPanel = findViewById(R.id.sliding_layout);
-    //getSupportFragmentManager().beginTransaction().add(R.id.sliding_second, new DiscoverFragment()).commit();
+    slidingPanel.setScrollableView(findViewById(R.id.nestedscrollview_genre));
+    getSupportFragmentManager().beginTransaction().add(R.id.sliding_second, new DiscoverFragment()).commit();
     recyclerWatchlist = findViewById(R.id.recycler_watchlist);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerWatchlist.getContext(), DividerItemDecoration.VERTICAL);
     recyclerWatchlist.addItemDecoration(dividerItemDecoration);
@@ -72,11 +73,9 @@ public class MainActivity extends AppCompatActivity {
     btnDiscover.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Intent discoverIntent = new Intent(MainActivity.this, DiscoverActivity.class);
-        startActivity(discoverIntent);
-
-        //slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-
+        //Intent discoverIntent = new Intent(MainActivity.this, DiscoverActivity.class);
+        //startActivity(discoverIntent);
+        slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
       }
     });
   }
@@ -87,5 +86,15 @@ public class MainActivity extends AppCompatActivity {
       movieAdapter.notifyDataSetChanged();
     }
     super.onResume();
+  }
+
+  @Override
+  public void onBackPressed() {
+    if(slidingPanel.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED){
+      slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+    }
+    else{
+      super.onBackPressed();
+    }
   }
 }

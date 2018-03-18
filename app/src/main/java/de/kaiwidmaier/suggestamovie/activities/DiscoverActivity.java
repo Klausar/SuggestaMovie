@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 
+import com.appyvet.materialrangebar.RangeBar;
+
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import java.util.ArrayList;
@@ -45,10 +47,9 @@ import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
 public class DiscoverActivity extends AppCompatActivity {
 
-  public static final String TAG = DiscoverActivity.class.getSimpleName();
-  private RangeSeekBar<Integer> seekbarRelease;
-  private RangeSeekBar<Integer> seekbarRating;
-  private Switch switchAdult;
+  private static final String TAG = DiscoverActivity.class.getSimpleName();
+  private RangeBar seekbarRelease;
+  private RangeBar seekbarRating;
   private FloatingActionButton btnSearch;
   private Retrofit retrofit;
   private RecyclerView recyclerGenres;
@@ -61,7 +62,6 @@ public class DiscoverActivity extends AppCompatActivity {
 
     seekbarRelease = findViewById(R.id.seekbar_release);
     seekbarRating = findViewById(R.id.seekbar_rating);
-    switchAdult = findViewById(R.id.checkbox_include_adult);
     btnSearch = findViewById(R.id.btn_start_discover);
     recyclerGenres = findViewById(R.id.recycler_genres);
     recyclerGenres.setLayoutManager(new GridLayoutManager(this, 3));
@@ -70,40 +70,37 @@ public class DiscoverActivity extends AppCompatActivity {
     setupGenres();
 
     final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-    seekbarRelease.setRangeValues(1930, currentYear);
-    seekbarRating.setRangeValues(0, 10);
+    seekbarRelease.setTickEnd(currentYear);
 
     btnSearch.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        String releaseDateMin = seekbarRelease.getSelectedMinValue() + "-01-01"; //e.g. 1954-01-01
+        String releaseDateMin = seekbarRelease.getLeftPinValue() + "-01-01"; //e.g. 1954-01-01
         String releaseDateMax;
 
         //Only allow dates up to today to exclude movies that haven't been released yet
-        if (seekbarRelease.getSelectedMaxValue() == currentYear) {
+        if (Integer.valueOf(seekbarRelease.getRightPinValue()) == currentYear) {
           releaseDateMax = String.format("%s-%s-%s", currentYear, Calendar.getInstance().get(Calendar.MONTH) + 1, Calendar.getInstance().get(Calendar.DAY_OF_MONTH)); //e.g. 2018-03-12
         } else {
-          releaseDateMax = seekbarRelease.getSelectedMaxValue() + "-12-31"; //e.g. 2018-12-31;
+          releaseDateMax = seekbarRelease.getRightPinValue() + "-12-31"; //e.g. 2018-12-31;
         }
         Log.d(TAG, releaseDateMax);
 
-        int ratingMin = seekbarRating.getSelectedMinValue();
-        int ratingMax = seekbarRating.getSelectedMaxValue();
-        boolean adult = switchAdult.isChecked();
+        int ratingMin = Integer.valueOf(seekbarRating.getLeftPinValue());
+        int ratingMax = Integer.valueOf(seekbarRating.getRightPinValue());
         String includedGenres = android.text.TextUtils.join("|", genreAdapter.getSelectedGenresIds());
 
-        startResultIntent(releaseDateMin, releaseDateMax, ratingMin, ratingMax, adult, includedGenres);
+        startResultIntent(releaseDateMin, releaseDateMax, ratingMin, ratingMax, includedGenres);
       }
     });
   }
 
-  private void startResultIntent(String releaseDateMin, String releaseDateMax, int ratingMin, int ratingMax, boolean adult, String includedGenres) {
+  private void startResultIntent(String releaseDateMin, String releaseDateMax, int ratingMin, int ratingMax, String includedGenres) {
     Intent resultIntent = new Intent(this, ResultActivity.class);
     resultIntent.putExtra("releaseDateMin", releaseDateMin);
     resultIntent.putExtra("releaseDateMax", releaseDateMax);
     resultIntent.putExtra("ratingMin", ratingMin);
     resultIntent.putExtra("ratingMax", ratingMax);
-    resultIntent.putExtra("adult", adult);
     resultIntent.putExtra("includedGenres", includedGenres);
 
     startActivity(resultIntent);

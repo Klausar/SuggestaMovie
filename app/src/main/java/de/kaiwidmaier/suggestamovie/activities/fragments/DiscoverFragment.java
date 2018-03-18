@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.FragmentDiscoverAdapter;
 
@@ -23,6 +25,9 @@ public class DiscoverFragment extends Fragment {
   }
 
   private PagerAdapter buildAdapter() {
-    return (new FragmentDiscoverAdapter(getActivity(), getChildFragmentManager()));
+    ArrayList<Fragment> fragments = new ArrayList<>();
+    fragments.add(new RangeFragment());
+    fragments.add(new GenreFragment());
+    return (new FragmentDiscoverAdapter(getActivity(), getChildFragmentManager(), fragments));
   }
 }
