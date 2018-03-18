@@ -13,10 +13,13 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
 import java.util.ArrayList;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.activities.fragments.DiscoverFragment;
+import de.kaiwidmaier.suggestamovie.activities.fragments.RangeFragment;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.utils.SimpleItemTouchHelperCallback;
 import de.kaiwidmaier.suggestamovie.data.Movie;
@@ -31,12 +34,15 @@ public class MainActivity extends AppCompatActivity {
   private FloatingActionButton btnDiscover;
   private RecyclerViewMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
+  private SlidingUpPanelLayout slidingPanel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    slidingPanel = findViewById(R.id.sliding_layout);
+    //getSupportFragmentManager().beginTransaction().add(R.id.sliding_second, new DiscoverFragment()).commit();
     recyclerWatchlist = findViewById(R.id.recycler_watchlist);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerWatchlist.getContext(), DividerItemDecoration.VERTICAL);
     recyclerWatchlist.addItemDecoration(dividerItemDecoration);
@@ -68,10 +74,9 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(View view) {
         Intent discoverIntent = new Intent(MainActivity.this, DiscoverActivity.class);
         startActivity(discoverIntent);
-        /*if (getSupportFragmentManager().findFragmentById(android.R.id.content) == null) {
-        *  getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DiscoverFragment()).commit();
-        *}
-        */
+
+        //slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+
       }
     });
   }

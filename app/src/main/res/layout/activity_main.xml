@@ -1,48 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:sothree="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/sliding_layout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:gravity="bottom"
+  android:orientation="vertical"
+  sothree:umanoScrollableView="@id/recycler_watchlist"
+  sothree:umanoPanelHeight="0dp"
+  sothree:umanoShadowHeight="4dp">
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:orientation="vertical"
-                                                 android:padding="16dp"
-                                                 tools:context="de.kaiwidmaier.suggestamovie.activities.MainActivity">
-
-  <LinearLayout
+  <android.support.design.widget.CoordinatorLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="de.kaiwidmaier.suggestamovie.activities.MainActivity">
 
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/watchlist"
-      android:textSize="20sp"
-      android:textStyle="bold"/>
-
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/recycler_watchlist"
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-      android:minHeight="190dp"
-      android:orientation="vertical"/>
+      android:orientation="vertical">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/watchlist"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_watchlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minHeight="190dp"
+        android:orientation="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/btn_discover"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_marginBottom="16dp"
+      android:layout_marginEnd="16dp"
+      android:drawablePadding="8dp"
+      android:src="@drawable/ic_movie_white_48dp"
+      android:textColor="@color/colorWhite"
+      app:backgroundTint="@color/colorPrimary"
+      app:fabSize="normal"/>
+
+  </android.support.design.widget.CoordinatorLayout>
+
+  <LinearLayout
+    android:id="@+id/sliding_second"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <fragment android:name="de.kaiwidmaier.suggestamovie.activities.fragments.RangeFragment"
+              android:id="@+id/headlines_fragment"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
 
   </LinearLayout>
 
-  <android.support.design.widget.FloatingActionButton
-    android:id="@+id/btn_discover"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:layout_marginBottom="16dp"
-    android:layout_marginEnd="16dp"
-    app:backgroundTint="@color/colorPrimary"
-    android:drawablePadding="8dp"
-    android:src="@drawable/ic_movie_white_48dp"
-    android:textColor="@color/colorWhite"
-    app:fabSize="normal"/>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+
