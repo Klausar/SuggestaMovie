@@ -1,20 +1,16 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 
@@ -25,6 +21,7 @@ import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 
 public class MovieActivity extends AppCompatActivity {
 
+  public final static String TAG = MovieActivity.class.getSimpleName();
   private final String imgUrlBasePath ="http://image.tmdb.org/t/p/w342//";
   private Movie movie;
   private TextView textTitle;
@@ -35,6 +32,7 @@ public class MovieActivity extends AppCompatActivity {
   private LikeButton btnFavorite;
   private ArrayList<Movie> watchlist;
   private LinearLayout layoutMovie;
+  private RelativeLayout layoutMovieInner;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +50,7 @@ public class MovieActivity extends AppCompatActivity {
     btnFavorite = findViewById(R.id.btn_favorite);
     watchlist = ((DataHelper) this.getApplicationContext()).getWatchlist();
     layoutMovie = findViewById(R.id.layout_movie_item);
+    layoutMovieInner = findViewById(R.id.layout_movie_item_inner);
 
     fillData();
   }
@@ -62,6 +61,7 @@ public class MovieActivity extends AppCompatActivity {
     textRating.setText(String.format(getString(R.string.rating_format), movie.getVoteAverage()));
     textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate().substring(0,4)));
     Picasso.with(this).load(imgUrlBasePath + movie.getPosterPath()).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(imgPoster);
+
 
     if(watchlist.contains(movie)){
       btnFavorite.setLiked(true);

@@ -16,6 +16,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.activities.fragments.DiscoverFragment;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.utils.SimpleItemTouchHelperCallback;
 import de.kaiwidmaier.suggestamovie.data.Movie;
@@ -24,7 +25,7 @@ import de.kaiwidmaier.suggestamovie.data.DataHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-  private static final String TAG = MainActivity.class.getSimpleName();
+  public static final String TAG = MainActivity.class.getSimpleName();
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
   private RecyclerView recyclerWatchlist;
   private FloatingActionButton btnDiscover;
@@ -67,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(View view) {
         Intent discoverIntent = new Intent(MainActivity.this, DiscoverActivity.class);
         startActivity(discoverIntent);
+        /*if (getSupportFragmentManager().findFragmentById(android.R.id.content) == null) {
+        *  getSupportFragmentManager().beginTransaction().add(android.R.id.content, new DiscoverFragment()).commit();
+        *}
+        */
       }
     });
   }

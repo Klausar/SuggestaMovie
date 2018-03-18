@@ -140,4 +140,12 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
     }
     return ids;
   }
+
+  public ArrayList<Integer> getUnselectedGenresIds(){
+    ArrayList<Integer> ids = new ArrayList<>();
+    for(Genre genre : genres){
+      if(!genre.isSelected()) ids.add(genre.getId());
+    }
+    return ids;
+  }
 }

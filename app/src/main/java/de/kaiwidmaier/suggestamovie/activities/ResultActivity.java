@@ -32,7 +32,7 @@ import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
 public class ResultActivity extends AppCompatActivity {
 
-  private static final String TAG = ResultActivity.class.getSimpleName();
+  public static final String TAG = ResultActivity.class.getSimpleName();
   private static Retrofit retrofit;
   private RecyclerView recyclerResults;
   private RecyclerViewMovieAdapter movieAdapter;

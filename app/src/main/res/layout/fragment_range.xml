@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/editor"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/colorBlack"
+              android:orientation="vertical"
+              android:padding="32dp">
+
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:drawablePadding="4dp"
+      android:drawableStart="@drawable/ic_date_range_white_24dp"
+      android:text="@string/release_year"
+      android:textColor="@color/colorWhite"
+      android:layout_gravity="bottom"
+      android:layout_marginEnd="16dp"
+      android:textStyle="bold"/>
+
+    <com.appyvet.materialrangebar.RangeBar
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:mrb_temporaryPins="false"
+      app:mrb_pinColor="@color/colorPrimaryDark"
+      app:mrb_pinRadius="14dp"
+      app:mrb_connectingLineColor="@color/colorPrimary"
+      app:mrb_pinMinFont="12sp"
+      app:mrb_pinMaxFont="12sp"
+      app:mrb_pinTextColor="@color/colorWhite"
+      app:mrb_rangeBarColor="@color/colorPrimary"
+      app:mrb_selectorBoundaryColor="@color/colorWhite"
+      app:mrb_selectorBoundarySize="2dp"
+      app:mrb_selectorColor="@color/colorWhite"
+      app:mrb_selectorSize="10dp"
+      app:mrb_tickColor="@color/colorPrimary"
+      app:mrb_tickEnd="2018"
+      app:mrb_tickInterval="1"
+      app:mrb_tickStart="1930"/>
+
+  <View
+    android:layout_width="fill_parent"
+    android:layout_marginBottom="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_height="1px"
+    android:background="@color/colorWhite"/>
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:drawablePadding="4dp"
+    android:drawableStart="@drawable/ic_star_white_24dp"
+    android:text="@string/rating"
+    android:textColor="@color/colorWhite"
+    android:layout_gravity="bottom"
+    android:layout_marginEnd="16dp"
+    android:textStyle="bold"/>
+
+  <com.appyvet.materialrangebar.RangeBar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:mrb_temporaryPins="false"
+    app:mrb_pinColor="@color/colorPrimaryDark"
+    app:mrb_connectingLineColor="@color/colorPrimary"
+    app:mrb_pinMinFont="12sp"
+    app:mrb_pinMaxFont="12sp"
+    app:mrb_pinTextColor="@color/colorWhite"
+    app:mrb_rangeBarColor="@color/colorPrimary"
+    app:mrb_selectorBoundaryColor="@color/colorWhite"
+    app:mrb_selectorBoundarySize="2dp"
+    app:mrb_selectorColor="@color/colorWhite"
+    app:mrb_selectorSize="10dp"
+    app:mrb_tickColor="@color/colorPrimary"
+    app:mrb_tickEnd="10"
+    app:mrb_tickInterval="1"
+    app:mrb_tickStart="0"/>
+
+
+</LinearLayout>

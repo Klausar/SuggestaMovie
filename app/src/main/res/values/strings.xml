@@ -7,7 +7,7 @@
   <string name="btn_find">Discover</string>
   <string name="watchlist">Watchlist</string>
   <string name="include_adult">Include adult results</string>
-  <string name="release_year">Year of release</string>
+  <string name="release_year">Release</string>
   <string name="rating">Rating</string>
   <string name="genres">Genres</string>
   <string name="results">Results</string>
@@ -35,5 +35,10 @@
   <string name="genre_tv_movie">TV Movie</string>
   <string name="genre_war">War</string>
   <string name="genre_western">Western</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="hint">Editor #%d</string>
+
 
 </resources>

@@ -19,7 +19,7 @@ import de.kaiwidmaier.suggestamovie.data.Movie;
 public class Serializer {
 
   private Context context;
-  private static final String TAG = Serializer.class.getSimpleName();
+  public static final String TAG = Serializer.class.getSimpleName();
   private String fileNameWatchlist = "watchlist.ser";
   private String fileNameGenres = "genres.ser";
 

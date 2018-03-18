@@ -45,7 +45,7 @@ import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
 public class DiscoverActivity extends AppCompatActivity {
 
-  private static final String TAG = DiscoverActivity.class.getSimpleName();
+  public static final String TAG = DiscoverActivity.class.getSimpleName();
   private RangeSeekBar<Integer> seekbarRelease;
   private RangeSeekBar<Integer> seekbarRating;
   private Switch switchAdult;
