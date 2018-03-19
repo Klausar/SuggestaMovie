@@ -61,20 +61,22 @@ public class DiscoverActivity extends AppCompatActivity {
     btnSearch.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        startResultIntent(rangeFragment.getReleaseDateMin(), rangeFragment.getReleaseDateMax(), rangeFragment.getRatingMin(), rangeFragment.getRatingMax(), genreFragment.getIncludedGenres());
+        startResultIntent(rangeFragment.getReleaseDateMin(), rangeFragment.getReleaseDateMax(), rangeFragment.getRatingMin(),
+          rangeFragment.getRatingMax(), genreFragment.getIncludedGenres(), genreFragment.getExcludedGenres());
       }
     });
     pager = findViewById(R.id.viewpager_discover);
     pager.setAdapter(buildAdapter());
   }
 
-  private void startResultIntent(String releaseDateMin, String releaseDateMax, int ratingMin, int ratingMax, String includedGenres) {
+  private void startResultIntent(String releaseDateMin, String releaseDateMax, int ratingMin, int ratingMax, String includedGenres, String excludedGenres) {
     Intent resultIntent = new Intent(this, ResultActivity.class);
     resultIntent.putExtra("releaseDateMin", releaseDateMin);
     resultIntent.putExtra("releaseDateMax", releaseDateMax);
     resultIntent.putExtra("ratingMin", ratingMin);
     resultIntent.putExtra("ratingMax", ratingMax);
     resultIntent.putExtra("includedGenres", includedGenres);
+    resultIntent.putExtra("excludedGenres", excludedGenres);
 
     startActivity(resultIntent);
   }

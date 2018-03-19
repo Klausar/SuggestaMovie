@@ -85,6 +85,10 @@ public class GenreFragment extends Fragment {
     return android.text.TextUtils.join("|", genreAdapter.getSelectedGenresIds());
   }
 
+  public String getExcludedGenres(){
+    return android.text.TextUtils.join("|", genreAdapter.getUnselectedGenresIds());
+  }
+
   private void connectAndGetApiData() {
 
     if (retrofit == null) {

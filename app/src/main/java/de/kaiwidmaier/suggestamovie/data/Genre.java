@@ -19,19 +19,33 @@ public class Genre implements Parcelable, Serializable{
   private String name;
   @SerializedName("id")
   private int id;
-  private boolean selected;
+  private GenreSelection selection;
 
   public Genre(String name, int id) {
     this.name = name;
     this.id = id;
   }
 
-  public boolean isSelected(){
-    return selected;
+  public void setSelection(GenreSelection selection){
+    this.selection = selection;
   }
 
-  public void setSelected(boolean selected){
-    this.selected = selected;
+  public GenreSelection getSelection(){
+    return selection;
+  }
+
+  public void toggleSelection(){
+    switch(selection){
+      case INCLUDED:
+        selection = GenreSelection.NEUTRAL;
+        break;
+      case NEUTRAL:
+        selection = GenreSelection.EXCLUDED;
+        break;
+      case EXCLUDED:
+        selection = GenreSelection.INCLUDED;
+        break;
+    }
   }
 
   public String getName() {
@@ -120,7 +134,6 @@ public class Genre implements Parcelable, Serializable{
   protected Genre(Parcel in) {
     name = in.readString();
     id = in.readInt();
-    selected = in.readByte() != 0x00;
   }
 
   @Override
@@ -132,7 +145,6 @@ public class Genre implements Parcelable, Serializable{
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(name);
     dest.writeInt(id);
-    dest.writeByte((byte) (selected ? 0x01 : 0x00));
   }
 
   @SuppressWarnings("unused")

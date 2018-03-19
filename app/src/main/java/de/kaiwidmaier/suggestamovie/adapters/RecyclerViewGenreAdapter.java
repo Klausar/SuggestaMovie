@@ -30,6 +30,7 @@ import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.data.Genre;
+import de.kaiwidmaier.suggestamovie.data.GenreSelection;
 
 /**
  * Created by Kai on 17.03.2018.
@@ -65,27 +66,34 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
   @Override
   public void onBindViewHolder(final RecyclerViewGenreAdapter.ViewHolder holder, final int position) {
     final Genre genre = genres.get(position);
-    genre.setSelected(true);
-    final int selectedColor = Color.parseColor("#8DEF88");
-    final int unselectedColor = Color.parseColor("#00000000");
+    genre.setSelection(GenreSelection.INCLUDED);
+    final int includedColor = Color.parseColor("#8DEF88");
+    final int neutralColor = Color.parseColor("#00000000");
+    final int excludedColor = Color.parseColor("#ff6856");
     holder.textName.setText(genre.getName());
     holder.imgIcon.setImageResource(genre.getDrawableResId());
-    holder.layoutGenre.setBackgroundColor(selectedColor);
+    holder.layoutGenre.setBackgroundColor(includedColor);
     holder.layoutGenre.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        genre.setSelected(!genre.isSelected());
-        int color = genre.isSelected() ? selectedColor : unselectedColor;
-        holder.layoutGenre.setBackgroundColor(color);
+        genre.toggleSelection();
+        int color = includedColor;
 
-        if(genre.isSelected()){
+        if(genre.getSelection() == GenreSelection.INCLUDED){
           holder.textName.setPaintFlags(holder.textName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+          color = includedColor;
         }
-        else{
+        else if(genre.getSelection() == GenreSelection.NEUTRAL){
+          holder.textName.setPaintFlags(holder.textName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+          color = neutralColor;
+        }
+        else if(genre.getSelection() == GenreSelection.EXCLUDED){
           holder.textName.setPaintFlags(holder.textName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+          color = excludedColor;
         }
 
-        Log.d(TAG, "Clicked on: " + genre.getName() + " " + genre.isSelected());
+        holder.layoutGenre.setBackgroundColor(color);
+        Log.d(TAG, "Clicked on: " + genre.getName() + " " + genre.getSelection());
       }
     });
   }
@@ -130,7 +138,7 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
   public ArrayList<Genre> getSelectedGenres(){
     ArrayList<Genre> selectedGenres = new ArrayList<>();
     for(Genre genre : genres){
-      if(genre.isSelected()) selectedGenres.add(genre);
+      if(genre.getSelection() == GenreSelection.INCLUDED) selectedGenres.add(genre);
     }
     return selectedGenres;
   }
@@ -138,7 +146,7 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
   public ArrayList<Integer> getSelectedGenresIds(){
     ArrayList<Integer> ids = new ArrayList<>();
     for(Genre genre : genres){
-      if(genre.isSelected()) ids.add(genre.getId());
+      if(genre.getSelection() == GenreSelection.INCLUDED) ids.add(genre.getId());
     }
     return ids;
   }
@@ -146,7 +154,7 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
   public ArrayList<Integer> getUnselectedGenresIds(){
     ArrayList<Integer> ids = new ArrayList<>();
     for(Genre genre : genres){
-      if(!genre.isSelected()) ids.add(genre.getId());
+      if(genre.getSelection() == GenreSelection.EXCLUDED) ids.add(genre.getId());
     }
     return ids;
   }
