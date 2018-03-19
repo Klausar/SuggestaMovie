@@ -16,7 +16,16 @@
     <android.support.v4.view.ViewPager
       android:id="@+id/viewpager_discover"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content">
+
+      <android.support.v4.view.PagerTabStrip
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    </android.support.v4.view.ViewPager>
 
   </LinearLayout>
 

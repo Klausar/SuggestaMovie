@@ -8,6 +8,7 @@
     <color name="colorAccentDark">#00B482</color>
 
     <color name="colorBlack">#555555</color>
+    <color name="colorBlackDark">#333333</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#707070</color>
     <color name="colorGreyLight">#8A8A8A</color>

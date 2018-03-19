@@ -18,7 +18,7 @@ import de.kaiwidmaier.suggestamovie.R;
  * Created by Kai on 18.03.2018.
  */
 
-public class RangeFragment extends Fragment {
+public class RangeFragment extends Fragment implements FilterFragment{
 
   private static final String KEY_POSITION="position";
   private RangeBar rangeBarRelease;
@@ -60,8 +60,8 @@ public class RangeFragment extends Fragment {
     return Integer.valueOf(rangeBarRating.getRightPinValue());
   }
 
-  public static String getTitle(Context context, int position) {
-    return(String.format(context.getString(R.string.hint), position + 1));
+  public String getTitle() {
+    return("Release & Rating");
   }
 
   @Override

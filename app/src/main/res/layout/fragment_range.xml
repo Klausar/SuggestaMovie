@@ -67,6 +67,7 @@
     app:mrb_pinColor="@color/colorPrimaryDark"
     app:mrb_pinMaxFont="12sp"
     app:mrb_pinMinFont="12sp"
+    app:mrb_pinRadius="16dp"
     app:mrb_pinTextColor="@color/colorWhite"
     app:mrb_rangeBarColor="@color/colorPrimary"
     app:mrb_selectorBoundaryColor="@color/colorWhite"

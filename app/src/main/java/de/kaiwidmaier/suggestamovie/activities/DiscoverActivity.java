@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.activities.fragments.FilterFragment;
 import de.kaiwidmaier.suggestamovie.activities.fragments.GenreFragment;
 import de.kaiwidmaier.suggestamovie.activities.fragments.RangeFragment;
 import de.kaiwidmaier.suggestamovie.adapters.FragmentDiscoverAdapter;
@@ -82,7 +83,7 @@ public class DiscoverActivity extends AppCompatActivity {
   }
 
   private PagerAdapter buildAdapter() {
-    ArrayList<Fragment> fragments = new ArrayList<>();
+    ArrayList<FilterFragment> fragments = new ArrayList<>();
     fragments.add(rangeFragment);
     fragments.add(genreFragment);
     return (new FragmentDiscoverAdapter(this, getSupportFragmentManager(), fragments));

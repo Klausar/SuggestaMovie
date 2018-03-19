@@ -34,7 +34,7 @@ import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
  * Created by Kai on 18.03.2018.
  */
 
-public class GenreFragment extends Fragment {
+public class GenreFragment extends Fragment implements FilterFragment{
 
   private static final String KEY_POSITION="position";
   private RecyclerView recyclerGenres;
@@ -52,8 +52,8 @@ public class GenreFragment extends Fragment {
     return(fragment);
   }
 
-  public static String getTitle(Context context, int position) {
-    return(String.format(context.getString(R.string.hint), position + 1));
+  public String getTitle() {
+    return("Genres");
   }
 
   @Override
