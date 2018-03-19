@@ -66,7 +66,7 @@ public class ResultActivity extends AppCompatActivity {
       @Override
       public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         super.onScrollStateChanged(recyclerView, newState);
-        if (!recyclerView.canScrollVertically(1) && !movieAdapter.isLoading()) {
+        if (movieAdapter != null && !recyclerView.canScrollVertically(1) && !movieAdapter.isLoading()) {
           movieAdapter.setLoading(true);
           Log.d(TAG, "Updating RecyclerView");
           connectAndGetApiData(page);

@@ -48,6 +48,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     this.watchlist = ((DataHelper) context.getApplicationContext()).getWatchlist();
     this.showBtnFavorite = showBtnFavorite;
     serializer = new Serializer(context);
+    this.loading = true;
   }
 
 
