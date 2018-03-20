@@ -27,10 +27,11 @@
       android:minHeight="210dp"
       android:src="@drawable/placeholder_thumbnail"/>
 
+
     <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_toEndOf="@+id/img_thumbnail_movie"
+      android:layout_toEndOf="@id/img_thumbnail_movie"
       android:orientation="vertical"
       android:paddingEnd="16dp"
       android:paddingStart="16dp">
@@ -64,24 +65,33 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content">
+
+      <Button
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/img_thumbnail_movie"
+        android:layout_alignParentBottom="true"
+        android:text="Find Similar"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:textColor="@color/colorBlue"/>
 
       <com.like.LikeButton
         android:id="@+id/btn_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
         app:anim_scale_factor="2"
         app:icon_size="24dp"
         app:icon_type="star"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         app:like_drawable="@drawable/ic_star_yellow_24dp"
         app:liked="false"
         app:unlike_drawable="@drawable/ic_star_border_grey_24dp"/>
 
-    </RelativeLayout>
+
 
   </RelativeLayout>
 

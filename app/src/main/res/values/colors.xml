@@ -12,6 +12,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#707070</color>
     <color name="colorGreyLight">#8A8A8A</color>
+    <color name="colorBlue">#0000EE</color>
 
   <color name="colorToggleUnchecked">#f76c6c</color>
 </resources>

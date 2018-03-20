@@ -67,7 +67,6 @@ public class RangeFragment extends Fragment implements FilterFragment{
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View result=inflater.inflate(R.layout.fragment_range, container, false);
-    LinearLayout editor = result.findViewById(R.id.layout_range);
     rangeBarRelease = result.findViewById(R.id.rangebar_release);
     rangeBarRelease.setTickEnd(currentYear);
     rangeBarRating = result.findViewById(R.id.rangebar_rating);

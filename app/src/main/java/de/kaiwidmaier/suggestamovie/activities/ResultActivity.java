@@ -132,14 +132,14 @@ public class ResultActivity extends AppCompatActivity {
       @Override
       public void onFailure(Call<MovieResponse> call, Throwable throwable) {
         Log.e(TAG, throwable.toString());
-        Snackbar mSnackbar = Snackbar.make(recyclerResults, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
+        Snackbar snackbar = Snackbar.make(recyclerResults, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
               connectAndGetApiData(page);
             }
           });
-        mSnackbar.show();
+        snackbar.show();
       }
     });
   }
@@ -147,6 +147,7 @@ public class ResultActivity extends AppCompatActivity {
   @Override
   public void onBackPressed() {
     Intent intent = new Intent(this, DiscoverActivity.class);
+    intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
     startActivity(intent);
   }
 }

@@ -19,6 +19,7 @@ import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 
+//TODO: Get movie changes https://developers.themoviedb.org/3/movies/get-movie-changes
 public class MovieActivity extends AppCompatActivity {
 
   public final static String TAG = MovieActivity.class.getSimpleName();

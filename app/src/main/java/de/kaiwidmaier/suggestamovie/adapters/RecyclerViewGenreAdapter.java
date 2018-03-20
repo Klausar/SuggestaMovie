@@ -63,6 +63,7 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
     return new RecyclerViewGenreAdapter.ViewHolder(view);
   }
 
+  //TODO: Hardcode genres, rather than getting them by API / Serializing them
   @Override
   public void onBindViewHolder(final RecyclerViewGenreAdapter.ViewHolder holder, final int position) {
     final Genre genre = genres.get(position);

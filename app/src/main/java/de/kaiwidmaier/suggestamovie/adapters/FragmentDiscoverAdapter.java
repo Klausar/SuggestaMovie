@@ -40,5 +40,4 @@ public class FragmentDiscoverAdapter extends FragmentPagerAdapter {
   public String getPageTitle(int position) {
     return fragments.get(position).getTitle();
   }
-
 }
