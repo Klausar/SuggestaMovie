@@ -70,7 +70,6 @@ public class Movie implements Parcelable, Serializable{
     this.voteAverage = voteAverage;
   }
 
-
   public String getPosterPath() {
     return posterPath;
   }

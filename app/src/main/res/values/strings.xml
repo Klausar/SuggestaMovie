@@ -10,7 +10,7 @@
   <string name="release_year">Release</string>
   <string name="rating">Rating</string>
   <string name="genres">Genres</string>
-  <string name="results">Results</string>
+  <string name="results">Search Results</string>
   <string name="release_format">Release: %s</string>
   <string name="unable_connect">Unable to connect</string>
   <string name="retry">RETRY</string>
@@ -42,4 +42,10 @@
 
   <string name="select_release_rating">1. SELECT RELEASE AND RATING</string>
   <string name="select_genres">2. SELECT GENRES</string>
+
+  <string name="results_descr">These movies match your filter settings</string>
+  <string name="watchlist_descr">Movies you like</string>
+
+  <string name="movie_removed">Removed %s</string>
+  <string name="undo">UNDO</string>
 </resources>

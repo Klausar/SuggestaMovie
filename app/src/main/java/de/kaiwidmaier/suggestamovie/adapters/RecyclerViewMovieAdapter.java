@@ -1,6 +1,8 @@
 package de.kaiwidmaier.suggestamovie.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -147,7 +149,19 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   }
 
   @Override
-  public void onItemDismiss(int position) {
+  public void onItemDismiss(final int position) {
+    final Movie movie = getItem(position);
+    Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),
+      String.format(context.getString(R.string.movie_removed), movie.getTitle()), Snackbar.LENGTH_LONG)
+      .setAction(context.getString(R.string.undo), new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          watchlist.add(position, movie);
+          notifyItemInserted(position);
+          serializer.writeWatchlist(watchlist);
+        }
+      });
+    snackbar.show();
     watchlist.remove(position);
     notifyItemRemoved(position);
     serializer.writeWatchlist(watchlist);

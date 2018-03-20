@@ -75,7 +75,6 @@ public class DiscoverActivity extends AppCompatActivity {
   @Override
   public void onBackPressed() {
     Intent intent = new Intent(this, MainActivity.class);
-    intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
     startActivity(intent);
     overridePendingTransition(R.anim.slide_in_bottom_top, R.anim.slide_out_bottom_top);
   }
