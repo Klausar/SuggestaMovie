@@ -7,6 +7,7 @@ Suggest a Movie is an Android app that helps you to find a movie to watch. It us
 - Let user add movies to a watchlist that's displayed in MainActivity
 - Search function to search through watchlist
 - Drag and drop sort for watchlist
+- Get recommended and similar movies based on movies in watchlist
 
 ## How to set up:
 1. Create a file `config.properties` in the root directory of the project
