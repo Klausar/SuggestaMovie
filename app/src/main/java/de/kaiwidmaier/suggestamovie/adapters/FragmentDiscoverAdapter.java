@@ -16,6 +16,7 @@ import de.kaiwidmaier.suggestamovie.activities.fragments.RangeFragment;
  * Created by Kai on 18.03.2018.
  */
 
+@Deprecated
 public class FragmentDiscoverAdapter extends FragmentPagerAdapter {
   Context context;
   ArrayList<FilterFragment> fragments;

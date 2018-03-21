@@ -34,6 +34,7 @@ import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
  * Created by Kai on 18.03.2018.
  */
 
+@Deprecated
 public class GenreFragment extends Fragment implements FilterFragment{
 
   private static final String KEY_POSITION="position";

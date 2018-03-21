@@ -18,22 +18,12 @@ import de.kaiwidmaier.suggestamovie.R;
  * Created by Kai on 18.03.2018.
  */
 
+@Deprecated
 public class RangeFragment extends Fragment implements FilterFragment{
 
-  private static final String KEY_POSITION="position";
   private RangeBar rangeBarRelease;
   private RangeBar rangeBarRating;
   final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-
-  public static RangeFragment newInstance(int position) {
-    RangeFragment fragment = new RangeFragment();
-    Bundle args = new Bundle();
-
-    args.putInt(KEY_POSITION, position);
-    fragment.setArguments(args);
-
-    return(fragment);
-  }
 
   public String getReleaseDateMin(){
     return rangeBarRelease.getLeftPinValue() + "-01-01"; //e.g. 1954-01-01

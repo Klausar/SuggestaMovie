@@ -24,7 +24,7 @@
     </activity>
     <activity android:name=".activities.MovieActivity">
     </activity>
-    <activity android:name=".activities.DiscoverActivity">
+    <activity android:name=".activities.FilterActivity">
     </activity>
     <activity android:name=".activities.ResultActivity">
     </activity>
