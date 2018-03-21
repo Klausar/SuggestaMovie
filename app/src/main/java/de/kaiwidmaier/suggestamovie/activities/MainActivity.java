@@ -13,6 +13,8 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
+import com.sergiocasero.revealfab.RevealFAB;
+
 import java.util.ArrayList;
 
 import de.kaiwidmaier.suggestamovie.R;
@@ -27,12 +29,9 @@ public class MainActivity extends AppCompatActivity {
   public static final String TAG = MainActivity.class.getSimpleName();
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
   private RecyclerView recyclerWatchlist;
-  private FloatingActionButton btnDiscover;
+  private RevealFAB btnDiscover;
   private RecyclerViewMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
-
-  private static final int TIME_DELAY = 2000;
-  private static long backPressed;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +64,16 @@ public class MainActivity extends AppCompatActivity {
     touchHelper.attachToRecyclerView(recyclerWatchlist);
 
     btnDiscover = findViewById(R.id.btn_discover);
-    btnDiscover.setOnClickListener(new View.OnClickListener() {
+    Intent discoverIntent = new Intent(MainActivity.this, FilterActivity.class);
+    discoverIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    btnDiscover.setIntent(discoverIntent);
+    btnDiscover.setOnClickListener(new RevealFAB.OnClickListener() {
       @Override
-      public void onClick(View view) {
-        Intent discoverIntent = new Intent(MainActivity.this, FilterActivity.class);
-        startActivity(discoverIntent);
-        overridePendingTransition(R.anim.slide_in_top_bottom, R.anim.slide_out_top_bottom);
+      public void onClick(RevealFAB btn, View view) {
+        btnDiscover.startActivityWithAnimation();
+        //Intent discoverIntent = new Intent(MainActivity.this, FilterActivity.class);
+        //startActivity(discoverIntent);
+        //overridePendingTransition(R.anim.slide_in_top_bottom, R.anim.slide_out_top_bottom);
       }
     });
   }
@@ -81,5 +84,6 @@ public class MainActivity extends AppCompatActivity {
       movieAdapter.notifyDataSetChanged();
     }
     super.onResume();
+    btnDiscover.onResume();
   }
 }

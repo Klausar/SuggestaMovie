@@ -84,13 +84,6 @@ public class FilterActivity extends AppCompatActivity {
     startActivity(resultIntent);
   }
 
-  @Override
-  public void onBackPressed() {
-    Intent intent = new Intent(this, MainActivity.class);
-    startActivity(intent);
-    overridePendingTransition(R.anim.slide_in_bottom_top, R.anim.slide_out_bottom_top);
-  }
-
   private void setupGenres() {
     Serializer serializer = new Serializer(this);
     ArrayList<Genre> genres = serializer.readGenres();
