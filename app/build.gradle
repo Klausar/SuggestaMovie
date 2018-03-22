@@ -42,7 +42,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.github.jd-alexander:LikeButton:0.2.3'
     compile 'com.sergiocasero.revealfab:revealfab:1.0'
-    compile ('com.appyvet:materialrangebar:1.4.1') {
-      exclude module: 'support-compat'
-  }
+    compile('com.appyvet:materialrangebar:1.4.1') {
+        exclude module: 'support-compat'
+    }
 }

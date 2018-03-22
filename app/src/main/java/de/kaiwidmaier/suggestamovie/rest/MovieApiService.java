@@ -30,4 +30,6 @@ public interface MovieApiService {
                                  @Query("vote_average.gte") int ratingMin, @Query("vote_average.lte") int ratingMax, @Query("with_genres") String includedGenres,
                                  @Query("without_genres") String excludedGenres, @Query("page") int page);
 
+    @GET("movie/{id}/similar")
+    Call<MovieResponse> getSimilarMovies(@Path("id") int id, @Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region, @Query("page") int page);
 }

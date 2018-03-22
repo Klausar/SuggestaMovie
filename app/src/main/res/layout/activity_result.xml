@@ -11,15 +11,18 @@
 
 
   <TextView
+    android:id="@+id/text_head_results"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textSize="20sp"
     android:textStyle="bold"
-    android:text="@string/results"/>
+    android:text="Activity Headline"/>
+
   <TextView
+    android:id="@+id/text_descr_results"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/results_descr"/>
+    android:text="Activity Description long text blabla"/>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recycler_results"

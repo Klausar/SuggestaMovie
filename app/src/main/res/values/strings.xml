@@ -48,4 +48,7 @@
 
   <string name="movie_removed">Removed %s</string>
   <string name="undo">UNDO</string>
+
+  <string name="similar">Similar Movies</string>
+  <string name="similar_descr">These movies are similar to %s</string>
 </resources>

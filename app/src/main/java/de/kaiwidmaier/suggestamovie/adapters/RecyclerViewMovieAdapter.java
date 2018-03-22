@@ -2,12 +2,15 @@ package de.kaiwidmaier.suggestamovie.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.activities.SimilarActivity;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
@@ -75,6 +79,14 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
       holder.textTitle.setText(movie.getTitle());
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
       holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
+      holder.btnFindSimilar.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          Intent similarIntent = new Intent(context, SimilarActivity.class);
+          similarIntent.putExtra("movie", (Parcelable) movie);
+          context.startActivity(similarIntent);
+        }
+      });
 
       if (!showBtnFavorite) {
         holder.btnFavorite.setVisibility(View.GONE);
@@ -118,6 +130,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     TextView textRating;
     TextView textRelease;
     LikeButton btnFavorite;
+    Button btnFindSimilar;
 
     private ViewHolder(View itemView) {
       super(itemView);
@@ -126,6 +139,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
       textRating = itemView.findViewById(R.id.text_movie_rating);
       textRelease = itemView.findViewById(R.id.text_movie_release);
       btnFavorite = itemView.findViewById(R.id.btn_favorite);
+      btnFindSimilar = itemView.findViewById(R.id.btn_find_similar);
       itemView.setOnClickListener(this);
     }
 
