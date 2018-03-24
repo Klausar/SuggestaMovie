@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -71,15 +72,26 @@ public class ResultActivity extends AppCompatActivity {
     recyclerResults = findViewById(R.id.recycler_results);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerResults.getContext(), DividerItemDecoration.VERTICAL);
     recyclerResults.addItemDecoration(dividerItemDecoration);
+    //TODO: Add loading animation
     recyclerResults.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
+      private int visibleThreshold = 5;
+      int firstVisibleItem;
+      int visibleItemCount;
+      int totalItemCount;
+
       @Override
-      public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-        super.onScrollStateChanged(recyclerView, newState);
-        if (movieAdapter != null && !recyclerView.canScrollVertically(1) && !movieAdapter.isLoading()) {
-          movieAdapter.setLoading(true);
-          Log.d(TAG, "Updating RecyclerView");
+      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+
+        visibleItemCount = recyclerResults.getChildCount();
+        totalItemCount = recyclerResults.getLayoutManager().getItemCount();
+        firstVisibleItem = ((LinearLayoutManager) recyclerResults.getLayoutManager()).findFirstVisibleItemPosition();
+
+        if (!movieAdapter.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+          // End has been reached
           connectAndGetApiData(page);
+          movieAdapter.setLoading(true);
         }
       }
     });

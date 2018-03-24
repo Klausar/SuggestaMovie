@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -57,13 +58,23 @@ public class SimilarActivity extends AppCompatActivity {
     recyclerSimilar = findViewById(R.id.recycler_results);
     recyclerSimilar.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
+      private int visibleThreshold = 5;
+      int firstVisibleItem;
+      int visibleItemCount;
+      int totalItemCount;
+
       @Override
-      public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-        super.onScrollStateChanged(recyclerView, newState);
-        if (movieAdapter != null && !recyclerView.canScrollVertically(1) && !movieAdapter.isLoading()) {
-          movieAdapter.setLoading(true);
-          Log.d(TAG, "Updating RecyclerView");
+      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+
+        visibleItemCount = recyclerSimilar.getChildCount();
+        totalItemCount = recyclerSimilar.getLayoutManager().getItemCount();
+        firstVisibleItem = ((LinearLayoutManager) recyclerSimilar.getLayoutManager()).findFirstVisibleItemPosition();
+
+        if (!movieAdapter.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+          // End has been reached
           connectAndGetApiData(page);
+          movieAdapter.setLoading(true);
         }
       }
     });
