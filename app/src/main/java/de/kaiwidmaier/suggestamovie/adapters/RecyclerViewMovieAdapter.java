@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.activities.MovieActivity;
 import de.kaiwidmaier.suggestamovie.activities.SimilarActivity;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
@@ -112,8 +115,6 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     }
   }
 
-
-
   @Override
   public int getItemCount() {
     return movies.size();
@@ -145,7 +146,12 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
     @Override
     public void onClick(View view) {
-      if (clickListener != null) clickListener.onItemClick(view, getAdapterPosition());
+      Movie movie = movies.get(getAdapterPosition());
+      Log.d(TAG, "Clicked on: " + movie.getTitle());
+      Intent intent = new Intent(context, MovieActivity.class);
+      intent.putExtra("movie", (Parcelable) movie);
+      ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, view, context.getString(R.string.transition_movie));
+      ActivityCompat.startActivity(context, intent, options.toBundle());
     }
   }
 

@@ -45,16 +45,6 @@ public class MainActivity extends AppCompatActivity {
     watchlist = ((DataHelper) this.getApplication()).getWatchlist();
 
     movieAdapter = new RecyclerViewMovieAdapter(MainActivity.this, watchlist, false);
-    movieAdapter.setClickListener(new RecyclerViewMovieAdapter.ItemClickListener() {
-      @Override
-      public void onItemClick(View view, int position) {
-        Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());
-        Intent movieIntent = new Intent(MainActivity.this, MovieActivity.class);
-        movieIntent.putExtra("movie", (Parcelable) movieAdapter.getItem(position));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, view, getString(R.string.transition_movie));
-        ActivityCompat.startActivity(MainActivity.this, movieIntent, options.toBundle());
-      }
-    });
 
     recyclerWatchlist.setAdapter(movieAdapter);
 

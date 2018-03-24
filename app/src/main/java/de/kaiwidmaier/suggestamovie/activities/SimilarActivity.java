@@ -108,17 +108,6 @@ public class SimilarActivity extends AppCompatActivity {
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Current Page: " + response.body().getPage());
         Log.d(TAG, "Number of movies received: " + movies.size());
-
-        movieAdapter.setClickListener(new RecyclerViewMovieAdapter.ItemClickListener() {
-          @Override
-          public void onItemClick(View view, int position) {
-            Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());
-            Intent movieIntent = new Intent(SimilarActivity.this, MovieActivity.class);
-            movieIntent.putExtra("movie", (Parcelable) movieAdapter.getItem(position));
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(SimilarActivity.this, view, getString(R.string.transition_movie));
-            ActivityCompat.startActivity(SimilarActivity.this, movieIntent, options.toBundle());
-          }
-        });
       }
 
       @Override

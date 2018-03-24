@@ -125,16 +125,6 @@ public class ResultActivity extends AppCompatActivity {
         Log.d(TAG, "Current Page: " + response.body().getPage());
         Log.d(TAG, "Number of movies received: " + movies.size());
 
-        movieAdapter.setClickListener(new RecyclerViewMovieAdapter.ItemClickListener() {
-          @Override
-          public void onItemClick(View view, int position) {
-            Log.d(TAG, "Clicked on: " + movieAdapter.getItem(position).getTitle());
-            Intent movieIntent = new Intent(ResultActivity.this, MovieActivity.class);
-            movieIntent.putExtra("movie", (Parcelable) movieAdapter.getItem(position));
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(ResultActivity.this, view, getString(R.string.transition_movie));
-            ActivityCompat.startActivity(ResultActivity.this, movieIntent, options.toBundle());
-          }
-        });
       }
 
       @Override
