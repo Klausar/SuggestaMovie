@@ -51,4 +51,7 @@
 
   <string name="similar">Similar Movies</string>
   <string name="similar_descr">These movies are similar to %s</string>
+
+  <string name="watchlist_empty1">Your watchlist is empty</string>
+  <string name="watchlist_empty2">Click the button to find new movies</string>
 </resources>

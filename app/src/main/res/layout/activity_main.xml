@@ -31,11 +31,12 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
-      android:minHeight="190dp"
       android:orientation="vertical"
       app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
   </LinearLayout>
+
+  <include layout="@layout/watchlist_empty"/>
 
   <!--android.support.design.widget.FloatingActionButton
     android:id="@+id/btn_discover"

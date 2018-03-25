@@ -41,12 +41,10 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   private static final String TAG = RecyclerViewMovieAdapter.class.getSimpleName();
   private List<Movie> movies;
   private LayoutInflater inflater;
-  private final String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
-  private RecyclerViewMovieAdapter.ItemClickListener clickListener;
   private Context context;
   private ArrayList<Movie> watchlist;
   private boolean showBtnFavorite;
-  final Serializer serializer;
+  private final Serializer serializer;
   private boolean loading;
 
 
@@ -64,8 +62,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   @Override
   public RecyclerViewMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = inflater.inflate(R.layout.recyclerview_movie_item, parent, false);
-    RecyclerViewMovieAdapter.ViewHolder viewHolder = new RecyclerViewMovieAdapter.ViewHolder(view);
-    return viewHolder;
+    return new RecyclerViewMovieAdapter.ViewHolder(view);
   }
 
   public boolean containsAll(List<Movie> movies){
@@ -76,6 +73,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   public void onBindViewHolder(final RecyclerViewMovieAdapter.ViewHolder holder, int position) {
     final Movie movie = movies.get(position);
     if (movie.getPosterPath() != null) {
+      String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
       Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
       Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
@@ -155,12 +153,12 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     }
   }
 
-  public Movie getItem(int id) {
+  private Movie getItem(int id) {
     return movies.get(id);
   }
 
   public void setClickListener(RecyclerViewMovieAdapter.ItemClickListener itemClickListener) {
-    this.clickListener = itemClickListener;
+    ItemClickListener clickListener = itemClickListener;
   }
 
 

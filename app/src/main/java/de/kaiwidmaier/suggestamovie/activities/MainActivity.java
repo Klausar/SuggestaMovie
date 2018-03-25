@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.sergiocasero.revealfab.RevealFAB;
 
@@ -32,12 +33,14 @@ public class MainActivity extends AppCompatActivity {
   private RevealFAB btnDiscover;
   private RecyclerViewMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
+  private LinearLayout layoutWatchlistEmpty;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+    layoutWatchlistEmpty = findViewById(R.id.layout_watchlist_empty);
     recyclerWatchlist = findViewById(R.id.recycler_watchlist);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerWatchlist.getContext(), DividerItemDecoration.VERTICAL);
     recyclerWatchlist.addItemDecoration(dividerItemDecoration);
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     movieAdapter = new RecyclerViewMovieAdapter(MainActivity.this, watchlist, false);
 
     recyclerWatchlist.setAdapter(movieAdapter);
+    checkEmpty();
 
     //Swipe to remove and long press to change position
     ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(movieAdapter);
@@ -61,11 +65,17 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onClick(RevealFAB btn, View view) {
         btnDiscover.startActivityWithAnimation();
-        //Intent discoverIntent = new Intent(MainActivity.this, FilterActivity.class);
-        //startActivity(discoverIntent);
-        //overridePendingTransition(R.anim.slide_in_top_bottom, R.anim.slide_out_top_bottom);
       }
     });
+  }
+
+  private void checkEmpty(){
+    if(watchlist.isEmpty()){
+      layoutWatchlistEmpty.setVisibility(View.VISIBLE);
+    }
+    else{
+      layoutWatchlistEmpty.setVisibility(View.GONE);
+    }
   }
 
   @Override
@@ -75,5 +85,6 @@ public class MainActivity extends AppCompatActivity {
     }
     super.onResume();
     btnDiscover.onResume();
+    checkEmpty();
   }
 }
