@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class SimilarActivity extends AppCompatActivity {
   private RecyclerViewMovieAdapter movieAdapter;
   private int page;
   private Movie movie;
+  private LinearLayout layoutResultsEmpty;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class SimilarActivity extends AppCompatActivity {
     textDescr = findViewById(R.id.text_descr_results);
     textHead.setText(getString(R.string.similar));
     textDescr.setText(String.format(getString(R.string.similar_descr), movie.getTitle()));
+    layoutResultsEmpty = findViewById(R.id.layout_searchresults_empty);
     recyclerSimilar = findViewById(R.id.recycler_results);
     recyclerSimilar.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -80,6 +83,15 @@ public class SimilarActivity extends AppCompatActivity {
     });
 
     connectAndGetApiData(page);
+  }
+
+  private void checkEmpty(){
+    if(movieAdapter == null || movieAdapter.getItemCount() == 0){
+      layoutResultsEmpty.setVisibility(View.VISIBLE);
+    }
+    else{
+      layoutResultsEmpty.setVisibility(View.GONE);
+    }
   }
 
   public void connectAndGetApiData(final int page) {
@@ -119,6 +131,7 @@ public class SimilarActivity extends AppCompatActivity {
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Current Page: " + response.body().getPage());
         Log.d(TAG, "Number of movies received: " + movies.size());
+        checkEmpty();
       }
 
       @Override
@@ -132,6 +145,7 @@ public class SimilarActivity extends AppCompatActivity {
             }
           });
         snackbar.show();
+        checkEmpty();
       }
     });
   }

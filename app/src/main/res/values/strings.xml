@@ -54,4 +54,7 @@
 
   <string name="watchlist_empty1">Your watchlist is empty</string>
   <string name="watchlist_empty2">Click the button to find new movies</string>
+
+  <string name="search_empty1">Couldn\'t find any results</string>
+  <string name="search_empty2">Either Change your search settings or make sure you are connected to the internet</string>
 </resources>

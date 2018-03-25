@@ -19,6 +19,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
+      android:textAlignment="center"
       android:textColor="@color/colorGreyLight"
       android:text="@string/watchlist_empty1"/>
 
@@ -26,6 +27,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
+      android:textAlignment="center"
       android:textColor="@color/colorGreyLight"
       android:text="@string/watchlist_empty2"/>
 

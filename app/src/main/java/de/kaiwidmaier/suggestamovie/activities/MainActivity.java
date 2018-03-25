@@ -2,15 +2,10 @@ package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -27,7 +22,6 @@ import de.kaiwidmaier.suggestamovie.data.DataHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-  public static final String TAG = MainActivity.class.getSimpleName();
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
   private RecyclerView recyclerWatchlist;
   private RevealFAB btnDiscover;

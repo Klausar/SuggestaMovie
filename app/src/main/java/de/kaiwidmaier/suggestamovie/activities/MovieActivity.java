@@ -19,11 +19,8 @@ import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 
-//TODO: Get movie changes https://developers.themoviedb.org/3/movies/get-movie-changes
 public class MovieActivity extends AppCompatActivity {
 
-  public final static String TAG = MovieActivity.class.getSimpleName();
-  private final String imgUrlBasePath ="http://image.tmdb.org/t/p/w342//";
   private Movie movie;
   private TextView textTitle;
   private TextView textDescription;
@@ -32,8 +29,6 @@ public class MovieActivity extends AppCompatActivity {
   private ImageView imgPoster;
   private LikeButton btnFavorite;
   private ArrayList<Movie> watchlist;
-  private LinearLayout layoutMovie;
-  private RelativeLayout layoutMovieInner;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +45,6 @@ public class MovieActivity extends AppCompatActivity {
     imgPoster = findViewById(R.id.img_thumbnail_movie);
     btnFavorite = findViewById(R.id.btn_favorite);
     watchlist = ((DataHelper) this.getApplicationContext()).getWatchlist();
-    layoutMovie = findViewById(R.id.layout_movie_item);
-    layoutMovieInner = findViewById(R.id.layout_movie_item_inner);
 
     fillData();
   }
@@ -61,6 +54,7 @@ public class MovieActivity extends AppCompatActivity {
     textDescription.setText(movie.getOverview());
     textRating.setText(String.format(getString(R.string.rating_format), movie.getVoteAverage()));
     textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate().substring(0,4)));
+    String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
     Picasso.with(this).load(imgUrlBasePath + movie.getPosterPath()).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(imgPoster);
 
 
