@@ -6,6 +6,7 @@
   android:layout_height="wrap_content"
   android:layout_gravity="center"
   android:orientation="vertical"
+  android:visibility="gone"
   android:padding="16dp">
 
 
@@ -30,7 +31,6 @@
     android:textAlignment="center"
     android:textColor="@color/colorGreyLight"
     android:text="@string/search_empty2"/>
-
 
 </LinearLayout>
 

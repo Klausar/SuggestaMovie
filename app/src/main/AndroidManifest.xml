@@ -30,6 +30,8 @@
     </activity>
     <activity android:name=".activities.SimilarActivity">
     </activity>
+    <activity android:name=".activities.SearchActivity">
+    </activity>
   </application>
 
 </manifest>

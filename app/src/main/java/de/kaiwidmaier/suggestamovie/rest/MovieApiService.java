@@ -1,5 +1,7 @@
 package de.kaiwidmaier.suggestamovie.rest;
 
+import android.os.Parcelable;
+
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;

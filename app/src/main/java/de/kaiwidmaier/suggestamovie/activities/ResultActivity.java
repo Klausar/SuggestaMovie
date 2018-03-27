@@ -76,7 +76,6 @@ public class ResultActivity extends AppCompatActivity {
     recyclerResults = findViewById(R.id.recycler_results);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerResults.getContext(), DividerItemDecoration.VERTICAL);
     recyclerResults.addItemDecoration(dividerItemDecoration);
-    //TODO: Add loading animation
     recyclerResults.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
       private int visibleThreshold = 5;
@@ -122,6 +121,7 @@ public class ResultActivity extends AppCompatActivity {
 
     Call<MovieResponse> call = movieApiService.getMovie(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(),
       null, false, releaseDateMin, releaseDateMax, ratingMin, ratingMax, includedGenres, excludedGenres, page);
+    Intent intent = new Intent(this, MainActivity.class);
 
     Log.d(TAG, "Current language: " + Locale.getDefault().toString());
     Log.d(TAG, "Current region: " + Locale.getDefault().getCountry());

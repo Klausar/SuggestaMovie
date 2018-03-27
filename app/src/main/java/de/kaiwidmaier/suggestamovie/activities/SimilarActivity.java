@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
-public class SimilarActivity extends AppCompatActivity {
+public class SimilarActivity extends AppCompatActivity{
 
   public static final String TAG = SimilarActivity.class.getSimpleName();
   private static Retrofit retrofit;
@@ -85,7 +85,7 @@ public class SimilarActivity extends AppCompatActivity {
     connectAndGetApiData(page);
   }
 
-  private void checkEmpty(){
+  public void checkEmpty(){
     if(movieAdapter == null || movieAdapter.getItemCount() == 0){
       layoutResultsEmpty.setVisibility(View.VISIBLE);
     }

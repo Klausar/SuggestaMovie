@@ -120,6 +120,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
   public void addAll(List<Movie> movies){
     this.movies.addAll(movies);
+    Log.d(TAG, "Movies added: " + movies.size());
     notifyDataSetChanged();
   }
 
