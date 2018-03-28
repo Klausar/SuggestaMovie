@@ -26,10 +26,11 @@ import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.activities.MovieActivity;
-import de.kaiwidmaier.suggestamovie.activities.SimilarActivity;
+import de.kaiwidmaier.suggestamovie.activities.ResultActivity;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
+import de.kaiwidmaier.suggestamovie.rest.ResultType;
 
 /**
  * Created by Kai on 12.03.2018.
@@ -83,8 +84,11 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
       holder.btnFindSimilar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          Intent similarIntent = new Intent(context, SimilarActivity.class);
-          similarIntent.putExtra("movie", (Parcelable) movie);
+          Intent similarIntent = new Intent(context, ResultActivity.class);
+          similarIntent.putExtra("movieId", movie.getId());
+          similarIntent.putExtra("resultTitle", context.getString(R.string.similar));
+          similarIntent.putExtra("resultDescr", String.format(context.getString(R.string.similar_descr), movie.getTitle()));
+          similarIntent.putExtra("resultType", ResultType.SIMILAR);
           context.startActivity(similarIntent);
         }
       });

@@ -3,8 +3,6 @@ package de.kaiwidmaier.suggestamovie.activities;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -18,12 +16,12 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
 
-import de.kaiwidmaier.suggestamovie.BuildConfig;
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
+import de.kaiwidmaier.suggestamovie.rest.ResultType;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,37 +37,24 @@ public class ResultActivity extends AppCompatActivity {
   private static Retrofit retrofit;
   private RecyclerView recyclerResults;
   private RecyclerViewMovieAdapter movieAdapter;
-  private TextView textHead;
-  private TextView textDescr;
   private LinearLayout layoutResultsEmpty;
-
-  //Intent extras
-  private String releaseDateMin;
-  private String releaseDateMax;
-  private int ratingMin;
-  private int ratingMax;
+  private Intent intent;
+  private ResultType resultType;
   private int page;
-  private String includedGenres;
-  private String excludedGenres;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_result);
 
-    Intent intent = getIntent();
-    releaseDateMin = intent.getStringExtra("releaseDateMin");
-    releaseDateMax = intent.getStringExtra("releaseDateMax");
-    ratingMin = intent.getIntExtra("ratingMin", 0);
-    ratingMax =  intent.getIntExtra("ratingMax", 10);
-    includedGenres = intent.getStringExtra("includedGenres");
-    excludedGenres = intent.getStringExtra("excludedGenres");
+    intent = getIntent();
+    resultType = (ResultType) intent.getSerializableExtra("resultType");
     page = 1;
 
-    textHead = findViewById(R.id.text_head_results);
-    textDescr = findViewById(R.id.text_descr_results);
-    textHead.setText(getString(R.string.results));
-    textDescr.setText(getString(R.string.results_descr));
+    TextView textHead = findViewById(R.id.text_head_results);
+    TextView textDescr = findViewById(R.id.text_descr_results);
+    textHead.setText(intent.getStringExtra("resultTitle"));
+    textDescr.setText(intent.getStringExtra("resultDescr"));
 
     layoutResultsEmpty = findViewById(R.id.layout_searchresults_empty);
 
@@ -92,7 +77,7 @@ public class ResultActivity extends AppCompatActivity {
         firstVisibleItem = ((LinearLayoutManager) recyclerResults.getLayoutManager()).findFirstVisibleItemPosition();
 
         if (!movieAdapter.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-          // End has been reached
+          //End has been reached, load more
           connectAndGetApiData(page);
           movieAdapter.setLoading(true);
         }
@@ -119,9 +104,17 @@ public class ResultActivity extends AppCompatActivity {
 
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
 
-    Call<MovieResponse> call = movieApiService.getMovie(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(),
-      null, false, releaseDateMin, releaseDateMax, ratingMin, ratingMax, includedGenres, excludedGenres, page);
-    Intent intent = new Intent(this, MainActivity.class);
+    Call<MovieResponse> call = null;
+
+    if(resultType == ResultType.FILTER){
+      call = movieApiService.getMovie(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(),
+        null, false, intent.getStringExtra("releaseDateMin"), intent.getStringExtra("releaseDateMax"),
+        intent.getIntExtra("ratingMin", 0), intent.getIntExtra("ratingMax", 10),
+        intent.getStringExtra("includedGenres"), intent.getStringExtra("excludedGenres"), page);
+    }
+    else if(resultType == ResultType.SIMILAR){
+      call = movieApiService.getSimilarMovies(intent.getIntExtra("movieId", 0), API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(), page);
+    }
 
     Log.d(TAG, "Current language: " + Locale.getDefault().toString());
     Log.d(TAG, "Current region: " + Locale.getDefault().getCountry());

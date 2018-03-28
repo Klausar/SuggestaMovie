@@ -24,6 +24,7 @@ import de.kaiwidmaier.suggestamovie.data.GenreResponse;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 import de.kaiwidmaier.suggestamovie.rest.GenreApiService;
 import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
+import de.kaiwidmaier.suggestamovie.rest.ResultType;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,6 +81,9 @@ public class FilterActivity extends AppCompatActivity {
     resultIntent.putExtra("ratingMax", ratingMax);
     resultIntent.putExtra("includedGenres", includedGenres);
     resultIntent.putExtra("excludedGenres", excludedGenres);
+    resultIntent.putExtra("resultTitle", getString(R.string.filter));
+    resultIntent.putExtra("resultDescr", getString(R.string.filter_descr));
+    resultIntent.putExtra("resultType", ResultType.FILTER);
 
     startActivity(resultIntent);
   }
