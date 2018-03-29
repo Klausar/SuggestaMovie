@@ -34,4 +34,7 @@ public interface MovieApiService {
 
     @GET("movie/{id}/similar")
     Call<MovieResponse> getSimilarMovies(@Path("id") int id, @Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region, @Query("page") int page);
+
+    @GET("search/movie")
+  Call<MovieResponse> getMoviesByName(@Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region, @Query("query") String query, @Query("page") int page);
 }

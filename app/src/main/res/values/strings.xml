@@ -60,4 +60,6 @@
   <string name="search_empty2">Either Change your search settings or make sure you are connected to the internet</string>
 
   <string name="enter_movie">Enter movie title</string>
+
+  <string name="input_empty">The input can not be empty</string>
 </resources>

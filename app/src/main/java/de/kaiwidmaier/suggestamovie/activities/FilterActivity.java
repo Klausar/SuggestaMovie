@@ -37,7 +37,7 @@ import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 public class FilterActivity extends AppCompatActivity {
 
   private static final String TAG = FilterActivity.class.getSimpleName();
-  private FloatingActionButton btnSearch;
+  private FloatingActionButton fabSearch;
   private RangeBar rangeBarRelease;
   private RangeBar rangeBarRating;
   final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -58,8 +58,8 @@ public class FilterActivity extends AppCompatActivity {
     recyclerGenres.setNestedScrollingEnabled(false);
     setupGenres();
 
-    btnSearch = findViewById(R.id.fab_search);
-    btnSearch.setOnClickListener(new View.OnClickListener() {
+    fabSearch = findViewById(R.id.fab_search);
+    fabSearch.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (NetworkUtils.isNetworkAvailable(FilterActivity.this)) {

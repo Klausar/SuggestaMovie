@@ -2,11 +2,13 @@ package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.widget.Filter;
 import android.widget.LinearLayout;
 
 import com.sergiocasero.revealfab.RevealFAB;
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
   private RecyclerView recyclerWatchlist;
-  private RevealFAB btnDiscover;
+  private FloatingActionButton btnFilter;
   private RecyclerViewMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
   private LinearLayout layoutWatchlistEmpty;
@@ -51,14 +53,12 @@ public class MainActivity extends AppCompatActivity {
     ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
     touchHelper.attachToRecyclerView(recyclerWatchlist);
 
-    btnDiscover = findViewById(R.id.btn_discover);
-    Intent discoverIntent = new Intent(MainActivity.this, FilterActivity.class);
-    discoverIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-    btnDiscover.setIntent(discoverIntent);
-    btnDiscover.setOnClickListener(new RevealFAB.OnClickListener() {
+    btnFilter = findViewById(R.id.btn_filter);
+    btnFilter.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(RevealFAB btn, View view) {
-        btnDiscover.startActivityWithAnimation();
+      public void onClick(View view) {
+        Intent filterIntent = new Intent(MainActivity.this, FilterActivity.class);
+        startActivity(filterIntent);
       }
     });
   }
@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
       movieAdapter.notifyDataSetChanged();
     }
     super.onResume();
-    btnDiscover.onResume();
     checkEmpty();
   }
 }

@@ -2,5 +2,6 @@ package de.kaiwidmaier.suggestamovie.rest;
 
 public enum ResultType {
   FILTER,
-  SIMILAR
+  SIMILAR,
+  SEARCH
 }

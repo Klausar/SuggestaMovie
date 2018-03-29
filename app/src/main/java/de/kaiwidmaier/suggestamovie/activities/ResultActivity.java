@@ -115,6 +115,9 @@ public class ResultActivity extends AppCompatActivity {
     else if(resultType == ResultType.SIMILAR){
       call = movieApiService.getSimilarMovies(intent.getIntExtra("movieId", 0), API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(), page);
     }
+    else if(resultType == ResultType.SEARCH){
+      call = movieApiService.getMoviesByName(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(), intent.getStringExtra("searchString"), page);
+    }
 
     Log.d(TAG, "Current language: " + Locale.getDefault().toString());
     Log.d(TAG, "Current region: " + Locale.getDefault().getCountry());
