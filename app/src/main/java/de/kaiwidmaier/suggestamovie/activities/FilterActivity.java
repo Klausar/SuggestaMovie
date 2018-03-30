@@ -7,32 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.appyvet.materialrangebar.RangeBar;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
 
 import de.kaiwidmaier.suggestamovie.R;
-import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewGenreAdapter;
-import de.kaiwidmaier.suggestamovie.data.Genre;
-import de.kaiwidmaier.suggestamovie.data.GenreResponse;
-import de.kaiwidmaier.suggestamovie.persistence.Serializer;
-import de.kaiwidmaier.suggestamovie.rest.GenreApiService;
+import de.kaiwidmaier.suggestamovie.adapters.RecyclerGenreAdapter;
+import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
-import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
 public class FilterActivity extends AppCompatActivity {
 
@@ -42,7 +28,7 @@ public class FilterActivity extends AppCompatActivity {
   private RangeBar rangeBarRating;
   final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
   private RecyclerView recyclerGenres;
-  private RecyclerViewGenreAdapter genreAdapter;
+  private RecyclerGenreAdapter genreAdapter;
   private Retrofit retrofit;
 
   @Override
@@ -89,48 +75,8 @@ public class FilterActivity extends AppCompatActivity {
   }
 
   private void setupGenres() {
-    Serializer serializer = new Serializer(this);
-    ArrayList<Genre> genres = serializer.readGenres();
-    //Get genres from API and save them to file if not yet saved to file
-    //else use existing file
-    if (genres.size() <= 0) {
-      connectAndGetApiData();
-    } else {
-      genreAdapter = new RecyclerViewGenreAdapter(this, genres);
-      recyclerGenres.setAdapter(genreAdapter);
-    }
-  }
-
-  private void connectAndGetApiData() {
-
-    if (retrofit == null) {
-      retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-    }
-
-    GenreApiService genreApiService = retrofit.create(GenreApiService.class);
-
-    Call<GenreResponse> call = genreApiService.getGenres(API_KEY, Locale.getDefault().getLanguage());
-
-    Log.d(TAG, "Current language: " + Locale.getDefault().toString());
-
-    call.enqueue(new Callback<GenreResponse>() {
-      @Override
-      public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
-        List<Genre> genres = response.body().getGenres();
-        Serializer serializer = new Serializer(FilterActivity.this);
-        serializer.writeGenres((ArrayList<Genre>) genres);
-
-        genreAdapter = new RecyclerViewGenreAdapter(FilterActivity.this, genres);
-        recyclerGenres.setAdapter(genreAdapter);
-
-        Log.d(TAG, "Request URL: " + response.raw().request().url());
-      }
-
-      @Override
-      public void onFailure(Call<GenreResponse> call, Throwable throwable) {
-        Log.e(TAG, throwable.toString());
-      }
-    });
+    genreAdapter = new RecyclerGenreAdapter(this, ((DataHelper) this.getApplication()).getGenres());
+    recyclerGenres.setAdapter(genreAdapter);
   }
 
   public String getReleaseDateMin() {

@@ -8,6 +8,7 @@ import java.util.List;
  * Created by Kai on 16.03.2018.
  */
 
+@Deprecated
 public class GenreResponse {
 
   @SerializedName("genres")

@@ -12,6 +12,13 @@
 
   <include layout="@layout/recyclerview_movie_item"/>
 
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/recycler_genre_chips"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
   <ScrollView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -22,6 +29,6 @@
       android:layout_height="wrap_content"/>
   </ScrollView>
 
-  
+
 
 </LinearLayout>

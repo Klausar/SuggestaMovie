@@ -10,6 +10,7 @@ import retrofit2.http.Query;
  * Created by Kai on 16.03.2018.
  */
 
+@Deprecated
 public interface GenreApiService {
 
   @GET("genre/movie/list")

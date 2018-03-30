@@ -21,6 +21,9 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class Movie implements Parcelable, Serializable{
 
+
+  private static final long serialVersionUID = -3321935085974625347L;
+
   @SerializedName("poster_path")
   private String posterPath;
   @SerializedName("adult")

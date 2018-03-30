@@ -16,7 +16,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import java.util.ArrayList;
 
 import de.kaiwidmaier.suggestamovie.R;
-import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
+import de.kaiwidmaier.suggestamovie.adapters.RecyclerMovieAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.utils.SimpleItemTouchHelperCallback;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
   private FloatingActionButton fabSearch;
   private FloatingActionButton fabFilter;
   private FloatingActionMenu fabMenu;
-  private RecyclerViewMovieAdapter movieAdapter;
+  private RecyclerMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
   private LinearLayout layoutWatchlistEmpty;
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     watchlist = ((DataHelper) this.getApplication()).getWatchlist();
 
-    movieAdapter = new RecyclerViewMovieAdapter(MainActivity.this, watchlist, false);
+    movieAdapter = new RecyclerMovieAdapter(MainActivity.this, watchlist, false);
 
     recyclerWatchlist.setAdapter(movieAdapter);
     checkEmpty();

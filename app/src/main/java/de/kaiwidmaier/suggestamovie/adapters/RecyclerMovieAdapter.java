@@ -36,10 +36,10 @@ import de.kaiwidmaier.suggestamovie.rest.ResultType;
  * Created by Kai on 12.03.2018.
  */
 
-public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewMovieAdapter.ViewHolder> implements ItemTouchHelperAdapter{
+public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdapter.ViewHolder> implements ItemTouchHelperAdapter{
 
 
-  private static final String TAG = RecyclerViewMovieAdapter.class.getSimpleName();
+  private static final String TAG = RecyclerMovieAdapter.class.getSimpleName();
   private List<Movie> movies;
   private LayoutInflater inflater;
   private Context context;
@@ -49,7 +49,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   private boolean loading;
 
 
-  public RecyclerViewMovieAdapter(Context context, List<Movie> movies, boolean showBtnFavorite) {
+  public RecyclerMovieAdapter(Context context, List<Movie> movies, boolean showBtnFavorite) {
     this.inflater = LayoutInflater.from(context);
     this.movies = movies;
     this.context = context;
@@ -61,9 +61,9 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
 
 
   @Override
-  public RecyclerViewMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public RecyclerMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = inflater.inflate(R.layout.recyclerview_movie_item, parent, false);
-    return new RecyclerViewMovieAdapter.ViewHolder(view);
+    return new RecyclerMovieAdapter.ViewHolder(view);
   }
 
   public boolean containsAll(List<Movie> movies){
@@ -71,7 +71,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   }
 
   @Override
-  public void onBindViewHolder(final RecyclerViewMovieAdapter.ViewHolder holder, int position) {
+  public void onBindViewHolder(final RecyclerMovieAdapter.ViewHolder holder, int position) {
     final Movie movie = movies.get(position);
       String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
@@ -165,7 +165,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     return movies.get(id);
   }
 
-  public void setClickListener(RecyclerViewMovieAdapter.ItemClickListener itemClickListener) {
+  public void setClickListener(RecyclerMovieAdapter.ItemClickListener itemClickListener) {
     ItemClickListener clickListener = itemClickListener;
   }
 

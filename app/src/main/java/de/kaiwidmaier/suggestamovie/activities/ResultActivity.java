@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.kaiwidmaier.suggestamovie.R;
-import de.kaiwidmaier.suggestamovie.adapters.RecyclerViewMovieAdapter;
+import de.kaiwidmaier.suggestamovie.adapters.RecyclerMovieAdapter;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
@@ -36,7 +36,7 @@ public class ResultActivity extends AppCompatActivity {
   public static final String TAG = ResultActivity.class.getSimpleName();
   private static Retrofit retrofit;
   private RecyclerView recyclerResults;
-  private RecyclerViewMovieAdapter movieAdapter;
+  private RecyclerMovieAdapter movieAdapter;
   private LinearLayout layoutResultsEmpty;
   private Intent intent;
   private ResultType resultType;
@@ -131,7 +131,7 @@ public class ResultActivity extends AppCompatActivity {
           return;
         }
         if(movieAdapter == null){
-          movieAdapter = new RecyclerViewMovieAdapter(ResultActivity.this, movies, true);
+          movieAdapter = new RecyclerMovieAdapter(ResultActivity.this, movies, true);
           recyclerResults.setAdapter(movieAdapter);
         }
         else{

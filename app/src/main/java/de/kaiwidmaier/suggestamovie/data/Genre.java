@@ -15,9 +15,10 @@ import de.kaiwidmaier.suggestamovie.R;
 
 public class Genre implements Parcelable, Serializable{
 
-  @SerializedName("name")
+
+  private static final long serialVersionUID = 8614403915122234634L;
+
   private String name;
-  @SerializedName("id")
   private int id;
   private GenreSelection selection;
 
@@ -131,7 +132,7 @@ public class Genre implements Parcelable, Serializable{
   }
 
 
-  protected Genre(Parcel in) {
+  private Genre(Parcel in) {
     name = in.readString();
     id = in.readInt();
   }

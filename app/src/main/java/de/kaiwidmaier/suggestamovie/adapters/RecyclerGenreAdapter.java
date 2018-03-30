@@ -3,15 +3,7 @@ package de.kaiwidmaier.suggestamovie.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.CountDownTimer;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.like.LikeButton;
-import com.like.OnLikeListener;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
@@ -36,36 +23,27 @@ import de.kaiwidmaier.suggestamovie.data.GenreSelection;
  * Created by Kai on 17.03.2018.
  */
 
-public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewGenreAdapter.ViewHolder> {
+public class RecyclerGenreAdapter extends RecyclerView.Adapter<RecyclerGenreAdapter.ViewHolder> {
 
-  private static final String TAG = RecyclerViewGenreAdapter.class.getSimpleName();
+  private static final String TAG = RecyclerGenreAdapter.class.getSimpleName();
   private List<Genre> genres;
   private LayoutInflater inflater;
-  private RecyclerViewGenreAdapter.ItemClickListener clickListener;
+  private RecyclerGenreAdapter.ItemClickListener clickListener;
 
 
-  public RecyclerViewGenreAdapter(Context context, List<Genre> genres) {
+  public RecyclerGenreAdapter(Context context, List<Genre> genres) {
     this.inflater = LayoutInflater.from(context);
     this.genres = genres;
-
-    //Exclude TV-Movie genre
-    for(int i = 0; i < genres.size(); i++){
-      if(genres.get(i).getId() == 10770){
-        genres.remove(i);
-        notifyItemRemoved(i);
-      }
-    }
   }
 
   @Override
-  public RecyclerViewGenreAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public RecyclerGenreAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = inflater.inflate(R.layout.recyclerview_genre_item, parent, false);
-    return new RecyclerViewGenreAdapter.ViewHolder(view);
+    return new RecyclerGenreAdapter.ViewHolder(view);
   }
 
-  //TODO: Hardcode genres, rather than getting them by API / Serializing them
   @Override
-  public void onBindViewHolder(final RecyclerViewGenreAdapter.ViewHolder holder, final int position) {
+  public void onBindViewHolder(final RecyclerGenreAdapter.ViewHolder holder, final int position) {
     final Genre genre = genres.get(position);
     genre.setSelection(GenreSelection.INCLUDED);
     final int includedColor = Color.parseColor("#8DEF88");
@@ -127,7 +105,7 @@ public class RecyclerViewGenreAdapter extends RecyclerView.Adapter<RecyclerViewG
     return genres.get(position);
   }
 
-  public void setClickListener(RecyclerViewGenreAdapter.ItemClickListener itemClickListener) {
+  public void setClickListener(RecyclerGenreAdapter.ItemClickListener itemClickListener) {
     this.clickListener = itemClickListener;
   }
 
