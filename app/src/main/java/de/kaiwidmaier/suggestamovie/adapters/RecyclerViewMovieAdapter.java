@@ -76,7 +76,7 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
     if (movie.getPosterPath() != null) {
       String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
-      Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
+      //Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
       Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
       holder.textTitle.setText(movie.getTitle());
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));

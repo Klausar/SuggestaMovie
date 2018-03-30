@@ -2,16 +2,16 @@ package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.widget.Filter;
 import android.widget.LinearLayout;
 
-import com.sergiocasero.revealfab.RevealFAB;
+
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
   private RecyclerView recyclerWatchlist;
-  private FloatingActionButton btnFilter;
+  private FloatingActionButton fabSearch;
+  private FloatingActionButton fabFilter;
+  private FloatingActionMenu fabMenu;
   private RecyclerViewMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
   private LinearLayout layoutWatchlistEmpty;
@@ -53,12 +55,21 @@ public class MainActivity extends AppCompatActivity {
     ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
     touchHelper.attachToRecyclerView(recyclerWatchlist);
 
-    btnFilter = findViewById(R.id.btn_filter);
-    btnFilter.setOnClickListener(new View.OnClickListener() {
+    fabMenu = findViewById(R.id.fab_menu);
+    fabFilter = findViewById(R.id.fab_item_filter);
+    fabFilter.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        Intent filterIntent = new Intent(MainActivity.this, FilterActivity.class);
-        startActivity(filterIntent);
+        Intent intent = new Intent(MainActivity.this, FilterActivity.class);
+        startActivity(intent);
+      }
+    });
+    fabSearch = findViewById(R.id.fab_item_search);
+    fabSearch.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(intent);
       }
     });
   }
@@ -78,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
       movieAdapter.notifyDataSetChanged();
     }
     super.onResume();
+    fabMenu.close(false);
     checkEmpty();
   }
 }

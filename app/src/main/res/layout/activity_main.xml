@@ -3,6 +3,7 @@
 <android.support.design.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:fab="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
@@ -38,7 +39,7 @@
 
   <include layout="@layout/watchlist_empty"/>
 
-  <android.support.design.widget.FloatingActionButton
+  <!--android.support.design.widget.FloatingActionButton
     android:id="@+id/btn_filter"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -49,7 +50,44 @@
     android:src="@drawable/ic_movie_white_48dp"
     android:textColor="@color/colorWhite"
     app:backgroundTint="@color/colorPrimary"
-    app:fabSize="normal"/>
+    app:fabSize="normal"/-->
+
+  <com.github.clans.fab.FloatingActionMenu
+    android:id="@+id/fab_menu"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="16dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    fab:menu_fab_size="normal"
+    fab:menu_showShadow="true"
+    fab:menu_shadowColor="#66000000"
+    fab:menu_shadowRadius="4dp"
+    fab:menu_shadowXOffset="1dp"
+    fab:menu_shadowYOffset="3dp"
+    fab:menu_colorNormal="@color/colorPrimary"
+    fab:menu_colorPressed="@color/colorPrimaryDark"
+    fab:menu_animationDelayPerItem="50"
+    fab:menu_icon="@drawable/ic_movie_white_24dp"
+    fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+    fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right">
+
+    <com.github.clans.fab.FloatingActionButton
+      android:id="@+id/fab_item_search"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_search_white_24dp"
+      fab:fab_size="mini"
+      fab:fab_label="@string/fab_search_by_name" />
+
+    <com.github.clans.fab.FloatingActionButton
+      android:id="@+id/fab_item_filter"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_movie_filter_white_24dp"
+      fab:fab_size="mini"
+      fab:fab_label="@string/fab_search_by_filter" />
+
+  </com.github.clans.fab.FloatingActionMenu>
 
 </android.support.design.widget.CoordinatorLayout>
 

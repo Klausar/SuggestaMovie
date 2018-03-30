@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
+import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -26,13 +27,17 @@ public class SearchActivity extends AppCompatActivity {
     fabSearch.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        if(editText.getText().length() > 0){
-          Intent intent = new Intent(SearchActivity.this, ResultActivity.class);
-          intent.putExtra("resultType", ResultType.SEARCH);
-          intent.putExtra("searchString", editText.getText().toString());
-          startActivity(intent);
-        }
-        else{
+        if (editText.getText().length() > 0) {
+          if (NetworkUtils.isNetworkAvailable(SearchActivity.this)) {
+            Intent intent = new Intent(SearchActivity.this, ResultActivity.class);
+            intent.putExtra("resultType", ResultType.SEARCH);
+            intent.putExtra("searchString", editText.getText().toString());
+            startActivity(intent);
+          } else {
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.unable_connect), Snackbar.LENGTH_SHORT);
+            snackbar.show();
+          }
+        } else {
           Snackbar.make(findViewById(android.R.id.content), getString(R.string.input_empty), Snackbar.LENGTH_SHORT).show();
         }
       }

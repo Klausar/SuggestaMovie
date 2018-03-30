@@ -57,9 +57,12 @@
   <string name="watchlist_empty2">Click the button to find new movies</string>
 
   <string name="search_empty1">Couldn\'t find any results</string>
-  <string name="search_empty2">Either Change your search settings or make sure you are connected to the internet</string>
+  <string name="search_empty2">Either change your search settings or make sure you are connected to the internet</string>
 
   <string name="enter_movie">Enter movie title</string>
 
   <string name="input_empty">The input can not be empty</string>
+
+  <string name="fab_search_by_name">Search by movie title</string>
+  <string name="fab_search_by_filter">Search by filtering</string>
 </resources>

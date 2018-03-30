@@ -126,6 +126,10 @@ public class ResultActivity extends AppCompatActivity {
       @Override
       public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
         List<Movie> movies = response.body().getResults();
+        if(movies == null || movies.size() == 0){
+          checkEmpty();
+          return;
+        }
         if(movieAdapter == null){
           movieAdapter = new RecyclerViewMovieAdapter(ResultActivity.this, movies, true);
           recyclerResults.setAdapter(movieAdapter);
@@ -145,7 +149,6 @@ public class ResultActivity extends AppCompatActivity {
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Current Page: " + response.body().getPage());
         Log.d(TAG, "Number of movies received: " + movies.size());
-        checkEmpty();
       }
 
       @Override
