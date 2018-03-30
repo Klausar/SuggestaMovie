@@ -41,7 +41,7 @@
   <string name="select_release_rating">1. SELECT RELEASE AND RATING</string>
   <string name="select_genres">2. SELECT GENRES</string>
 
-  <string name="filter">Search Results</string>
+  <string name="filter">Filter Results</string>
   <string name="filter_descr">These movies match your filter settings</string>
 
   <string name="watchlist">Watchlist</string>
@@ -49,6 +49,9 @@
 
   <string name="similar">Similar Movies</string>
   <string name="similar_descr">These movies are similar to %s</string>
+
+  <string name="search">Search Results</string>
+  <string name="search_descr">These movies match \'%s\'</string>
 
   <string name="movie_removed">Removed %s</string>
   <string name="undo">UNDO</string>

@@ -53,7 +53,12 @@ public class MovieActivity extends AppCompatActivity {
     textTitle.setText(movie.getTitle());
     textDescription.setText(movie.getOverview());
     textRating.setText(String.format(getString(R.string.rating_format), movie.getVoteAverage()));
-    textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate().substring(0,4)));
+    if(movie.getReleaseDate().length() >= 4){
+      textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
+    }
+    else{
+      textRelease.setText(String.format(getString(R.string.release_format), "?"));
+    }
     String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
     Picasso.with(this).load(imgUrlBasePath + movie.getPosterPath()).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(imgPoster);
 

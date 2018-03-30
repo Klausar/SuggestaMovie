@@ -73,14 +73,18 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
   @Override
   public void onBindViewHolder(final RecyclerViewMovieAdapter.ViewHolder holder, int position) {
     final Movie movie = movies.get(position);
-    if (movie.getPosterPath() != null) {
       String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
       //Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
       Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
       holder.textTitle.setText(movie.getTitle());
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
-      holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
+      if(movie.getReleaseDate().length() >= 4){
+        holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
+      }
+      else{
+        holder.textRelease.setText(String.format(context.getString(R.string.release_format), "?"));
+      }
       holder.btnFindSimilar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -114,7 +118,6 @@ public class RecyclerViewMovieAdapter extends RecyclerView.Adapter<RecyclerViewM
           serializer.writeWatchlist(watchlist);
         }
       });
-    }
   }
 
   @Override

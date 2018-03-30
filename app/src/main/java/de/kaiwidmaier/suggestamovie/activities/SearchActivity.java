@@ -32,6 +32,8 @@ public class SearchActivity extends AppCompatActivity {
             Intent intent = new Intent(SearchActivity.this, ResultActivity.class);
             intent.putExtra("resultType", ResultType.SEARCH);
             intent.putExtra("searchString", editText.getText().toString());
+            intent.putExtra("resultTitle", getString(R.string.search));
+            intent.putExtra("resultDescr", String.format(getString(R.string.search_descr), editText.getText().toString()));
             startActivity(intent);
           } else {
             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.unable_connect), Snackbar.LENGTH_SHORT);

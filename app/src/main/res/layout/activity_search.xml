@@ -22,7 +22,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textColor="@color/colorWhite"
-      android:inputType="text"/>
+      android:inputType="textCapSentences"/>
 
   </android.support.design.widget.TextInputLayout>
 
@@ -33,7 +33,6 @@
     app:backgroundTint="@color/colorPrimary"
     android:src="@drawable/ic_search_white_48dp"
     android:layout_gravity="bottom|end"
-    app:fabSize="normal"
-    android:layout_margin="24dp"/>
+    app:fabSize="normal"/>
 
 </android.support.design.widget.CoordinatorLayout>
