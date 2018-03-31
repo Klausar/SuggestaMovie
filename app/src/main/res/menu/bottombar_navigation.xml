@@ -3,6 +3,8 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       android:background="@android:color/white"
       app:bbn_badgeColor="#FFFF0000"
+      app:bbn_itemColorActive="@color/colorWhite"
+      app:bbn_itemColorInactive="@color/colorBlack"
       app:bbn_rippleColor="#33ffffff">
   <item
     android:id="@+id/bbn_item1"
@@ -11,7 +13,7 @@
     android:title="@string/watchlist" />
   <item
     android:id="@+id/bbn_item2"
-    android:color="@color/colorToggleUnchecked"
+    android:color="@color/colorRed"
     android:icon="@drawable/ic_whatshot_white_24dp"
     android:title="Now Playing" />
   <item

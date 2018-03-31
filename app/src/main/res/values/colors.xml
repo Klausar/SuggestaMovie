@@ -5,6 +5,7 @@
     <color name="colorAccent">#8DEF88</color>
 
     <color name="colorOrange">#FF3909</color>
+    <color name="colorRed">#da4235</color>
     <color name="colorAccentDark">#00B482</color>
 
     <color name="colorBlack">#555555</color>
@@ -12,6 +13,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGrey">#707070</color>
     <color name="colorGreyLight">#8A8A8A</color>
+    <color name="colorGreyLighter">#b2b2b2</color>
     <color name="colorBlue">#0000EE</color>
 
   <color name="colorToggleUnchecked">#f76c6c</color>

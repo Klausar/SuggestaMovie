@@ -1,5 +1,9 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -12,6 +16,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -51,12 +59,10 @@ public class MainActivity extends AppCompatActivity {
     bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
       @Override
       public void onMenuItemSelect(int i, int i1) {
-        Log.d("i", "i = " + i);
-        Log.d("i1", "i1 = " + i1);
         switch(i1){
           case 0: //Watchlist
             setFragment(new WatchlistFragment());
-            Log.d("Fragmentselection", "Switched to Watchlist");
+            Log.d("Fragmentselection", "Switched to watchlist");
             break;
           case 1: //Now Playing
             setFragment(new NowPlayingFragment());
@@ -71,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
       }
     });
     fabMenu = findViewById(R.id.fab_menu);
+    setFabMenuAnimation();
     fabFilter = findViewById(R.id.fab_item_filter);
     fabFilter.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -102,7 +109,35 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager fragMan = getFragmentManager();
     FragmentTransaction fragTransaction = fragMan.beginTransaction();
     fragTransaction.replace(frameLayout.getId(), fragment);
-    fragTransaction.addToBackStack(null);
     fragTransaction.commit();
+  }
+
+  private void setFabMenuAnimation(){
+    AnimatorSet set = new AnimatorSet();
+
+    ObjectAnimator scaleOutX = ObjectAnimator.ofFloat(fabMenu.getMenuIconView(), "scaleX", 1.0f, 0.2f);
+    ObjectAnimator scaleOutY = ObjectAnimator.ofFloat(fabMenu.getMenuIconView(), "scaleY", 1.0f, 0.2f);
+
+    ObjectAnimator scaleInX = ObjectAnimator.ofFloat(fabMenu.getMenuIconView(), "scaleX", 0.2f, 1.0f);
+    ObjectAnimator scaleInY = ObjectAnimator.ofFloat(fabMenu.getMenuIconView(), "scaleY", 0.2f, 1.0f);
+
+    scaleOutX.setDuration(50);
+    scaleOutY.setDuration(50);
+
+    scaleInX.setDuration(150);
+    scaleInY.setDuration(150);
+
+    scaleInX.addListener(new AnimatorListenerAdapter() {
+      @Override
+      public void onAnimationStart(Animator animation) {
+        fabMenu.getMenuIconView().setImageResource(fabMenu.isOpened()
+          ? R.drawable.ic_movie_white_24dp : R.drawable.ic_close_white_24dp);
+      }
+    });
+    set.play(scaleOutX).with(scaleOutY);
+    set.play(scaleInX).with(scaleInY).after(scaleOutX);
+    set.setInterpolator(new OvershootInterpolator(2));
+
+    fabMenu.setIconToggleAnimatorSet(set);
   }
 }

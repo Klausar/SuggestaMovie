@@ -21,7 +21,6 @@ public class Serializer {
   private Context context;
   public static final String TAG = Serializer.class.getSimpleName();
   private String fileNameWatchlist = "watchlist.ser";
-  private String fileNameGenres = "genres.ser";
 
   public Serializer(Context context){
     this.context = context;
@@ -58,38 +57,5 @@ public class Serializer {
       return new ArrayList<>();
     }
   }
-
-  public void writeGenres(ArrayList<Genre> genres){
-    try {
-      FileOutputStream fos = context.openFileOutput(fileNameGenres, Context.MODE_PRIVATE);
-      ObjectOutputStream oos = new ObjectOutputStream(fos);
-      oos.writeObject(genres);
-      oos.close();
-      fos.close();
-    }
-    catch (IOException e){
-      e.printStackTrace();
-    }
-  }
-
-  public ArrayList<Genre> readGenres() {
-    try {
-      FileInputStream fis = context.openFileInput(fileNameGenres);
-      ObjectInputStream ois = new ObjectInputStream(fis);
-      ArrayList<Genre> genres = (ArrayList<Genre>) ois.readObject();
-      ois.close();
-      fis.close();
-      return genres;
-    }
-    catch(IOException e){
-      e.printStackTrace();
-      return new ArrayList<>();
-    }
-    catch(ClassNotFoundException e){
-      e.printStackTrace();
-      return new ArrayList<>();
-    }
-  }
-
 
 }

@@ -1,5 +1,6 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.appyvet.materialrangebar.RangeBar;
@@ -35,6 +37,8 @@ public class FilterActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_filter);
+
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     rangeBarRelease = findViewById(R.id.rangebar_release);
     rangeBarRelease.setTickEnd(currentYear);
@@ -108,6 +112,11 @@ public class FilterActivity extends AppCompatActivity {
 
   public String getExcludedGenres(){
     return android.text.TextUtils.join("|", genreAdapter.getUnselectedGenresIds());
+  }
+
+  public boolean onOptionsItemSelected(MenuItem item){
+    onBackPressed();
+    return true;
   }
 
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +47,8 @@ public class ResultActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_result);
+
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     intent = getIntent();
     resultType = (ResultType) intent.getSerializableExtra("resultType");
@@ -166,4 +169,10 @@ public class ResultActivity extends AppCompatActivity {
       }
     });
   }
+
+  public boolean onOptionsItemSelected(MenuItem item){
+    onBackPressed();
+    return true;
+  }
+
 }
