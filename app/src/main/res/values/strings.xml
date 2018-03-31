@@ -69,4 +69,6 @@
 
   <string name="fab_search_by_name">Search by movie title</string>
   <string name="fab_search_by_filter">Search by filtering</string>
+
+  <string name="now_playing_descr">These movies are in the movie theaters right now</string>
 </resources>

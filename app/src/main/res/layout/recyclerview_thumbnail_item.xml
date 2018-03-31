@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_marginTop="8dp"
+              android:layout_marginBottom="8dp"
+              android:orientation="vertical"
+              android:layout_width="140dp"
+              android:layout_height="wrap_content">
+
+  <ImageView
+    android:id="@+id/img_thumbnail"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:adjustViewBounds="true"
+    android:contentDescription="@string/content_descr_thumbnail"
+    android:maxHeight="210dp"
+    android:minHeight="210dp"
+    android:src="@drawable/placeholder_thumbnail"/>
+
+  <TextView
+    android:id="@+id/text_movie_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:maxLines="1"
+    android:text="Filmtitel kommt hier her"/>
+
+</LinearLayout>

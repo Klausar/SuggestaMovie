@@ -24,7 +24,7 @@ public interface MovieApiService {
     Call<MovieResponse> getUpcomingMovies(@Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region);
 
     @GET("movie/now_playing")
-    Call<MovieResponse> getNowPlayingMovies(@Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region);
+    Call<MovieResponse> getNowPlayingMovies(@Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region, @Query("page") int page);
 
     @GET("discover/movie")
     Call<MovieResponse> getMovie(@Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region, @Query("sort_by") String sortBy,

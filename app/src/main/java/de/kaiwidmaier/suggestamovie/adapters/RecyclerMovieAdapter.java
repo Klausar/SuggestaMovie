@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.activities.MainActivity;
 import de.kaiwidmaier.suggestamovie.activities.MovieActivity;
 import de.kaiwidmaier.suggestamovie.activities.ResultActivity;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
@@ -75,7 +76,6 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     final Movie movie = movies.get(position);
       String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
-      //Log.d(TAG, "Poster URL " + movie.getTitle() + ": " + posterUrl);
       Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
       holder.textTitle.setText(movie.getTitle());
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
