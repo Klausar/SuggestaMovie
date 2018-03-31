@@ -38,6 +38,7 @@ public class NowPlayingFragment extends Fragment {
   private RecyclerView recycler;
   private RecyclerThumbnailAdapter movieAdapter;
   private Retrofit retrofit;
+  Snackbar connectionFailedSnackbar;
   private int page;
 
   @Override
@@ -88,7 +89,7 @@ public class NowPlayingFragment extends Fragment {
       @Override
       public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
         List<Movie> movies = response.body().getResults();
-        if(movies == null || movies.size() == 0){
+        if(!NowPlayingFragment.this.isVisible() || movies == null || movies.size() == 0){
           return;
         }
         if(movieAdapter == null){
@@ -114,17 +115,28 @@ public class NowPlayingFragment extends Fragment {
 
       @Override
       public void onFailure(Call<MovieResponse> call, Throwable throwable) {
+        if(!NowPlayingFragment.this.isVisible()){
+          return;
+        }
         Log.e(TAG, throwable.toString());
-        Snackbar snackbar = Snackbar.make(recycler, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
+        connectionFailedSnackbar = Snackbar.make(recycler, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
               connectAndGetApiData(page);
             }
           });
-        snackbar.show();
+        connectionFailedSnackbar.show();
       }
     });
   }
 
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    Log.d(TAG, "Fragment Destroied");
+    if(connectionFailedSnackbar != null && connectionFailedSnackbar.isShown()){
+      connectionFailedSnackbar.dismiss();
+    }
+  }
 }

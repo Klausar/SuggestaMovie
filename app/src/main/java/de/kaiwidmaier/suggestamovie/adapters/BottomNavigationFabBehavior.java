@@ -17,8 +17,8 @@ public class BottomNavigationFabBehavior extends BottomBehavior {
     super(context, attributeSet);
   }
 
-  @Override
+  /*@Override
   protected boolean isFloatingActionButton(final View dependency) {
     return super.isFloatingActionButton(dependency) || dependency instanceof FloatingActionMenu;
-  }
+  }*/
 }
