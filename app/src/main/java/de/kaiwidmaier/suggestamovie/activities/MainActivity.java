@@ -1,12 +1,18 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 
@@ -16,45 +22,54 @@ import com.github.clans.fab.FloatingActionMenu;
 import java.util.ArrayList;
 
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.activities.fragments.NowPlayingFragment;
+import de.kaiwidmaier.suggestamovie.activities.fragments.WatchlistFragment;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerMovieAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.utils.SimpleItemTouchHelperCallback;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
+import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 
 public class MainActivity extends AppCompatActivity {
 
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
-  private RecyclerView recyclerWatchlist;
+
+  private FrameLayout frameLayout;
   private FloatingActionButton fabSearch;
   private FloatingActionButton fabFilter;
   private FloatingActionMenu fabMenu;
-  private RecyclerMovieAdapter movieAdapter;
-  private ArrayList<Movie> watchlist;
-  private LinearLayout layoutWatchlistEmpty;
+  private BottomNavigation bottomNavigation;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    layoutWatchlistEmpty = findViewById(R.id.layout_watchlist_empty);
-    recyclerWatchlist = findViewById(R.id.recycler_watchlist);
-    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerWatchlist.getContext(), DividerItemDecoration.VERTICAL);
-    recyclerWatchlist.addItemDecoration(dividerItemDecoration);
+    bottomNavigation = findViewById(R.id.bottom_navigation);
+    bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
+      @Override
+      public void onMenuItemSelect(int i, int i1) {
+        Log.d("i", "i = " + i);
+        Log.d("i1", "i1 = " + i1);
+        switch(i1){
+          case 0: //Watchlist
+            setFragment(new WatchlistFragment());
+            Log.d("Fragmentselection", "Switched to Watchlist");
+            break;
+          case 1: //Now Playing
+            setFragment(new NowPlayingFragment());
+            Log.d("Fragmentselection", "Switched to now playing");
+            break;
+        }
+      }
 
-    watchlist = ((DataHelper) this.getApplication()).getWatchlist();
+      @Override
+      public void onMenuItemReselect(int i, int i1) {
 
-    movieAdapter = new RecyclerMovieAdapter(MainActivity.this, watchlist, false);
-
-    recyclerWatchlist.setAdapter(movieAdapter);
-    checkEmpty();
-
-    //Swipe to remove and long press to change position
-    ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(movieAdapter);
-    ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-    touchHelper.attachToRecyclerView(recyclerWatchlist);
-
+      }
+    });
     fabMenu = findViewById(R.id.fab_menu);
     fabFilter = findViewById(R.id.fab_item_filter);
     fabFilter.setOnClickListener(new View.OnClickListener() {
@@ -72,24 +87,22 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
       }
     });
-  }
 
-  private void checkEmpty(){
-    if(watchlist.isEmpty()){
-      layoutWatchlistEmpty.setVisibility(View.VISIBLE);
-    }
-    else{
-      layoutWatchlistEmpty.setVisibility(View.GONE);
-    }
+    frameLayout = findViewById(R.id.frame_main);
+    setFragment(new WatchlistFragment());
   }
 
   @Override
   protected void onResume() {
-    if (movieAdapter != null) {
-      movieAdapter.notifyDataSetChanged();
-    }
     super.onResume();
     fabMenu.close(false);
-    checkEmpty();
+  }
+
+  public void setFragment(Fragment fragment){
+    FragmentManager fragMan = getFragmentManager();
+    FragmentTransaction fragTransaction = fragMan.beginTransaction();
+    fragTransaction.replace(frameLayout.getId(), fragment);
+    fragTransaction.addToBackStack(null);
+    fragTransaction.commit();
   }
 }

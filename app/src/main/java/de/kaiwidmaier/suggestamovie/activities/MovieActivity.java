@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,6 +23,7 @@ import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Genre;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
+import de.kaiwidmaier.suggestamovie.rest.ResultType;
 
 public class MovieActivity extends AppCompatActivity {
 
@@ -33,6 +36,7 @@ public class MovieActivity extends AppCompatActivity {
   private LikeButton btnFavorite;
   private ArrayList<Movie> watchlist;
   private RecyclerView recyclerGenreChips;
+  private Button btnFindSimilar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,18 @@ public class MovieActivity extends AppCompatActivity {
     recyclerGenreChips = findViewById(R.id.recycler_genre_chips);
     recyclerGenreChips.setAdapter(new RecyclerGenreChipAdapter(this, movieGenres));
     watchlist = ((DataHelper) this.getApplicationContext()).getWatchlist();
+    btnFindSimilar = findViewById(R.id.btn_find_similar);
+    btnFindSimilar.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent similarIntent = new Intent(MovieActivity.this, ResultActivity.class);
+        similarIntent.putExtra("movieId", movie.getId());
+        similarIntent.putExtra("resultTitle", getString(R.string.similar));
+        similarIntent.putExtra("resultDescr", String.format(getString(R.string.similar_descr), movie.getTitle()));
+        similarIntent.putExtra("resultType", ResultType.SIMILAR);
+        startActivity(similarIntent);
+      }
+    });
 
     fillData();
   }

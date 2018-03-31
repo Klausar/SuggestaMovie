@@ -9,48 +9,10 @@
   android:layout_height="match_parent"
   tools:context="de.kaiwidmaier.suggestamovie.activities.MainActivity">
 
-  <LinearLayout
+  <FrameLayout
+    android:id="@+id/frame_main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:orientation="vertical">
-
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/watchlist"
-      android:textSize="20sp"
-      android:textStyle="bold"/>
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/watchlist_descr"/>
-
-
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/recycler_watchlist"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:orientation="vertical"
-      app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-
-  </LinearLayout>
-
-  <include layout="@layout/watchlist_empty"/>
-
-  <!--android.support.design.widget.FloatingActionButton
-    android:id="@+id/btn_filter"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|end"
-    android:layout_marginBottom="24dp"
-    android:layout_marginEnd="24dp"
-    android:drawablePadding="8dp"
-    android:src="@drawable/ic_movie_white_48dp"
-    android:textColor="@color/colorWhite"
-    app:backgroundTint="@color/colorPrimary"
-    app:fabSize="normal"/-->
+    android:layout_height="match_parent"/>
 
   <com.github.clans.fab.FloatingActionMenu
     android:id="@+id/fab_menu"
@@ -70,24 +32,33 @@
     fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
     fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right">
 
-    <com.github.clans.fab.FloatingActionButton
-      android:id="@+id/fab_item_search"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ic_search_white_24dp"
-      fab:fab_size="mini"
-      fab:fab_label="@string/fab_search_by_name" />
+  <com.github.clans.fab.FloatingActionButton
+    android:id="@+id/fab_item_search"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_search_white_24dp"
+    fab:fab_size="mini"
+    fab:fab_label="@string/fab_search_by_name" />
 
-    <com.github.clans.fab.FloatingActionButton
-      android:id="@+id/fab_item_filter"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ic_movie_filter_white_24dp"
-      fab:fab_size="mini"
-      fab:fab_label="@string/fab_search_by_filter" />
+  <com.github.clans.fab.FloatingActionButton
+    android:id="@+id/fab_item_filter"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_movie_filter_white_24dp"
+    fab:fab_size="mini"
+    fab:fab_label="@string/fab_search_by_filter" />
 
   </com.github.clans.fab.FloatingActionMenu>
 
+  <it.sephiroth.android.library.bottomnavigation.BottomNavigation
+    android:id="@+id/bottom_navigation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    app:bbn_entries="@menu/bottombar_navigation"
+    app:bbn_scrollEnabled="true"
+    app:bbn_badgeProvider="@string/bbn_badgeProvider"
+    app:layout_behavior="de.kaiwidmaier.suggestamovie.adapters.BottomNavigationFabBehavior"
+    />
+
 </android.support.design.widget.CoordinatorLayout>
-
-
