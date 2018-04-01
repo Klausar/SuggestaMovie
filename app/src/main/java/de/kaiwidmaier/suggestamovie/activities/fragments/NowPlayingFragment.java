@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.List;
 import java.util.Locale;
@@ -38,7 +39,8 @@ public class NowPlayingFragment extends Fragment {
   private RecyclerView recycler;
   private RecyclerThumbnailAdapter movieAdapter;
   private Retrofit retrofit;
-  Snackbar connectionFailedSnackbar;
+  private Snackbar connectionFailedSnackbar;
+  private ProgressBar progressBar;
   private int page;
 
   @Override
@@ -47,6 +49,7 @@ public class NowPlayingFragment extends Fragment {
     View result = inflater.inflate(R.layout.fragment_now_playing, container, false);
 
     page = 1;
+    progressBar = result.findViewById(R.id.progress);
     recycler = result.findViewById(R.id.recycler_now_playing);
     recycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
     recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -92,6 +95,7 @@ public class NowPlayingFragment extends Fragment {
         if(!NowPlayingFragment.this.isVisible() || movies == null || movies.size() == 0){
           return;
         }
+        progressBar.setVisibility(View.GONE);
         if(movieAdapter == null){
           movieAdapter = new RecyclerThumbnailAdapter(getActivity(), movies);
           recycler.setAdapter(movieAdapter);
@@ -118,6 +122,7 @@ public class NowPlayingFragment extends Fragment {
         if(!NowPlayingFragment.this.isVisible()){
           return;
         }
+        progressBar.setVisibility(View.GONE);
         Log.e(TAG, throwable.toString());
         connectionFailedSnackbar = Snackbar.make(recycler, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {

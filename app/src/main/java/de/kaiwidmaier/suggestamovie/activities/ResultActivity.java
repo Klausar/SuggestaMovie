@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class ResultActivity extends AppCompatActivity {
   private Intent intent;
   private ResultType resultType;
   private int page;
+  private ProgressBar progressBar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class ResultActivity extends AppCompatActivity {
 
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    progressBar = findViewById(R.id.progress);
     intent = getIntent();
     resultType = (ResultType) intent.getSerializableExtra("resultType");
     page = 1;
@@ -129,6 +132,7 @@ public class ResultActivity extends AppCompatActivity {
       @Override
       public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
         List<Movie> movies = response.body().getResults();
+        progressBar.setVisibility(View.GONE);
         if(movies == null || movies.size() == 0){
           checkEmpty();
           return;
@@ -157,6 +161,7 @@ public class ResultActivity extends AppCompatActivity {
       @Override
       public void onFailure(Call<MovieResponse> call, Throwable throwable) {
         Log.e(TAG, throwable.toString());
+        progressBar.setVisibility(View.GONE);
         Snackbar snackbar = Snackbar.make(recyclerResults, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
