@@ -68,6 +68,7 @@
 
   <string name="recommendations">Recommendations</string>
   <string name="recommendations_descr">Based on the movie \'%s\'</string>
+  <string name="recommendations_descr_alt">Recommendations based on your watchlist</string>
 
   <string name="now_playing_descr">These movies are in the movie theaters right now</string>
 </resources>

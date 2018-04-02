@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ public class RecommendationsFragment extends Fragment {
   private Retrofit retrofit;
   private Snackbar connectionFailedSnackbar;
   private ProgressBar progressBar;
-  private int movieId;
+  private LinearLayout watchlistEmpty;
   private ArrayList<Movie> watchlist;
 
   @Override
@@ -53,15 +54,24 @@ public class RecommendationsFragment extends Fragment {
 
     TextView title = result.findViewById(R.id.text_recommend);
     TextView descr = result.findViewById(R.id.text_recommend_descr);
+    progressBar = result.findViewById(R.id.progress);
+    recycler = result.findViewById(R.id.recycler_recommend);
+    watchlistEmpty = result.findViewById(R.id.watchlist_empty);
 
     watchlist = ((DataHelper) getActivity().getApplication()).getWatchlist();
+
+    //Don't load recommendations if watchlist is empty
+    if(watchlist == null || watchlist.size() == 0){
+      watchlistEmpty.setVisibility(View.VISIBLE);
+      progressBar.setVisibility(View.GONE);
+      return result;
+    }
+
     Movie randomMovie = getRandomMovie();
-    movieId = randomMovie.getId();
+    int movieId = randomMovie.getId();
     title.setText(getString(R.string.recommendations));
     descr.setText(String.format(getString(R.string.recommendations_descr), randomMovie.getTitle()));
 
-    progressBar = result.findViewById(R.id.progress);
-    recycler = result.findViewById(R.id.recycler_recommend);
     recycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
     connectAndGetApiData(movieId);
     return result;

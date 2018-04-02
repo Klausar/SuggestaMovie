@@ -15,14 +15,14 @@
       android:id="@+id/text_recommend"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/now_playing"
+      android:text="@string/recommendations"
       android:textSize="20sp"
       android:textStyle="bold"/>
     <TextView
       android:id="@+id/text_recommend_descr"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/now_playing_descr"/>
+      android:text="@string/recommendations_descr_alt"/>
 
 
     <android.support.v7.widget.RecyclerView
@@ -43,5 +43,10 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     android:indeterminateDrawable="@drawable/progressbar"/>
+
+  <include
+    layout="@layout/watchlist_empty"
+    android:id="@+id/watchlist_empty"
+    android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>
