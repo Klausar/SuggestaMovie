@@ -43,24 +43,24 @@ public class DataHelper extends Application{
   }
 
   private void setupGenres(){
-    genres.add(new Genre(getString(R.string.genre_action), 28));
-    genres.add(new Genre(getString(R.string.genre_adventure), 12));
-    genres.add(new Genre(getString(R.string.genre_animation), 16));
-    genres.add(new Genre(getString(R.string.genre_comedy), 35));
-    genres.add(new Genre(getString(R.string.genre_crime), 80));
-    genres.add(new Genre(getString(R.string.genre_documentary), 99));
-    genres.add(new Genre(getString(R.string.genre_drama), 18));
-    genres.add(new Genre(getString(R.string.genre_family), 10751));
-    genres.add(new Genre(getString(R.string.genre_fantasy), 14));
-    genres.add(new Genre(getString(R.string.genre_history), 36));
-    genres.add(new Genre(getString(R.string.genre_horror), 27));
-    genres.add(new Genre(getString(R.string.genre_music), 10402));
-    genres.add(new Genre(getString(R.string.genre_mystery), 9648));
-    genres.add(new Genre(getString(R.string.genre_romance), 10749));
-    genres.add(new Genre(getString(R.string.genre_scifi), 878));
-    genres.add(new Genre(getString(R.string.genre_thriller), 53));
-    genres.add(new Genre(getString(R.string.genre_war), 10752));
-    genres.add(new Genre(getString(R.string.genre_western), 37));
+    genres.add(new Genre(getString(R.string.genre_action), 28, R.drawable.ic_genre_action));
+    genres.add(new Genre(getString(R.string.genre_adventure), 12, R.drawable.ic_genre_adventure));
+    genres.add(new Genre(getString(R.string.genre_animation), 16, R.drawable.ic_genre_animation));
+    genres.add(new Genre(getString(R.string.genre_comedy), 35, R.drawable.ic_genre_comedy));
+    genres.add(new Genre(getString(R.string.genre_crime), 80, R.drawable.ic_genre_crime));
+    genres.add(new Genre(getString(R.string.genre_documentary), 99, R.drawable.ic_genre_documentary));
+    genres.add(new Genre(getString(R.string.genre_drama), 18, R.drawable.ic_genre_drama));
+    genres.add(new Genre(getString(R.string.genre_family), 10751, R.drawable.ic_genre_family));
+    genres.add(new Genre(getString(R.string.genre_fantasy), 14, R.drawable.ic_genre_fantasy));
+    genres.add(new Genre(getString(R.string.genre_history), 36, R.drawable.ic_genre_history));
+    genres.add(new Genre(getString(R.string.genre_horror), 27, R.drawable.ic_genre_horror));
+    genres.add(new Genre(getString(R.string.genre_music), 10402, R.drawable.ic_genre_music));
+    genres.add(new Genre(getString(R.string.genre_mystery), 9648, R.drawable.ic_genre_mystery));
+    genres.add(new Genre(getString(R.string.genre_romance), 10749, R.drawable.ic_genre_romance));
+    genres.add(new Genre(getString(R.string.genre_scifi), 878, R.drawable.ic_genre_scifi));
+    genres.add(new Genre(getString(R.string.genre_thriller), 53, R.drawable.ic_genre_thriller));
+    genres.add(new Genre(getString(R.string.genre_war), 10752, R.drawable.ic_genre_war));
+    genres.add(new Genre(getString(R.string.genre_western), 37, R.drawable.ic_genre_western));
   }
 
   @Override

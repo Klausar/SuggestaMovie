@@ -1,133 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.design.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:focusableInTouchMode="true"
-  android:background="@color/colorBlack">
+  android:background="@color/colorBlack"
+  android:focusableInTouchMode="true">
 
-<android.support.v4.widget.NestedScrollView
-  android:fillViewport="true"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-
-<LinearLayout
-android:id="@+id/layout_range"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-android:padding="32dp">
-
-<TextView
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:layout_gravity="bottom"
-  android:layout_marginEnd="16dp"
-  android:drawablePadding="4dp"
-  android:drawableStart="@drawable/ic_date_range_white_24dp"
-  android:text="@string/release_year"
-  android:textColor="@color/colorWhite"
-  android:textStyle="bold"/>
-
-<com.appyvet.materialrangebar.RangeBar
-  android:id="@+id/rangebar_release"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginTop="16dp"
-  app:mrb_connectingLineColor="@color/colorPrimary"
-  app:mrb_pinColor="@color/colorPrimaryDark"
-  app:mrb_pinMaxFont="12sp"
-  app:mrb_pinMinFont="12sp"
-  app:mrb_pinRadius="16dp"
-  app:mrb_pinTextColor="@color/colorWhite"
-  app:mrb_rangeBarColor="@color/colorPrimary"
-  app:mrb_selectorBoundaryColor="@color/colorWhite"
-  app:mrb_selectorBoundarySize="2dp"
-  app:mrb_selectorColor="@color/colorWhite"
-  app:mrb_selectorSize="10dp"
-  app:mrb_temporaryPins="false"
-  app:mrb_tickColor="@color/colorPrimary"
-  app:mrb_tickEnd="2018"
-  app:mrb_tickInterval="1"
-  app:mrb_tickStart="1930"/>
-
-<View
-  android:layout_width="fill_parent"
-  android:layout_height="1px"
-  android:layout_marginBottom="16dp"
-  android:layout_marginTop="16dp"
-  android:background="@color/colorWhite"/>
-
-<TextView
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:layout_gravity="bottom"
-  android:layout_marginEnd="16dp"
-  android:drawablePadding="4dp"
-  android:drawableStart="@drawable/ic_star_white_24dp"
-  android:text="@string/rating"
-  android:textColor="@color/colorWhite"
-  android:textStyle="bold"/>
-
-<com.appyvet.materialrangebar.RangeBar
-  android:id="@+id/rangebar_rating"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginTop="16dp"
-  app:mrb_connectingLineColor="@color/colorPrimary"
-  app:mrb_pinColor="@color/colorPrimaryDark"
-  app:mrb_pinMaxFont="12sp"
-  app:mrb_pinMinFont="12sp"
-  app:mrb_pinRadius="16dp"
-  app:mrb_pinTextColor="@color/colorWhite"
-  app:mrb_rangeBarColor="@color/colorPrimary"
-  app:mrb_selectorBoundaryColor="@color/colorWhite"
-  app:mrb_selectorBoundarySize="2dp"
-  app:mrb_selectorColor="@color/colorWhite"
-  app:mrb_selectorSize="10dp"
-  app:mrb_temporaryPins="false"
-  app:mrb_tickColor="@color/colorPrimary"
-  app:mrb_tickEnd="10"
-  app:mrb_tickInterval="1"
-  app:mrb_tickStart="0"/>
-
-  <View
-    android:layout_width="fill_parent"
-    android:layout_height="1px"
-    android:layout_marginBottom="16dp"
-    android:layout_marginTop="16dp"
-    android:background="@color/colorWhite"/>
-
-  <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:drawablePadding="4dp"
-    android:drawableStart="@drawable/ic_movie_filter_white_24dp"
-    android:text="@string/genres"
-    android:textColor="@color/colorWhite"
-    android:textStyle="bold"/>
-
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/recycler_genres"
+  <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="48dp"
-    android:layout_marginTop="8dp"/>
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-</LinearLayout>
+    <LinearLayout
+      android:id="@+id/layout_range"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:padding="32dp">
 
-</android.support.v4.widget.NestedScrollView>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="16dp"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/ic_date_range_white_24dp"
+        android:text="@string/release_year"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"/>
+
+      <com.appyvet.materialrangebar.RangeBar
+        android:id="@+id/rangebar_release"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:mrb_connectingLineColor="@color/colorPrimary"
+        app:mrb_pinColor="@color/colorPrimaryDark"
+        app:mrb_pinMaxFont="12sp"
+        app:mrb_pinMinFont="12sp"
+        app:mrb_pinRadius="16dp"
+        app:mrb_pinTextColor="@color/colorWhite"
+        app:mrb_rangeBarColor="@color/colorPrimary"
+        app:mrb_selectorBoundaryColor="@color/colorWhite"
+        app:mrb_selectorBoundarySize="2dp"
+        app:mrb_selectorColor="@color/colorWhite"
+        app:mrb_selectorSize="10dp"
+        app:mrb_temporaryPins="false"
+        app:mrb_tickColor="@color/colorPrimary"
+        app:mrb_tickEnd="2018"
+        app:mrb_tickInterval="1"
+        app:mrb_tickStart="1930"/>
+
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorWhite"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="16dp"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/ic_star_white_24dp"
+        android:text="@string/rating"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"/>
+
+      <com.appyvet.materialrangebar.RangeBar
+        android:id="@+id/rangebar_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:mrb_connectingLineColor="@color/colorPrimary"
+        app:mrb_pinColor="@color/colorPrimaryDark"
+        app:mrb_pinMaxFont="12sp"
+        app:mrb_pinMinFont="12sp"
+        app:mrb_pinRadius="16dp"
+        app:mrb_pinTextColor="@color/colorWhite"
+        app:mrb_rangeBarColor="@color/colorPrimary"
+        app:mrb_selectorBoundaryColor="@color/colorWhite"
+        app:mrb_selectorBoundarySize="2dp"
+        app:mrb_selectorColor="@color/colorWhite"
+        app:mrb_selectorSize="10dp"
+        app:mrb_temporaryPins="false"
+        app:mrb_tickColor="@color/colorPrimary"
+        app:mrb_tickEnd="10"
+        app:mrb_tickInterval="1"
+        app:mrb_tickStart="0"/>
+
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorWhite"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/ic_movie_filter_white_24dp"
+        android:text="@string/genres"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"/>
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_genres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+  </android.support.v4.widget.NestedScrollView>
 
   <android.support.design.widget.FloatingActionButton
     android:id="@+id/fab_search"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:backgroundTint="@color/colorPrimary"
-    android:src="@drawable/ic_search_white_48dp"
     android:layout_gravity="bottom|end"
-    app:fabSize="normal"
-    android:layout_margin="16dp"/>
+    android:layout_margin="16dp"
+    android:src="@drawable/ic_search_white_48dp"
+    app:backgroundTint="@color/colorPrimary"
+    app:fabSize="normal"/>
 
 </android.support.design.widget.CoordinatorLayout>

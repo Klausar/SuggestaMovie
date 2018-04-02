@@ -15,10 +15,10 @@
     android:id="@+id/bbn_item2"
     android:color="@color/colorRed"
     android:icon="@drawable/ic_whatshot_white_24dp"
-    android:title="Now Playing" />
+    android:title="@string/now_playing" />
   <item
     android:id="@+id/bbn_item3"
-    android:color="@color/colorPrimaryDark"
-    android:icon="@drawable/ic_movie_white_24dp"
-    android:title="Other" />
+    android:color="#A4C639"
+    android:icon="@drawable/ic_thumb_up_white_24dp"
+    android:title="@string/recommendations" />
 </menu>

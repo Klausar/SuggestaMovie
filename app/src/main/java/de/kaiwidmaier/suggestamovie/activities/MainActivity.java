@@ -37,6 +37,7 @@ import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.activities.fragments.NowPlayingFragment;
+import de.kaiwidmaier.suggestamovie.activities.fragments.RecommendationsFragment;
 import de.kaiwidmaier.suggestamovie.activities.fragments.WatchlistFragment;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerMovieAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.utils.SimpleItemTouchHelperCallback;
@@ -75,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
             break;
           case 1: //Now Playing
             setFragment(new NowPlayingFragment());
+            Log.d("Fragmentselection", "Switched to now playing");
+            break;
+          case 2: //Recommendations
+            setFragment(new RecommendationsFragment());
             Log.d("Fragmentselection", "Switched to now playing");
             break;
         }

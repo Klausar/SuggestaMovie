@@ -24,6 +24,7 @@ import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
+import de.kaiwidmaier.suggestamovie.utils.LocalizationUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -113,16 +114,16 @@ public class ResultActivity extends AppCompatActivity {
     Call<MovieResponse> call = null;
 
     if(resultType == ResultType.FILTER){
-      call = movieApiService.getMovie(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(),
+      call = movieApiService.getMovie(API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry(),
         null, false, intent.getStringExtra("releaseDateMin"), intent.getStringExtra("releaseDateMax"),
         intent.getIntExtra("ratingMin", 0), intent.getIntExtra("ratingMax", 10),
         intent.getStringExtra("includedGenres"), intent.getStringExtra("excludedGenres"), page);
     }
     else if(resultType == ResultType.SIMILAR){
-      call = movieApiService.getSimilarMovies(intent.getIntExtra("movieId", 0), API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(), page);
+      call = movieApiService.getSimilarMovies(intent.getIntExtra("movieId", 0), API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry(), page);
     }
     else if(resultType == ResultType.SEARCH){
-      call = movieApiService.getMoviesByName(API_KEY, Locale.getDefault().getLanguage(), Locale.getDefault().getCountry(), intent.getStringExtra("searchString"), page);
+      call = movieApiService.getMoviesByName(API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry(), intent.getStringExtra("searchString"), page);
     }
 
     Log.d(TAG, "Current language: " + Locale.getDefault().toString());

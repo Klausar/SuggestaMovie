@@ -12,18 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Random;
 
 import de.kaiwidmaier.suggestamovie.R;
-import de.kaiwidmaier.suggestamovie.activities.ResultActivity;
-import de.kaiwidmaier.suggestamovie.adapters.RecyclerMovieAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerThumbnailAdapter;
+import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
-import de.kaiwidmaier.suggestamovie.rest.ResultType;
 import de.kaiwidmaier.suggestamovie.utils.LocalizationUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +34,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
-public class NowPlayingFragment extends Fragment {
+public class RecommendationsFragment extends Fragment {
+
 
   private static final String TAG = NowPlayingFragment.class.getSimpleName();
   private RecyclerView recycler;
@@ -42,44 +43,31 @@ public class NowPlayingFragment extends Fragment {
   private Retrofit retrofit;
   private Snackbar connectionFailedSnackbar;
   private ProgressBar progressBar;
-  private int page;
+  private int movieId;
+  private ArrayList<Movie> watchlist;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    View result = inflater.inflate(R.layout.fragment_now_playing, container, false);
+    View result = inflater.inflate(R.layout.fragment_recommendations, container, false);
 
-    page = 1;
+    TextView title = result.findViewById(R.id.text_recommend);
+    TextView descr = result.findViewById(R.id.text_recommend_descr);
+
+    watchlist = ((DataHelper) getActivity().getApplication()).getWatchlist();
+    Movie randomMovie = getRandomMovie();
+    movieId = randomMovie.getId();
+    title.setText(getString(R.string.recommendations));
+    descr.setText(String.format(getString(R.string.recommendations_descr), randomMovie.getTitle()));
+
     progressBar = result.findViewById(R.id.progress);
-    recycler = result.findViewById(R.id.recycler_now_playing);
+    recycler = result.findViewById(R.id.recycler_recommend);
     recycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-    recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-      private int visibleThreshold = 5;
-      int firstVisibleItem;
-      int visibleItemCount;
-      int totalItemCount;
-
-      @Override
-      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        super.onScrolled(recyclerView, dx, dy);
-
-        visibleItemCount = recycler.getChildCount();
-        totalItemCount = recycler.getLayoutManager().getItemCount();
-        firstVisibleItem = ((LinearLayoutManager) recycler.getLayoutManager()).findFirstVisibleItemPosition();
-
-        if (!movieAdapter.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-          //End has been reached, load more
-          connectAndGetApiData(page);
-          movieAdapter.setLoading(true);
-        }
-      }
-    });
-    connectAndGetApiData(page);
+    connectAndGetApiData(movieId);
     return result;
   }
 
-  public void connectAndGetApiData(final int page) {
+  public void connectAndGetApiData(final int movieId) {
 
     if (retrofit == null) {
       retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -87,13 +75,13 @@ public class NowPlayingFragment extends Fragment {
 
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
 
-    Call<MovieResponse> call = movieApiService.getNowPlayingMovies(API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry(), page);
+    Call<MovieResponse> call = movieApiService.getRecommendedMovies(movieId, API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry());
 
     call.enqueue(new Callback<MovieResponse>() {
       @Override
       public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
         List<Movie> movies = response.body().getResults();
-        if(!NowPlayingFragment.this.isVisible() || movies == null || movies.size() == 0){
+        if(!RecommendationsFragment.this.isVisible() || movies == null || movies.size() == 0){
           return;
         }
         progressBar.setVisibility(View.GONE);
@@ -111,7 +99,6 @@ public class NowPlayingFragment extends Fragment {
           }
           recycler.getLayoutManager().onRestoreInstanceState(recyclerViewState); //Restores scroll position after notifyDataSetChanged()
         }
-        NowPlayingFragment.this.page++;
         movieAdapter.setLoading(false);
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Current Page: " + response.body().getPage());
@@ -120,7 +107,7 @@ public class NowPlayingFragment extends Fragment {
 
       @Override
       public void onFailure(Call<MovieResponse> call, Throwable throwable) {
-        if(!NowPlayingFragment.this.isVisible()){
+        if(!RecommendationsFragment.this.isVisible()){
           return;
         }
         progressBar.setVisibility(View.GONE);
@@ -129,7 +116,7 @@ public class NowPlayingFragment extends Fragment {
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              connectAndGetApiData(page);
+              connectAndGetApiData(movieId);
             }
           });
         connectionFailedSnackbar.show();
@@ -145,4 +132,12 @@ public class NowPlayingFragment extends Fragment {
       connectionFailedSnackbar.dismiss();
     }
   }
+
+  public Movie getRandomMovie()
+  {
+    Random random = new Random();
+    int index = random.nextInt(watchlist.size());
+    return watchlist.get(index);
+  }
+
 }
