@@ -2,6 +2,8 @@
 
 Suggest a Movie is an Android app that helps you to find a movie to watch. It uses the [TheMovieDB API](https://www.themoviedb.org/documentation/api) to find movies by release date, actors, genre and many other things. [Retrofit](https://square.github.io/retrofit/) is used as a ReST Client.
 
+This product uses the TMDb API but is not endorsed or certified by TMDb
+
 ## Planned Features:
 - Get suggestions based on values specified by the user
 - Let user add movies to a watchlist that's displayed in MainActivity
