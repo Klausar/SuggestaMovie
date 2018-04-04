@@ -130,6 +130,7 @@ public class NowPlayingFragment extends Fragment {
             @Override
             public void onClick(View view) {
               connectAndGetApiData(page);
+              progressBar.setVisibility(View.VISIBLE);
             }
           });
         connectionFailedSnackbar.show();

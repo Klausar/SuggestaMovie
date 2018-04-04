@@ -127,6 +127,7 @@ public class RecommendationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
               connectAndGetApiData(movieId);
+              progressBar.setVisibility(View.VISIBLE);
             }
           });
         connectionFailedSnackbar.show();
