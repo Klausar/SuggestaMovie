@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +20,7 @@ import java.util.Random;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerThumbnailAdapter;
+import de.kaiwidmaier.suggestamovie.adapters.utils.AdapterUtils;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
@@ -44,7 +44,6 @@ public class RecommendationsFragment extends Fragment {
   private Retrofit retrofit;
   private Snackbar connectionFailedSnackbar;
   private ProgressBar progressBar;
-  private LinearLayout watchlistEmpty;
   private ArrayList<Movie> watchlist;
 
   @Override
@@ -56,7 +55,7 @@ public class RecommendationsFragment extends Fragment {
     TextView descr = result.findViewById(R.id.text_recommend_descr);
     progressBar = result.findViewById(R.id.progress);
     recycler = result.findViewById(R.id.recycler_recommend);
-    watchlistEmpty = result.findViewById(R.id.watchlist_empty);
+    LinearLayout watchlistEmpty = result.findViewById(R.id.watchlist_empty);
 
     watchlist = ((DataHelper) getActivity().getApplication()).getWatchlist();
 
@@ -72,7 +71,7 @@ public class RecommendationsFragment extends Fragment {
     title.setText(getString(R.string.recommendations));
     descr.setText(String.format(getString(R.string.recommendations_descr), randomMovie.getTitle()));
 
-    recycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+    recycler.setLayoutManager(new GridLayoutManager(getActivity(), AdapterUtils.calculateNumberOfColumns(getActivity())));
     connectAndGetApiData(movieId);
     return result;
   }

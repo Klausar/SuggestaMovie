@@ -129,6 +129,7 @@ public class ResultActivity extends AppCompatActivity {
     Log.d(TAG, "Current language: " + Locale.getDefault().toString());
     Log.d(TAG, "Current region: " + Locale.getDefault().getCountry());
 
+    assert call != null;
     call.enqueue(new Callback<MovieResponse>() {
       @Override
       public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {

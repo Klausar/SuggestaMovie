@@ -14,16 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import java.util.List;
-import java.util.Locale;
 
 import de.kaiwidmaier.suggestamovie.R;
-import de.kaiwidmaier.suggestamovie.activities.ResultActivity;
-import de.kaiwidmaier.suggestamovie.adapters.RecyclerMovieAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerThumbnailAdapter;
+import de.kaiwidmaier.suggestamovie.adapters.utils.AdapterUtils;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
-import de.kaiwidmaier.suggestamovie.rest.ResultType;
 import de.kaiwidmaier.suggestamovie.utils.LocalizationUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,7 +49,7 @@ public class NowPlayingFragment extends Fragment {
     page = 1;
     progressBar = result.findViewById(R.id.progress);
     recycler = result.findViewById(R.id.recycler_now_playing);
-    recycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+    recycler.setLayoutManager(new GridLayoutManager(getActivity(), AdapterUtils.calculateNumberOfColumns(getActivity())));
     recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
       private int visibleThreshold = 5;

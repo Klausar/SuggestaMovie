@@ -27,8 +27,6 @@ import de.kaiwidmaier.suggestamovie.data.Movie;
 
 public class WatchlistFragment extends Fragment {
 
-  public static final String BASE_URL = "http://api.themoviedb.org/3/";
-  private RecyclerView recyclerWatchlist;
   private RecyclerMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
   private LinearLayout layoutWatchlistEmpty;
@@ -40,7 +38,7 @@ public class WatchlistFragment extends Fragment {
 
 
     layoutWatchlistEmpty = result.findViewById(R.id.layout_watchlist_empty);
-    recyclerWatchlist = result.findViewById(R.id.recycler_watchlist);
+    RecyclerView recyclerWatchlist = result.findViewById(R.id.recycler_watchlist);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerWatchlist.getContext(), DividerItemDecoration.VERTICAL);
     recyclerWatchlist.addItemDecoration(dividerItemDecoration);
 

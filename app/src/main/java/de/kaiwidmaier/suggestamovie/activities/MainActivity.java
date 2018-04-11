@@ -7,46 +7,23 @@ import android.animation.ObjectAnimator;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.activities.fragments.NowPlayingFragment;
 import de.kaiwidmaier.suggestamovie.activities.fragments.RecommendationsFragment;
 import de.kaiwidmaier.suggestamovie.activities.fragments.WatchlistFragment;
-import de.kaiwidmaier.suggestamovie.adapters.RecyclerMovieAdapter;
-import de.kaiwidmaier.suggestamovie.adapters.utils.SimpleItemTouchHelperCallback;
-import de.kaiwidmaier.suggestamovie.data.Movie;
-import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
-
-import static android.util.Log.INFO;
-import static it.sephiroth.android.library.bottomnavigation.MiscUtils.log;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -54,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
 
   private FrameLayout frameLayout;
-  private FloatingActionButton fabSearch;
-  private FloatingActionButton fabFilter;
   private FloatingActionMenu fabMenu;
-  private BottomNavigation bottomNavigation;
 
 
   @Override
@@ -65,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    bottomNavigation = findViewById(R.id.bottom_navigation);
+    BottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
     bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
       @Override
       public void onMenuItemSelect(int i, int i1, boolean b) {
@@ -92,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     });
     fabMenu = findViewById(R.id.fab_menu);
     setFabMenuAnimation();
-    fabFilter = findViewById(R.id.fab_item_filter);
+    FloatingActionButton fabFilter = findViewById(R.id.fab_item_filter);
     fabFilter.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -100,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
       }
     });
-    fabSearch = findViewById(R.id.fab_item_search);
+    FloatingActionButton fabSearch = findViewById(R.id.fab_item_search);
     fabSearch.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -153,62 +127,5 @@ public class MainActivity extends AppCompatActivity {
     set.setInterpolator(new OvershootInterpolator(2));
 
     fabMenu.setIconToggleAnimatorSet(set);
-  }
-
-  public BottomNavigation getBottomNavigation() {
-    return bottomNavigation;
-  }
-
-  public static class FabBehavior extends CoordinatorLayout.Behavior<FloatingActionMenu> {
-    public FabBehavior() {
-      super();
-    }
-
-    public FabBehavior(Context context, AttributeSet attrs) {
-      super(context, attrs);
-    }
-
-
-    @Override
-    public boolean layoutDependsOn(final CoordinatorLayout parent, final FloatingActionMenu child, final View dependency) {
-      if (BottomNavigation.class.isInstance(dependency)) {
-        return true;
-      } else if (Snackbar.SnackbarLayout.class.isInstance(dependency)) {
-        return true;
-      }
-      return super.layoutDependsOn(parent, child, dependency);
-    }
-
-    @Override
-    public boolean onDependentViewChanged(
-      final CoordinatorLayout parent, final FloatingActionMenu child, final View dependency) {
-      log("BEHAVIOR", INFO, "onDependentViewChanged: " + dependency);
-
-      final List<View> list = parent.getDependencies(child);
-      int bottomMargin = ((ViewGroup.MarginLayoutParams) child.getLayoutParams()).bottomMargin;
-
-      float t = 0;
-      boolean result = false;
-
-      for (View dep : list) {
-        if (Snackbar.SnackbarLayout.class.isInstance(dep)) {
-          t += dep.getTranslationY() - dep.getHeight();
-          result = true;
-        } else if (BottomNavigation.class.isInstance(dep)) {
-          BottomNavigation navigation = (BottomNavigation) dep;
-          t += navigation.getTranslationY() - navigation.getHeight() + bottomMargin;
-          result = true;
-        }
-      }
-
-      child.setTranslationY(t);
-      return result;
-    }
-
-    @Override
-    public void onDependentViewRemoved(
-      final CoordinatorLayout parent, final FloatingActionMenu child, final View dependency) {
-      super.onDependentViewRemoved(parent, child, dependency);
-    }
   }
 }
