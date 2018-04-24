@@ -10,8 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ public class RecommendationsFragment extends Fragment {
   private Retrofit retrofit;
   private Snackbar connectionFailedSnackbar;
   private ProgressBar progressBar;
+  private Spinner spinner;
   private ArrayList<Movie> watchlist;
 
   @Override
@@ -56,28 +60,43 @@ public class RecommendationsFragment extends Fragment {
     progressBar = result.findViewById(R.id.progress);
     recycler = result.findViewById(R.id.recycler_recommend);
     LinearLayout watchlistEmpty = result.findViewById(R.id.watchlist_empty);
+    spinner = result.findViewById(R.id.spinner_movies);
 
     watchlist = ((DataHelper) getActivity().getApplication()).getWatchlist();
 
     //Don't load recommendations if watchlist is empty
     if(watchlist == null || watchlist.size() == 0){
       watchlistEmpty.setVisibility(View.VISIBLE);
+      spinner.setVisibility(View.GONE);
       progressBar.setVisibility(View.GONE);
       return result;
     }
 
-    Movie randomMovie = getRandomMovie();
-    int movieId = randomMovie.getId();
+    ArrayAdapter<Movie> adapter = new ArrayAdapter<Movie>(getActivity(), R.layout.support_simple_spinner_dropdown_item, watchlist);
+    adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+    spinner.setAdapter(adapter);
+    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        connectAndGetApiData(((Movie) spinner.getSelectedItem()).getId());
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent) {
+
+      }
+    });
+
     title.setText(getString(R.string.recommendations));
-    descr.setText(String.format(getString(R.string.recommendations_descr), randomMovie.getTitle()));
+    descr.setText(getString(R.string.recommendations_descr));
 
     recycler.setLayoutManager(new GridLayoutManager(getActivity(), AdapterUtils.calculateNumberOfColumns(getActivity())));
-    connectAndGetApiData(movieId);
+    connectAndGetApiData(getRandomMovie().getId());
     return result;
   }
 
   public void connectAndGetApiData(final int movieId) {
-
+    progressBar.setVisibility(View.VISIBLE);
     if (retrofit == null) {
       retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
     }
@@ -94,21 +113,8 @@ public class RecommendationsFragment extends Fragment {
           return;
         }
         progressBar.setVisibility(View.GONE);
-        if(movieAdapter == null){
-          movieAdapter = new RecyclerThumbnailAdapter(getActivity(), movies);
-          recycler.setAdapter(movieAdapter);
-        }
-        else{
-          Parcelable recyclerViewState;
-          recyclerViewState = recycler.getLayoutManager().onSaveInstanceState();
-
-          //Prevents duplicates with bad connection
-          if(!movieAdapter.containsAll(movies)){
-            movieAdapter.addAll(movies);
-          }
-          recycler.getLayoutManager().onRestoreInstanceState(recyclerViewState); //Restores scroll position after notifyDataSetChanged()
-        }
-        movieAdapter.setLoading(false);
+        movieAdapter = new RecyclerThumbnailAdapter(getActivity(), movies);
+        recycler.setAdapter(movieAdapter);
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Current Page: " + response.body().getPage());
         Log.d(TAG, "Number of movies received: " + movies.size());
@@ -147,6 +153,7 @@ public class RecommendationsFragment extends Fragment {
   {
     Random random = new Random();
     int index = random.nextInt(watchlist.size());
+    spinner.setSelection(index);
     return watchlist.get(index);
   }
 

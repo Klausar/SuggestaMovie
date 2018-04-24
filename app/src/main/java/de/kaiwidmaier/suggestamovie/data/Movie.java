@@ -275,6 +275,11 @@ public class Movie implements Parcelable, Serializable{
     return Objects.hash(title, id);
   }
 
+  @Override
+  public String toString() {
+    return title;
+  }
+
   @SuppressWarnings("unused")
   public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
     @Override
