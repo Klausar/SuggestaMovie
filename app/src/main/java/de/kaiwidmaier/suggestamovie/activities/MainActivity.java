@@ -10,6 +10,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -87,7 +88,11 @@ public class MainActivity extends AppCompatActivity {
     });
 
     frameLayout = findViewById(R.id.frame_main);
-    setFragment(new WatchlistFragment());
+
+    if(savedInstanceState == null){
+      setFragment(new WatchlistFragment());
+    }
+
   }
 
   @Override

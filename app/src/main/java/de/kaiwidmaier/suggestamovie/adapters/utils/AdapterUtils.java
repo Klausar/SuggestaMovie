@@ -8,7 +8,7 @@ public class AdapterUtils {
   public static int calculateNumberOfColumns(Context context){
     DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
     float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-    return (int) (dpWidth / 140);
+    return (int) (dpWidth / 156);
   }
 
 }

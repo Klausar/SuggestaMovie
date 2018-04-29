@@ -2,7 +2,6 @@ package de.kaiwidmaier.suggestamovie.activities.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -72,7 +71,7 @@ public class RecommendationsFragment extends Fragment {
       return result;
     }
 
-    ArrayAdapter<Movie> adapter = new ArrayAdapter<Movie>(getActivity(), R.layout.support_simple_spinner_dropdown_item, watchlist);
+    ArrayAdapter<Movie> adapter = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, watchlist);
     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
     spinner.setAdapter(adapter);
     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
