@@ -1,16 +1,12 @@
 package de.kaiwidmaier.suggestamovie.data;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,7 +29,7 @@ public class Movie implements Parcelable, Serializable{
   @SerializedName("release_date")
   private String releaseDate;
   @SerializedName("genre_ids")
-  private List<Integer> genreIds = new ArrayList<>();
+  private List<Integer> genreIds;
   @SerializedName("id")
   private Integer id;
   @SerializedName("original_title")
@@ -192,7 +188,7 @@ public class Movie implements Parcelable, Serializable{
     overview = in.readString();
     releaseDate = in.readString();
     if (in.readByte() == 0x01) {
-      genreIds = new ArrayList<Integer>();
+      genreIds = new ArrayList<>();
       in.readList(genreIds, Integer.class.getClassLoader());
     } else {
       genreIds = null;

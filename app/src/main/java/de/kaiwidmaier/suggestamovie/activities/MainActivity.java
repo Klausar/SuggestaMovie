@@ -8,15 +8,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 
 import com.github.clans.fab.FloatingActionButton;
@@ -35,14 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
   private FrameLayout frameLayout;
   private FloatingActionMenu fabMenu;
-  private BottomNavigation bottomNavigation;
-
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    bottomNavigation = findViewById(R.id.bottom_navigation);
+    BottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
     bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
       @Override
       public void onMenuItemSelect(int i, int i1, boolean b) {

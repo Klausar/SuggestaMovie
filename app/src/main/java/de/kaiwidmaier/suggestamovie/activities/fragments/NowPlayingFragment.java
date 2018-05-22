@@ -44,6 +44,7 @@ public class NowPlayingFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
     View result = inflater.inflate(R.layout.fragment_now_playing, container, false);
 
     page = 1;
