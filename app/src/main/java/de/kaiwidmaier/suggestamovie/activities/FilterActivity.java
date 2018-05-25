@@ -10,6 +10,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.appyvet.materialrangebar.RangeBar;
 
@@ -18,6 +20,7 @@ import java.util.Calendar;
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerGenreAdapter;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
+import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
 import retrofit2.Retrofit;
@@ -28,10 +31,10 @@ public class FilterActivity extends AppCompatActivity {
   private FloatingActionButton fabSearch;
   private RangeBar rangeBarRelease;
   private RangeBar rangeBarRating;
-  final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+  private final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
   private RecyclerView recyclerGenres;
   private RecyclerGenreAdapter genreAdapter;
-  private Retrofit retrofit;
+  private Spinner sortSpinner;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,11 @@ public class FilterActivity extends AppCompatActivity {
     setContentView(R.layout.activity_filter);
 
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    sortSpinner = findViewById(R.id.spinner_sort_by);
+    ArrayAdapter<ResultType.SortType> adapter = new ArrayAdapter<ResultType.SortType>(this, R.layout.spinner_item_sort, ResultType.SortType.getSortTypes(this));
+    adapter.setDropDownViewResource(R.layout.spinner_item_sort);
+    sortSpinner.setAdapter(adapter);
 
     rangeBarRelease = findViewById(R.id.rangebar_release);
     rangeBarRelease.setTickEnd(currentYear);
@@ -74,6 +82,7 @@ public class FilterActivity extends AppCompatActivity {
     resultIntent.putExtra("resultTitle", getString(R.string.filter));
     resultIntent.putExtra("resultDescr", getString(R.string.filter_descr));
     resultIntent.putExtra("resultType", ResultType.FILTER);
+    resultIntent.putExtra("sortBy", ((ResultType.SortType) sortSpinner.getSelectedItem()).getValue());
 
     startActivity(resultIntent);
   }

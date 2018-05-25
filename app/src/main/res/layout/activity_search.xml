@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:textColorHint="@color/colorAccent"
+    android:textColorHint="@color/colorWhite"
     android:hint="@string/enter_movie">
 
     <EditText

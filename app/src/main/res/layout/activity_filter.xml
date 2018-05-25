@@ -101,6 +101,31 @@
         android:background="@color/colorWhite"/>
 
       <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="16dp"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/ic_sort_white_24dp"
+        android:text="@string/sort_by"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"/>
+
+      <Spinner
+        android:id="@+id/spinner_sort_by"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorWhite"/>
+
+      <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="4dp"

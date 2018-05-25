@@ -71,4 +71,10 @@
   <string name="recommendations_descr_alt">Recommendations based on your watchlist</string>
 
   <string name="now_playing_descr">These movies are in the movie theaters right now</string>
+  <string name="sort_by">Sort by</string>
+
+  <!-- Sort By -->
+  <string name="sort_popularity">Popularity</string>
+  <string name="sort_release_date">Release date</string>
+  <string name="sort_vote_average">Vote average</string>
 </resources>

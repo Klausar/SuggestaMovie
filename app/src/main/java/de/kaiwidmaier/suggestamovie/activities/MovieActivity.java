@@ -166,6 +166,8 @@ public class MovieActivity extends AppCompatActivity {
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "For Movie: " + movie.getTitle());
+        movie = newMovie;
+        fillData();
       }
 
       @Override

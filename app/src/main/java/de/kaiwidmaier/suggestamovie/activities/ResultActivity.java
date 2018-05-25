@@ -115,7 +115,7 @@ public class ResultActivity extends AppCompatActivity {
 
     if(resultType == ResultType.FILTER){
       call = movieApiService.getMovie(API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry(),
-        null, false, intent.getStringExtra("releaseDateMin"), intent.getStringExtra("releaseDateMax"),
+        intent.getStringExtra("sortBy"), false, intent.getStringExtra("releaseDateMin"), intent.getStringExtra("releaseDateMax"),
         intent.getIntExtra("ratingMin", 0), intent.getIntExtra("ratingMax", 10),
         intent.getStringExtra("includedGenres"), intent.getStringExtra("excludedGenres"), page);
     }
