@@ -108,7 +108,8 @@ public class MovieActivity extends AppCompatActivity {
     textDescription.setText(movie.getOverview());
     textRating.setText(String.format(getString(R.string.rating_format), movie.getVoteAverage()));
     if(movie.getReleaseDate().length() >= 4){
-      textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
+      //textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
+      textRelease.setText(String.format(getString(R.string.release_format), LocalizationUtils.getLocalDateFormat(movie.getReleaseDate(), this)));
     }
     else{
       textRelease.setText(String.format(getString(R.string.release_format), "?"));

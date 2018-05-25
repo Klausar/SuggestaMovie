@@ -32,6 +32,7 @@ import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
+import de.kaiwidmaier.suggestamovie.utils.LocalizationUtils;
 
 /**
  * Created by Kai on 12.03.2018.
@@ -80,7 +81,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
       holder.textTitle.setText(movie.getTitle());
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
       if(movie.getReleaseDate().length() >= 4){
-        holder.textRelease.setText(String.format(context.getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
+        holder.textRelease.setText(String.format(context.getString(R.string.release_format), LocalizationUtils.getLocalDateFormat(movie.getReleaseDate(), context)));
       }
       else{
         holder.textRelease.setText(String.format(context.getString(R.string.release_format), "?"));

@@ -49,7 +49,7 @@ public class FilterActivity extends AppCompatActivity {
     sortSpinner.setAdapter(adapter);
 
     rangeBarRelease = findViewById(R.id.rangebar_release);
-    rangeBarRelease.setTickEnd(currentYear);
+    rangeBarRelease.setTickEnd(currentYear+1); //Allow selection up to one year from today
     rangeBarRating = findViewById(R.id.rangebar_rating);
     recyclerGenres = findViewById(R.id.recycler_genres);
     recyclerGenres.setLayoutManager(new GridLayoutManager(this, 3));
@@ -97,14 +97,7 @@ public class FilterActivity extends AppCompatActivity {
   }
 
   public String getReleaseDateMax() {
-    String releaseDateMax;
-    //Only allow dates up to today to exclude movies that haven't been released yet
-    if (Integer.valueOf(rangeBarRelease.getRightPinValue()) == currentYear) {
-      releaseDateMax = String.format("%s-%s-%s", currentYear, Calendar.getInstance().get(Calendar.MONTH) + 1, Calendar.getInstance().get(Calendar.DAY_OF_MONTH)); //e.g. 2018-03-12
-    } else {
-      releaseDateMax = rangeBarRelease.getRightPinValue() + "-12-31"; //e.g. 2018-12-31;
-    }
-    return releaseDateMax;
+    return rangeBarRelease.getRightPinValue() + "-12-31"; //e.g. 2018-12-31;
   }
 
   public int getRatingMin() {
