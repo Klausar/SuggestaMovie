@@ -82,6 +82,19 @@
   <string name="title_activity_settings">Settings</string>
 
   <string name="pref_header_formatting">Formatting</string>
+  <string name="pref_formatting_date">Date Format</string>
+
+  <string-array name="pref_date_format_titles">
+    <item>Short</item>
+    <item>Medium</item>
+    <item>Long</item>
+  </string-array>
+  <string-array name="pref_date_format_values">
+    <item>short</item>
+    <item>medium</item>
+    <item>long</item>
+  </string-array>
+  <string name="summary_date_format">Depending on your country, there might not be a difference between some settings</string>
 
   <!-- Strings related to Settings -->
 
