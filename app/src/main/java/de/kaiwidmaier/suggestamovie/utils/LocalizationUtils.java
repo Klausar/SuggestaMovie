@@ -29,7 +29,7 @@ public class LocalizationUtils {
     } catch (ParseException e) {
       e.printStackTrace();
     }
-    java.text.DateFormat dateFormat = android.text.format.DateFormat.getLongDateFormat(context);
+    java.text.DateFormat dateFormat = android.text.format.DateFormat.getMediumDateFormat(context);
     return dateFormat.format(date);
   }
 

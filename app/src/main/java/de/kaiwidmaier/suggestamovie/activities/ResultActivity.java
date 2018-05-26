@@ -34,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends BaseMenuActivity {
 
   public static final String TAG = ResultActivity.class.getSimpleName();
   private static Retrofit retrofit;
@@ -50,8 +50,6 @@ public class ResultActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_result);
-
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     progressBar = findViewById(R.id.progress);
     intent = getIntent();
@@ -176,11 +174,6 @@ public class ResultActivity extends AppCompatActivity {
         checkEmpty();
       }
     });
-  }
-
-  public boolean onOptionsItemSelected(MenuItem item){
-    onBackPressed();
-    return true;
   }
 
 }

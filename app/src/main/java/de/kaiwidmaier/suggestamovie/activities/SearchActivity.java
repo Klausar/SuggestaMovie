@@ -13,7 +13,7 @@ import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
 import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseMenuActivity {
 
   EditText editText;
   FloatingActionButton fabSearch;
@@ -22,8 +22,6 @@ public class SearchActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_search);
-
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     editText = findViewById(R.id.edittext_search);
     fabSearch = findViewById(R.id.fab_search);
@@ -49,9 +47,5 @@ public class SearchActivity extends AppCompatActivity {
     });
   }
 
-  public boolean onOptionsItemSelected(MenuItem item){
-    onBackPressed();
-    return true;
-  }
 
 }

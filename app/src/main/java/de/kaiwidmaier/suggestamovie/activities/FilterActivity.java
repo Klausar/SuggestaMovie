@@ -25,7 +25,7 @@ import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
 import retrofit2.Retrofit;
 
-public class FilterActivity extends AppCompatActivity {
+public class FilterActivity extends BaseMenuActivity {
 
   private static final String TAG = FilterActivity.class.getSimpleName();
   private FloatingActionButton fabSearch;
@@ -40,8 +40,6 @@ public class FilterActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_filter);
-
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     sortSpinner = findViewById(R.id.spinner_sort_by);
     ArrayAdapter<ResultType.SortType> adapter = new ArrayAdapter<ResultType.SortType>(this, R.layout.spinner_item_sort, ResultType.SortType.getSortTypes(this));
@@ -114,11 +112,6 @@ public class FilterActivity extends AppCompatActivity {
 
   public String getExcludedGenres(){
     return android.text.TextUtils.join("|", genreAdapter.getUnselectedGenresIds());
-  }
-
-  public boolean onOptionsItemSelected(MenuItem item){
-    onBackPressed();
-    return true;
   }
 
 }

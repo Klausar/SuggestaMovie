@@ -42,7 +42,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieActivity extends BaseMenuActivity {
 
   private Movie movie;
   private TextView textTitle;
@@ -60,7 +60,6 @@ public class MovieActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_movie);
 
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     Intent intent = getIntent();
     movie = intent.getParcelableExtra("movie");
@@ -176,11 +175,6 @@ public class MovieActivity extends AppCompatActivity {
         //Do nothing
       }
     });
-  }
-
-  public boolean onOptionsItemSelected(MenuItem item){
-    onBackPressed();
-    return true;
   }
 
 }

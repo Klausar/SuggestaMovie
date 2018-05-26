@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
@@ -26,7 +28,7 @@ import de.kaiwidmaier.suggestamovie.activities.fragments.WatchlistFragment;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseMenuActivity {
 
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
     BottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
     bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
       @Override
@@ -94,6 +97,15 @@ public class MainActivity extends AppCompatActivity {
   protected void onResume() {
     super.onResume();
     fabMenu.close(false);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.actionbar, menu);
+    //Disable back button in MainActivity
+    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+    return true;
   }
 
   public void setFragment(Fragment fragment){
