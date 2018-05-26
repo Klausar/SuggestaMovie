@@ -17,6 +17,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import de.kaiwidmaier.suggestamovie.R;
@@ -252,5 +254,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       }
       return super.onOptionsItemSelected(item);
     }
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item){
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        onBackPressed();
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
   }
 }
