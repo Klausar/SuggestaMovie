@@ -87,7 +87,7 @@ public class MovieActivity extends BaseMenuActivity {
         Intent similarIntent = new Intent(MovieActivity.this, ResultActivity.class);
         similarIntent.putExtra("movieId", movie.getId());
         similarIntent.putExtra("resultTitle", getString(R.string.similar));
-        similarIntent.putExtra("resultDescr", String.format(getString(R.string.similar_descr), movie.getTitle()));
+        similarIntent.putExtra("resultDescr", String.format(getString(R.string.similar_descr), movie.getTitle(MovieActivity.this)));
         similarIntent.putExtra("resultType", ResultType.SIMILAR);
         startActivity(similarIntent);
       }
@@ -103,7 +103,7 @@ public class MovieActivity extends BaseMenuActivity {
   }
 
   private void fillData(){
-    textTitle.setText(movie.getTitle());
+    textTitle.setText(movie.getTitle(this));
     textDescription.setText(movie.getOverview());
     textRating.setText(String.format(getString(R.string.rating_format), movie.getVoteAverage()));
     if(movie.getReleaseDate().length() >= 4){
@@ -165,7 +165,7 @@ public class MovieActivity extends BaseMenuActivity {
         }
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
-        Log.d(TAG, "For Movie: " + movie.getTitle());
+        Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));
         movie = newMovie;
         fillData();
       }

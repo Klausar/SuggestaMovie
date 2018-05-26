@@ -1,7 +1,10 @@
 package de.kaiwidmaier.suggestamovie.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -133,8 +136,15 @@ public class Movie implements Parcelable, Serializable{
     this.originalLanguage = originalLanguage;
   }
 
-  public String getTitle() {
-    return title;
+  public String getTitle(Context context) {
+    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+    boolean showOriginal = sharedPref.getBoolean("original_title", false);
+    if(showOriginal){
+      return originalTitle;
+    }
+    else{
+      return title;
+    }
   }
 
   public void setTitle(String title) {

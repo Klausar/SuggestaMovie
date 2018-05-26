@@ -94,8 +94,8 @@
     <item>medium</item>
     <item>long</item>
   </string-array>
-  <string name="summary_date_format">Depending on your country, there might not be a difference between some settings</string>
-
+  <string name="summary_original_title">Enabling this will replace the local movie title with the original title. Depending on your language, there might not be a difference between the local title and the original title.</string>
+  <string name="title_show_original_title">Show original title</string>
   <!-- Strings related to Settings -->
 
   <!-- Example General settings -->

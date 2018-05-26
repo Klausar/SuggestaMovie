@@ -78,7 +78,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
       String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
       Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
-      holder.textTitle.setText(movie.getTitle());
+      holder.textTitle.setText(movie.getTitle(context));
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
       if(movie.getReleaseDate().length() >= 4){
         holder.textRelease.setText(String.format(context.getString(R.string.release_format), LocalizationUtils.getLocalDateFormat(movie.getReleaseDate(), context)));
@@ -92,7 +92,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
           Intent similarIntent = new Intent(context, ResultActivity.class);
           similarIntent.putExtra("movieId", movie.getId());
           similarIntent.putExtra("resultTitle", context.getString(R.string.similar));
-          similarIntent.putExtra("resultDescr", String.format(context.getString(R.string.similar_descr), movie.getTitle()));
+          similarIntent.putExtra("resultDescr", String.format(context.getString(R.string.similar_descr), movie.getTitle(context)));
           similarIntent.putExtra("resultType", ResultType.SIMILAR);
           context.startActivity(similarIntent);
         }
@@ -154,7 +154,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     @Override
     public void onClick(View view) {
       Movie movie = movies.get(getAdapterPosition());
-      Log.d(TAG, "Clicked on: " + movie.getTitle());
+      Log.d(TAG, "Clicked on: " + movie.getTitle(context));
       Intent intent = new Intent(context, MovieActivity.class);
       intent.putExtra("movie", (Parcelable) movie);
       ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, view, context.getString(R.string.transition_movie));
@@ -179,7 +179,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
   public void onItemDismiss(final int position) {
     final Movie movie = getItem(position);
     Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),
-      String.format(context.getString(R.string.movie_removed), movie.getTitle()), Snackbar.LENGTH_LONG)
+      String.format(context.getString(R.string.movie_removed), movie.getTitle(context)), Snackbar.LENGTH_LONG)
       .setAction(context.getString(R.string.undo), new View.OnClickListener() {
         @Override
         public void onClick(View view) {

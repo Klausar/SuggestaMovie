@@ -70,7 +70,7 @@ public class RecyclerThumbnailAdapter extends RecyclerView.Adapter<RecyclerThumb
     String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
     String posterUrl = imgUrlBasePath + movie.getPosterPath();
     Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
-    holder.textTitle.setText(movie.getTitle());
+    holder.textTitle.setText(movie.getTitle(context));
   }
 
   @Override
@@ -98,7 +98,7 @@ public class RecyclerThumbnailAdapter extends RecyclerView.Adapter<RecyclerThumb
     @Override
     public void onClick(View view) {
       Movie movie = movies.get(getAdapterPosition());
-      Log.d(TAG, "Clicked on: " + movie.getTitle());
+      Log.d(TAG, "Clicked on: " + movie.getTitle(context));
       Intent intent = new Intent(context, MovieActivity.class);
       intent.putExtra("movie", (Parcelable) movie);
       ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, view, context.getString(R.string.transition_movie));
