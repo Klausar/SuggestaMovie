@@ -1,0 +1,11 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- A 'parent' preference, which enables/disables child preferences (below)
+         when checked/unchecked. -->
+  <SwitchPreference
+    android:defaultValue="true"
+    android:key="thumbnail_loading"
+    android:title="@string/title_thumbnail_loading"
+    android:summary="@string/summary_thumbnail_loading"/>
+
+</PreferenceScreen>

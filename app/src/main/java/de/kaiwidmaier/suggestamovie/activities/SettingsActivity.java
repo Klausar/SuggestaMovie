@@ -17,8 +17,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import de.kaiwidmaier.suggestamovie.R;
@@ -204,14 +202,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      addPreferencesFromResource(R.xml.pref_notification);
+      addPreferencesFromResource(R.xml.pref_network);
       setHasOptionsMenu(true);
 
       // Bind the summaries of EditText/List/Dialog/Ringtone preferences
       // to their values. When their values change, their summaries are
       // updated to reflect the new value, per the Android Design
       // guidelines.
-      bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
     }
 
     @Override
@@ -234,7 +231,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      addPreferencesFromResource(R.xml.pref_data_sync);
+      addPreferencesFromResource(R.xml.pref_data);
       setHasOptionsMenu(true);
 
       // Bind the summaries of EditText/List/Dialog/Ringtone preferences

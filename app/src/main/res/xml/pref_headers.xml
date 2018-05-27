@@ -9,8 +9,8 @@
 
   <header
     android:fragment="de.kaiwidmaier.suggestamovie.activities.SettingsActivity$NotificationPreferenceFragment"
-    android:icon="@drawable/ic_notifications_black_24dp"
-    android:title="@string/pref_header_notifications"/>
+    android:icon="@drawable/ic_network_wifi_black_24dp"
+    android:title="@string/pref_header_network"/>
 
   <header
     android:fragment="de.kaiwidmaier.suggestamovie.activities.SettingsActivity$DataSyncPreferenceFragment"

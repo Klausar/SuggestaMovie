@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
 import de.kaiwidmaier.suggestamovie.utils.LocalizationUtils;
+import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 
 /**
  * Created by Kai on 12.03.2018.
@@ -77,7 +80,12 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     final Movie movie = movies.get(position);
       String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
-      Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
+      if(NetworkUtils.loadThumbnail(context)){
+        Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
+      }
+      else{
+        holder.imgThumbnail.setImageResource(R.drawable.placeholder_thumbnail);
+      }
       holder.textTitle.setText(movie.getTitle(context));
       holder.textRating.setText(String.format(context.getString(R.string.rating_format), movie.getVoteAverage()));
       if(movie.getReleaseDate().length() >= 4){
@@ -189,7 +197,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
         }
       });
     snackbar.show();
-    watchlist.remove(position);
+    watchlist.remove(movie);
     notifyItemRemoved(position);
     serializer.writeWatchlist(watchlist);
   }

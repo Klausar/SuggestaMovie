@@ -96,6 +96,11 @@
   </string-array>
   <string name="summary_original_title">Enabling this will replace the local movie title with the original title. Depending on your language, there might not be a difference between the local title and the original title.</string>
   <string name="title_show_original_title">Show original title</string>
+
+  <string name="pref_header_network">Network</string>
+  <string name="title_thumbnail_loading">Load thumbnails without Wi-Fi</string>
+  <string name="summary_thumbnail_loading">Disabling this can reduce data usage if you are not connected to a Wi-Fi network.</string>
+
   <!-- Strings related to Settings -->
 
   <!-- Example General settings -->

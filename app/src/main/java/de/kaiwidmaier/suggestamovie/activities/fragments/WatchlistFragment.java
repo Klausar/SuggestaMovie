@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,11 +31,12 @@ import de.kaiwidmaier.suggestamovie.adapters.utils.SimpleItemTouchHelperCallback
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 
-public class WatchlistFragment extends Fragment {
+public class WatchlistFragment extends Fragment{
 
   private RecyclerMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
   private LinearLayout layoutWatchlistEmpty;
+  private RecyclerView recyclerWatchlist;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class WatchlistFragment extends Fragment {
 
 
     layoutWatchlistEmpty = result.findViewById(R.id.layout_watchlist_empty);
-    RecyclerView recyclerWatchlist = result.findViewById(R.id.recycler_watchlist);
+    recyclerWatchlist = result.findViewById(R.id.recycler_watchlist);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerWatchlist.getContext(), DividerItemDecoration.VERTICAL);
     recyclerWatchlist.addItemDecoration(dividerItemDecoration);
 
@@ -88,6 +91,6 @@ public class WatchlistFragment extends Fragment {
 
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-      inflater.inflate(R.menu.watchlist_actionbar, menu);
+    inflater.inflate(R.menu.watchlist_actionbar, menu);
   }
 }

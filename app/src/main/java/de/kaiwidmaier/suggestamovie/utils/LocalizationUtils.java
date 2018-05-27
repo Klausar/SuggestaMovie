@@ -39,19 +39,15 @@ public class LocalizationUtils {
     switch(format){
       case "short":
         dateFormat = android.text.format.DateFormat.getDateFormat(context);
-        Log.d("LocalizationUtils", "Short");
         break;
       case "medium":
         dateFormat = android.text.format.DateFormat.getMediumDateFormat(context);
-        Log.d("LocalizationUtils", "Medium");
         break;
       case "long":
         dateFormat = android.text.format.DateFormat.getLongDateFormat(context);
-        Log.d("LocalizationUtils", "Long");
         break;
       default:
         dateFormat = android.text.format.DateFormat.getMediumDateFormat(context);
-        Log.d("LocalizationUtils", "Default");
         break;
     }
     return dateFormat.format(date);

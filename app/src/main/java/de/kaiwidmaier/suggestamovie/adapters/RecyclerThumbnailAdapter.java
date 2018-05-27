@@ -31,6 +31,7 @@ import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
+import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 
 /**
  * Created by Kai on 12.03.2018.
@@ -69,7 +70,12 @@ public class RecyclerThumbnailAdapter extends RecyclerView.Adapter<RecyclerThumb
     final Movie movie = movies.get(position);
     String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
     String posterUrl = imgUrlBasePath + movie.getPosterPath();
-    Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
+    if(NetworkUtils.loadThumbnail(context)){
+      Picasso.with(context).load(posterUrl).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(holder.imgThumbnail);
+    }
+    else{
+      holder.imgThumbnail.setImageResource(R.drawable.placeholder_thumbnail);
+    }
     holder.textTitle.setText(movie.getTitle(context));
   }
 
