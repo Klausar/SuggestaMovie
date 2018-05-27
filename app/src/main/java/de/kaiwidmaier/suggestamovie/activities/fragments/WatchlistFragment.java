@@ -78,15 +78,6 @@ public class WatchlistFragment extends Fragment {
   }
 
   @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch(item.getItemId()){
-      case R.id.settings:
-        return getActivity().onOptionsItemSelected(item);
-    }
-    return super.onOptionsItemSelected(item);
-  }
-
-  @Override
   public void onResume() {
     if (movieAdapter != null) {
       movieAdapter.notifyDataSetChanged();
