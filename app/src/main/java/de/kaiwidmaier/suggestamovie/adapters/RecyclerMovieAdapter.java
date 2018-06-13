@@ -222,9 +222,6 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
 
   @Override
   public boolean onItemMove(int fromPosition, int toPosition) {
-    if(filterList.size() != movies.size()){
-      return false;
-    }
     if (fromPosition < toPosition) {
       for (int i = fromPosition; i < toPosition; i++) {
         Collections.swap(watchlist, i, i + 1);

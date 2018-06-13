@@ -12,6 +12,7 @@ import de.kaiwidmaier.suggestamovie.adapters.ItemTouchHelperAdapter;
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback{
 
   private final ItemTouchHelperAdapter touchHelperAdapter;
+  private boolean draggable = true;
 
   public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
     touchHelperAdapter = adapter;
@@ -29,9 +30,13 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback{
 
   @Override
   public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-    int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+    int dragFlags = draggable ? ItemTouchHelper.UP | ItemTouchHelper.DOWN : 0;
     int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
     return makeMovementFlags(dragFlags, swipeFlags);
+  }
+
+  public void setDraggable(boolean draggable){
+    this.draggable = draggable;
   }
 
   @Override

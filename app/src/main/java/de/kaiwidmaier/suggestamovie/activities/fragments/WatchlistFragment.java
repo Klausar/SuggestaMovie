@@ -39,6 +39,7 @@ public class WatchlistFragment extends Fragment implements SearchView.OnQueryTex
   private ArrayList<Movie> watchlist;
   private LinearLayout layoutWatchlistEmpty;
   private RecyclerView recyclerWatchlist;
+  private SimpleItemTouchHelperCallback callback;
 
 
   @Override
@@ -60,7 +61,7 @@ public class WatchlistFragment extends Fragment implements SearchView.OnQueryTex
     checkEmpty();
 
     //Swipe to remove and long press to change position
-    ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(movieAdapter);
+    callback = new SimpleItemTouchHelperCallback(movieAdapter);
     ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
     touchHelper.attachToRecyclerView(recyclerWatchlist);
 
@@ -113,9 +114,11 @@ public class WatchlistFragment extends Fragment implements SearchView.OnQueryTex
   public boolean onQueryTextChange(String newText) {
     if(newText.isEmpty()){
       movieAdapter.getFilter().filter("");
+      callback.setDraggable(true);
     }
     else{
       movieAdapter.getFilter().filter(newText);
+      callback.setDraggable(false); //Disable item drag in filtered list
     }
     return false;
   }
