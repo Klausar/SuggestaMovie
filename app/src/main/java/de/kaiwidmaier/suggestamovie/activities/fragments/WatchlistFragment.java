@@ -1,6 +1,8 @@
 package de.kaiwidmaier.suggestamovie.activities.fragments;
 
 import android.app.Fragment;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,12 +33,13 @@ import de.kaiwidmaier.suggestamovie.adapters.utils.SimpleItemTouchHelperCallback
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 
-public class WatchlistFragment extends Fragment{
+public class WatchlistFragment extends Fragment implements SearchView.OnQueryTextListener{
 
   private RecyclerMovieAdapter movieAdapter;
   private ArrayList<Movie> watchlist;
   private LinearLayout layoutWatchlistEmpty;
   private RecyclerView recyclerWatchlist;
+
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,5 +95,28 @@ public class WatchlistFragment extends Fragment{
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     inflater.inflate(R.menu.watchlist_actionbar, menu);
+    MenuItem searchItem;
+    SearchView searchView;
+
+    searchItem = menu.findItem(R.id.search);
+    searchItem.setVisible(true);
+    searchView = (SearchView) searchItem.getActionView();
+    searchView.setOnQueryTextListener(this);
+  }
+
+  @Override
+  public boolean onQueryTextSubmit(String query) {
+    return false;
+  }
+
+  @Override
+  public boolean onQueryTextChange(String newText) {
+    if(newText.isEmpty()){
+      movieAdapter.getFilter().filter("");
+    }
+    else{
+      movieAdapter.getFilter().filter(newText);
+    }
+    return false;
   }
 }

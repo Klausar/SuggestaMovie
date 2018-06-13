@@ -32,6 +32,7 @@
       android:name=".activities.SettingsActivity"
       android:label="@string/title_activity_settings">
     </activity>
+    <meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIksjMmgYlqSnKz61w4Np9zJ8YiETYnezwhV4uOw" />
   </application>
 
 </manifest>

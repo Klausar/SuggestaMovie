@@ -10,6 +10,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,7 +35,6 @@ public class MainActivity extends BaseMenuActivity {
 
   private FrameLayout frameLayout;
   private FloatingActionMenu fabMenu;
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -103,7 +103,7 @@ public class MainActivity extends BaseMenuActivity {
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.actionbar, menu);
-    //Disable back button in MainActivity
+    //Disable back button (actionbar) in MainActivity
     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     return true;
   }

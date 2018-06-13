@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -23,6 +24,7 @@ import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +32,7 @@ import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.activities.MainActivity;
 import de.kaiwidmaier.suggestamovie.activities.MovieActivity;
 import de.kaiwidmaier.suggestamovie.activities.ResultActivity;
+import de.kaiwidmaier.suggestamovie.adapters.utils.WatchlistFilter;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
@@ -41,7 +44,7 @@ import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
  * Created by Kai on 12.03.2018.
  */
 
-public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdapter.ViewHolder> implements ItemTouchHelperAdapter{
+public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdapter.ViewHolder> implements ItemTouchHelperAdapter, Filterable{
 
 
   private static final String TAG = RecyclerMovieAdapter.class.getSimpleName();
@@ -52,6 +55,8 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
   private boolean showBtnFavorite;
   private final Serializer serializer;
   private boolean loading;
+  private WatchlistFilter filter;
+  private ArrayList<Movie> filterList;
 
 
   public RecyclerMovieAdapter(Context context, List<Movie> movies, boolean showBtnFavorite) {
@@ -62,11 +67,13 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     this.showBtnFavorite = showBtnFavorite;
     serializer = new Serializer(context);
     this.loading = true;
+    this.filterList = (ArrayList<Movie>) movies;
   }
 
 
+  @NonNull
   @Override
-  public RecyclerMovieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public RecyclerMovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View view = inflater.inflate(R.layout.recyclerview_movie_item, parent, false);
     return new RecyclerMovieAdapter.ViewHolder(view);
   }
@@ -76,7 +83,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
   }
 
   @Override
-  public void onBindViewHolder(final RecyclerMovieAdapter.ViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull final RecyclerMovieAdapter.ViewHolder holder, int position) {
     final Movie movie = movies.get(position);
       String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
       String posterUrl = imgUrlBasePath + movie.getPosterPath();
@@ -140,6 +147,16 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     notifyDataSetChanged();
   }
 
+  @Override
+  public Filter getFilter() {
+    if(filter==null)
+    {
+      filter = new WatchlistFilter(filterList,this, context);
+    }
+
+    return filter;
+  }
+
   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     ImageView imgThumbnail;
     TextView textTitle;
@@ -174,29 +191,30 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     return movies.get(id);
   }
 
-  public void setClickListener(RecyclerMovieAdapter.ItemClickListener itemClickListener) {
-    ItemClickListener clickListener = itemClickListener;
-  }
-
-
-  public interface ItemClickListener {
-    void onItemClick(View view, int position);
+  public void setMovies(ArrayList<Movie> movies){
+    this.movies = movies;
   }
 
   @Override
   public void onItemDismiss(final int position) {
     final Movie movie = getItem(position);
+    final int watchlistPosition = watchlist.indexOf(movie); //Necessary so the order doesn't change when movies are filtered and movie removal gets undone
+    Log.d(TAG, Arrays.toString(movies.toArray()));
+    Log.d(TAG, Arrays.toString(filterList.toArray()));
     Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),
       String.format(context.getString(R.string.movie_removed), movie.getTitle(context)), Snackbar.LENGTH_LONG)
       .setAction(context.getString(R.string.undo), new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          watchlist.add(position, movie);
+          watchlist.add(watchlistPosition, movie);
+          movies.add(position, movie);
           notifyItemInserted(position);
           serializer.writeWatchlist(watchlist);
         }
       });
     snackbar.show();
+    movies.remove(movie);
+    filterList.remove(movie);
     watchlist.remove(movie);
     notifyItemRemoved(position);
     serializer.writeWatchlist(watchlist);
@@ -204,6 +222,9 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
 
   @Override
   public boolean onItemMove(int fromPosition, int toPosition) {
+    if(filterList.size() != movies.size()){
+      return false;
+    }
     if (fromPosition < toPosition) {
       for (int i = fromPosition; i < toPosition; i++) {
         Collections.swap(watchlist, i, i + 1);
