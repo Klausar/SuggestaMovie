@@ -48,9 +48,7 @@ public class WatchlistFilter extends Filter {
 
   @Override
   protected void publishResults(CharSequence constraint, FilterResults results) {
-
     adapter.setMovies((ArrayList<Movie>) results.values);
     adapter.notifyDataSetChanged();
-
   }
 }

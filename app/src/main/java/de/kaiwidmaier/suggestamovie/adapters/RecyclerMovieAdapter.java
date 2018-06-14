@@ -206,18 +206,20 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
       .setAction(context.getString(R.string.undo), new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          watchlist.add(watchlistPosition, movie);
-          movies.add(position, movie);
+          //Prevents duplicate if movies are not filtered (which means movies = filterList)
+          if(filterList.size() > movies.size()){
+            movies.add(position, movie);
+          }
+          filterList.add(watchlistPosition, movie);
           notifyItemInserted(position);
-          serializer.writeWatchlist(watchlist);
+          serializer.writeWatchlist(filterList);
         }
       });
     snackbar.show();
     movies.remove(movie);
     filterList.remove(movie);
-    watchlist.remove(movie);
     notifyItemRemoved(position);
-    serializer.writeWatchlist(watchlist);
+    serializer.writeWatchlist(filterList);
   }
 
   @Override
