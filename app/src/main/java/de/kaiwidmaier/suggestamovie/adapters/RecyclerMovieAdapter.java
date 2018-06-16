@@ -198,28 +198,23 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
   @Override
   public void onItemDismiss(final int position) {
     final Movie movie = getItem(position);
-    final int watchlistPosition = watchlist.indexOf(movie); //Necessary so the order doesn't change when movies are filtered and movie removal gets undone
-    Log.d(TAG, Arrays.toString(movies.toArray()));
-    Log.d(TAG, Arrays.toString(filterList.toArray()));
+    Log.d(TAG + " Movie removed ", movie.toString());
+    Log.d(TAG + " Movies ", Arrays.toString(movies.toArray()));
+    Log.d(TAG + " Filterlist ", Arrays.toString(filterList.toArray()));
     Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),
       String.format(context.getString(R.string.movie_removed), movie.getTitle(context)), Snackbar.LENGTH_LONG)
       .setAction(context.getString(R.string.undo), new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          //Prevents duplicate if movies are not filtered (which means movies = filterList)
-          if(filterList.size() > movies.size()){
-            movies.add(position, movie);
-          }
-          filterList.add(watchlistPosition, movie);
+          watchlist.add(position, movie);
           notifyItemInserted(position);
-          serializer.writeWatchlist(filterList);
+          serializer.writeWatchlist(watchlist);
         }
       });
     snackbar.show();
-    movies.remove(movie);
-    filterList.remove(movie);
+    watchlist.remove(movie);
     notifyItemRemoved(position);
-    serializer.writeWatchlist(filterList);
+    serializer.writeWatchlist(watchlist);
   }
 
   @Override
