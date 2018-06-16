@@ -39,6 +39,10 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback{
     this.touchAllowed = touchAllowed;
   }
 
+  public boolean isTouchAllowed(){
+    return touchAllowed;
+  }
+
   @Override
   public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
                         RecyclerView.ViewHolder target) {

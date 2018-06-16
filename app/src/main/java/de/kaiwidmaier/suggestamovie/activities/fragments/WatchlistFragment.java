@@ -4,9 +4,11 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +41,10 @@ public class WatchlistFragment extends Fragment implements SearchView.OnQueryTex
 
     layoutWatchlistEmpty = result.findViewById(R.id.layout_watchlist_empty);
     RecyclerView recyclerWatchlist = result.findViewById(R.id.recycler_watchlist);
+    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+    recyclerWatchlist.setLayoutManager(layoutManager);
+    recyclerWatchlist.setNestedScrollingEnabled(false);
+
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerWatchlist.getContext(), DividerItemDecoration.VERTICAL);
     recyclerWatchlist.addItemDecoration(dividerItemDecoration);
 
