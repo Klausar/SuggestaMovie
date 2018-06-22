@@ -27,7 +27,7 @@ public class WatchlistFilter extends Filter {
     if(constraint != null){
       constraint = constraint.toString().toUpperCase();
       ArrayList<Movie> filteredMovies = new ArrayList<>();
-      for (int i=0;i<filterList.size();i++) {
+      for (int i=0; i<filterList.size(); i++) {
         if(filterList.get(i).getTitle(context).toUpperCase().contains(constraint))
         {
           filteredMovies.add(filterList.get(i));

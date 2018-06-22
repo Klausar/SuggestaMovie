@@ -60,7 +60,6 @@ public class WatchlistFragment extends Fragment implements SearchView.OnQueryTex
     ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
     touchHelper.attachToRecyclerView(recyclerWatchlist);
 
-    //Make watchlist have it's own actionbar for search functionality
     return result;
   }
 
