@@ -11,8 +11,9 @@
   tools:context="de.kaiwidmaier.suggestamovie.activities.MainActivity">
 
 <android.support.design.widget.CoordinatorLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content">
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:descendantFocusability="blocksDescendants">
 
   <LinearLayout
     android:layout_width="match_parent"

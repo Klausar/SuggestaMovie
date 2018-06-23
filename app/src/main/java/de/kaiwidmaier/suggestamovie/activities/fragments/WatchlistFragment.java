@@ -43,10 +43,10 @@ public class WatchlistFragment extends Fragment implements SearchView.OnQueryTex
     RecyclerView recyclerWatchlist = result.findViewById(R.id.recycler_watchlist);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
     recyclerWatchlist.setLayoutManager(layoutManager);
-    recyclerWatchlist.setNestedScrollingEnabled(false);
 
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerWatchlist.getContext(), DividerItemDecoration.VERTICAL);
     recyclerWatchlist.addItemDecoration(dividerItemDecoration);
+    recyclerWatchlist.setNestedScrollingEnabled(false);
 
     watchlist = ((DataHelper) getActivity().getApplication()).getWatchlist();
 

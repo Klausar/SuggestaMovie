@@ -29,7 +29,6 @@ import java.util.Collections;
 import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
-import de.kaiwidmaier.suggestamovie.activities.MainActivity;
 import de.kaiwidmaier.suggestamovie.activities.MovieActivity;
 import de.kaiwidmaier.suggestamovie.activities.ResultActivity;
 import de.kaiwidmaier.suggestamovie.adapters.utils.WatchlistFilter;
@@ -141,7 +140,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     return movies.size();
   }
 
-  public void addAll(List<Movie> movies){
+  public void addMovies(List<Movie> movies){
     this.movies.addAll(movies);
     Log.d(TAG, "Movies added: " + movies.size());
     notifyDataSetChanged();
@@ -198,6 +197,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
   @Override
   public void onItemDismiss(final int position) {
     final Movie movie = getItem(position);
+    final int watchlistPosition = watchlist.indexOf(movie);
     Log.d(TAG + " Movie removed ", movie.toString());
     Log.d(TAG + " Movies ", Arrays.toString(movies.toArray()));
     Log.d(TAG + " Filterlist ", Arrays.toString(filterList.toArray()));
@@ -209,7 +209,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
           movies.add(position, movie);
           notifyItemInserted(position);
           if(!movies.equals(watchlist)){ //If list is filtered watchlist has to be used.
-            watchlist.add(movie);
+            watchlist.add(watchlistPosition, movie);
             serializer.writeWatchlist(watchlist);
           }
           else{
