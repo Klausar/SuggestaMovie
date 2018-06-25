@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  android:id="@+id/layout_movie"
+
+<android.support.v4.widget.NestedScrollView
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  tools:context="de.kaiwidmaier.suggestamovie.activities.MovieActivity">
+
+<LinearLayout
+  android:id="@+id/layout_movie"
   android:orientation="vertical"
   android:padding="16dp"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context="de.kaiwidmaier.suggestamovie.activities.MovieActivity">
+  android:layout_height="wrap_content">
 
   <include layout="@layout/recyclerview_movie_item"/>
 
@@ -19,16 +24,22 @@
     android:orientation="horizontal"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
-  <ScrollView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingTop="16dp">
+
     <TextView
       android:id="@+id/text_movie_description"
+      android:paddingTop="16dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
-  </ScrollView>
 
 
+  <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center_horizontal"
+    android:contentDescription="TMDB Logo"
+    android:scaleType="fitEnd"
+    android:src="@drawable/ic_tmdb"/>
 
 </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
