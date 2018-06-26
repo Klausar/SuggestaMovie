@@ -44,14 +44,12 @@ public class RecyclerThumbnailAdapter extends RecyclerView.Adapter<RecyclerThumb
   private List<Movie> movies;
   private LayoutInflater inflater;
   private Context context;
-  private boolean loading;
 
 
   public RecyclerThumbnailAdapter(Context context, List<Movie> movies) {
     this.inflater = LayoutInflater.from(context);
     this.movies = movies;
     this.context = context;
-    this.loading = true;
   }
 
 
@@ -111,27 +109,5 @@ public class RecyclerThumbnailAdapter extends RecyclerView.Adapter<RecyclerThumb
       ActivityCompat.startActivity(context, intent, options.toBundle());
     }
   }
-
-  private Movie getItem(int id) {
-    return movies.get(id);
-  }
-
-  public void setClickListener(RecyclerThumbnailAdapter.ItemClickListener itemClickListener) {
-    ItemClickListener clickListener = itemClickListener;
-  }
-
-
-  public interface ItemClickListener {
-    void onItemClick(View view, int position);
-  }
-
-  public void setLoading(boolean loading){
-    this.loading = loading;
-  }
-
-  public boolean isLoading(){
-    return loading;
-  }
-
 
 }

@@ -28,7 +28,7 @@
     android:layout_height="wrap_content"
     android:text="Activity Description long text blabla"/>
 
-  <android.support.v7.widget.RecyclerView
+  <de.kaiwidmaier.suggestamovie.views.EndlessRecyclerView
     android:id="@+id/recycler_results"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

@@ -16,12 +16,14 @@ import android.widget.ProgressBar;
 import java.util.List;
 
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.activities.interfaces.EndlessAPILoader;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerThumbnailAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.utils.AdapterUtils;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
 import de.kaiwidmaier.suggestamovie.utils.LocalizationUtils;
+import de.kaiwidmaier.suggestamovie.views.EndlessRecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,15 +33,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
-public class NowPlayingFragment extends Fragment {
+public class NowPlayingFragment extends Fragment implements EndlessAPILoader{
 
   private static final String TAG = NowPlayingFragment.class.getSimpleName();
-  private RecyclerView recycler;
+  private EndlessRecyclerView recyclerView;
   private RecyclerThumbnailAdapter movieAdapter;
   private Retrofit retrofit;
   private Snackbar connectionFailedSnackbar;
   private ProgressBar progressBar;
-  private int page;
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,33 +48,33 @@ public class NowPlayingFragment extends Fragment {
     setHasOptionsMenu(true);
     View result = inflater.inflate(R.layout.fragment_now_playing, container, false);
 
-    page = 1;
     progressBar = result.findViewById(R.id.progress);
-    recycler = result.findViewById(R.id.recycler_now_playing);
-    recycler.setLayoutManager(new GridLayoutManager(getActivity(), AdapterUtils.calculateNumberOfColumns(getActivity())));
-    recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+    recyclerView = result.findViewById(R.id.recycler_now_playing);
+    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), AdapterUtils.calculateNumberOfColumns(getActivity())));
 
-      private int visibleThreshold = 5;
-      int firstVisibleItem;
-      int visibleItemCount;
-      int totalItemCount;
-
+    /*
+     * Scrolllistener has to be implemented seperately inside Fragments,
+     * because "context" inside EndlessRecyclerView references the activity,
+     * not the fragment
+     */
+    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
       @Override
       public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
+        int visibleThreshold = 5;
+        int visibleItemCount = recyclerView.getChildCount();
+        int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+        int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
 
-        visibleItemCount = recycler.getChildCount();
-        totalItemCount = recycler.getLayoutManager().getItemCount();
-        firstVisibleItem = ((LinearLayoutManager) recycler.getLayoutManager()).findFirstVisibleItemPosition();
-
-        if (!movieAdapter.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+        if (!NowPlayingFragment.this.recyclerView.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
           //End has been reached, load more
-          connectAndGetApiData(page);
-          movieAdapter.setLoading(true);
+          connectAndGetApiData(NowPlayingFragment.this.recyclerView.getPage());
+          NowPlayingFragment.this.recyclerView.setLoading(true);
         }
       }
     });
-    connectAndGetApiData(page);
+
+    connectAndGetApiData(recyclerView.getPage());
     return result;
   }
 
@@ -97,20 +98,20 @@ public class NowPlayingFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
         if(movieAdapter == null){
           movieAdapter = new RecyclerThumbnailAdapter(getActivity(), movies);
-          recycler.setAdapter(movieAdapter);
+          recyclerView.setAdapter(movieAdapter);
         }
         else{
           Parcelable recyclerViewState;
-          recyclerViewState = recycler.getLayoutManager().onSaveInstanceState();
+          recyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState();
 
           //Prevents duplicates with bad connection
           if(!movieAdapter.containsAll(movies)){
             movieAdapter.addAll(movies);
           }
-          recycler.getLayoutManager().onRestoreInstanceState(recyclerViewState); //Restores scroll position after notifyDataSetChanged()
+          recyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState); //Restores scroll position after notifyDataSetChanged()
         }
-        NowPlayingFragment.this.page++;
-        movieAdapter.setLoading(false);
+        recyclerView.setPage(recyclerView.getPage() + 1);
+        recyclerView.setLoading(false);
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Current Page: " + response.body().getPage());
         Log.d(TAG, "Number of movies received: " + movies.size());
@@ -123,7 +124,7 @@ public class NowPlayingFragment extends Fragment {
         }
         progressBar.setVisibility(View.GONE);
         Log.e(TAG, throwable.toString());
-        connectionFailedSnackbar = Snackbar.make(recycler, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
+        connectionFailedSnackbar = Snackbar.make(recyclerView, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View view) {

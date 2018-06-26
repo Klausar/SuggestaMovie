@@ -23,7 +23,7 @@
       android:text="@string/now_playing_descr"/>
 
 
-    <android.support.v7.widget.RecyclerView
+    <de.kaiwidmaier.suggestamovie.views.EndlessRecyclerView
       android:id="@+id/recycler_now_playing"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

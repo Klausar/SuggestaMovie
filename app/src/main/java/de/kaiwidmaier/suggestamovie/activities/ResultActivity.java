@@ -17,12 +17,14 @@ import java.util.List;
 import java.util.Locale;
 
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.activities.interfaces.EndlessAPILoader;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerMovieAdapter;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
 import de.kaiwidmaier.suggestamovie.utils.LocalizationUtils;
+import de.kaiwidmaier.suggestamovie.views.EndlessRecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,16 +34,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 
-public class ResultActivity extends BaseMenuActivity {
+public class ResultActivity extends BaseMenuActivity implements EndlessAPILoader {
 
   public static final String TAG = ResultActivity.class.getSimpleName();
   private static Retrofit retrofit;
-  private RecyclerView recyclerResults;
+  private EndlessRecyclerView recyclerResults;
   private RecyclerMovieAdapter movieAdapter;
   private LinearLayout layoutResultsEmpty;
   private Intent intent;
   private ResultType resultType;
-  private int page;
   private ProgressBar progressBar;
 
   @Override
@@ -52,7 +53,6 @@ public class ResultActivity extends BaseMenuActivity {
     progressBar = findViewById(R.id.progress);
     intent = getIntent();
     resultType = (ResultType) intent.getSerializableExtra("resultType");
-    page = 1;
 
     TextView textHead = findViewById(R.id.text_head_results);
     TextView textDescr = findViewById(R.id.text_descr_results);
@@ -64,30 +64,8 @@ public class ResultActivity extends BaseMenuActivity {
     recyclerResults = findViewById(R.id.recycler_results);
     DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerResults.getContext(), DividerItemDecoration.VERTICAL);
     recyclerResults.addItemDecoration(dividerItemDecoration);
-    recyclerResults.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-      private int visibleThreshold = 5;
-      int firstVisibleItem;
-      int visibleItemCount;
-      int totalItemCount;
-
-      @Override
-      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        super.onScrolled(recyclerView, dx, dy);
-
-        visibleItemCount = recyclerResults.getChildCount();
-        totalItemCount = recyclerResults.getLayoutManager().getItemCount();
-        firstVisibleItem = ((LinearLayoutManager) recyclerResults.getLayoutManager()).findFirstVisibleItemPosition();
-
-        if (!movieAdapter.isLoading() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-          //End has been reached, load more
-          connectAndGetApiData(page);
-          movieAdapter.setLoading(true);
-        }
-      }
-    });
-
-    connectAndGetApiData(page);
+    connectAndGetApiData(recyclerResults.getPage());
   }
 
   private void checkEmpty(){
@@ -149,11 +127,12 @@ public class ResultActivity extends BaseMenuActivity {
           }
           recyclerResults.getLayoutManager().onRestoreInstanceState(recyclerViewState); //Restores scroll position after notifyDataSetChanged()
         }
-        ResultActivity.this.page++;
-        movieAdapter.setLoading(false);
+        recyclerResults.setPage(recyclerResults.getPage() + 1);
+        recyclerResults.setLoading(false);
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "Current Page: " + response.body().getPage());
         Log.d(TAG, "Number of movies received: " + movies.size());
+        checkEmpty();
       }
 
       @Override

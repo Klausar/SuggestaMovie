@@ -53,7 +53,6 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
   private ArrayList<Movie> watchlist;
   private boolean showBtnFavorite;
   private final Serializer serializer;
-  private boolean loading;
   private WatchlistFilter filter;
   private ArrayList<Movie> filterList;
 
@@ -65,7 +64,6 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     this.watchlist = ((DataHelper) context.getApplicationContext()).getWatchlist();
     this.showBtnFavorite = showBtnFavorite;
     serializer = new Serializer(context);
-    this.loading = true;
     this.filterList = (ArrayList<Movie>) movies;
   }
 
@@ -243,14 +241,6 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     notifyItemMoved(fromPosition, toPosition);
     serializer.writeWatchlist(watchlist);
     return true;
-  }
-
-  public void setLoading(boolean loading){
-    this.loading = loading;
-  }
-
-  public boolean isLoading(){
-    return loading;
   }
 
 }
