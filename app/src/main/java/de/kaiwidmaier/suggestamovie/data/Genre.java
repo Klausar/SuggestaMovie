@@ -1,14 +1,7 @@
 package de.kaiwidmaier.suggestamovie.data;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
-
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
-
-import de.kaiwidmaier.suggestamovie.R;
 
 /**
  * Created by Kai on 16.03.2018.

@@ -9,15 +9,12 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
-
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -32,9 +29,10 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 public class MainActivity extends BaseMenuActivity {
 
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
-
   private FrameLayout frameLayout;
   private FloatingActionMenu fabMenu;
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

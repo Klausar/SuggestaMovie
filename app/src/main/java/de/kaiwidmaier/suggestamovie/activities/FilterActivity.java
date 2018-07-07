@@ -1,14 +1,11 @@
 package de.kaiwidmaier.suggestamovie.activities;
 
-import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -20,10 +17,8 @@ import java.util.Calendar;
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerGenreAdapter;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
-import de.kaiwidmaier.suggestamovie.data.Movie;
-import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
-import retrofit2.Retrofit;
+import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 
 public class FilterActivity extends BaseMenuActivity {
 

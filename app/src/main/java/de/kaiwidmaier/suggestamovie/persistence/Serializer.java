@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import de.kaiwidmaier.suggestamovie.data.Genre;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 
 /**
@@ -48,11 +47,7 @@ public class Serializer {
       fis.close();
       return watchlist;
     }
-    catch(IOException e){
-      e.printStackTrace();
-      return new ArrayList<>();
-    }
-    catch(ClassNotFoundException e){
+    catch(IOException | ClassNotFoundException e){
       e.printStackTrace();
       return new ArrayList<>();
     }

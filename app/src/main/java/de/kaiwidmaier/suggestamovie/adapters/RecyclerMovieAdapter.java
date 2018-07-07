@@ -45,7 +45,6 @@ import de.kaiwidmaier.suggestamovie.utils.NetworkUtils;
 
 public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdapter.ViewHolder> implements ItemTouchHelperAdapter, Filterable{
 
-
   private static final String TAG = RecyclerMovieAdapter.class.getSimpleName();
   private List<Movie> movies;
   private LayoutInflater inflater;
