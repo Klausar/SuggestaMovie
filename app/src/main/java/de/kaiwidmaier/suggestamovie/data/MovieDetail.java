@@ -9,7 +9,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MovieDetail extends Movie implements Serializable {
+public class MovieDetail extends Movie {
 
   @SerializedName("budget")
   private int budget;

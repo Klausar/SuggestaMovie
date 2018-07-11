@@ -14,6 +14,7 @@
   <string name="unable_connect_movie_detail">Unable to load movie data. Are you connected to the internet?</string>
   <string name="retry">RETRY</string>
   <string name="transition_movie">transition_movie</string>
+  <string name="transition_movie_img">transition_movie_img</string>
   <string name="content_descr_genre">Genre icon</string>
 
   <string name="genre_action">Action</string>

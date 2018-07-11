@@ -147,7 +147,9 @@ public class MovieActivity extends BaseMenuActivity {
       @Override
       public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
         MovieDetail movieDetail = response.body();
-        recyclerGenreChips.setAdapter(new RecyclerGenreChipAdapter(MovieActivity.this, movieDetail.getGenres()));
+        if(movieDetail.getGenres() != null){
+          recyclerGenreChips.setAdapter(new RecyclerGenreChipAdapter(MovieActivity.this, movieDetail.getGenres()));
+        }
 
         if(movie == null){
           Log.d(TAG, "Movie not found");
@@ -159,8 +161,6 @@ public class MovieActivity extends BaseMenuActivity {
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));
-        movie = movieDetail;
-        fillData();
       }
 
       @Override
@@ -199,6 +199,7 @@ public class MovieActivity extends BaseMenuActivity {
         Log.d(TAG, "Movie replaced");
         serializer.writeWatchlist(watchlist);
 
+        fillData();
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));
@@ -211,4 +212,9 @@ public class MovieActivity extends BaseMenuActivity {
     });
   }
 
+  @Override
+  protected void onResume() {
+    super.onResume();
+    fillData();
+  }
 }

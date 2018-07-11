@@ -24,24 +24,23 @@
     android:orientation="horizontal"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
-  <TextView
-  android:id="@+id/text_budget"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:drawableStart="@drawable/ic_budget_24dp"
-  android:ellipsize="end"
-  android:paddingTop="16dp"
-  android:text="Budget: 0$"/>
-
-  <TextView
-    android:id="@+id/text_revenue"
+    <TextView
+    android:id="@+id/text_budget"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:drawableStart="@drawable/ic_attach_money_black_24dp"
+    android:drawableStart="@drawable/ic_budget_24dp"
     android:ellipsize="end"
     android:paddingTop="16dp"
-    android:text="Revenue: 0$"/>
+    android:text="Budget: 0$"/>
 
+    <TextView
+      android:id="@+id/text_revenue"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:drawableStart="@drawable/ic_attach_money_black_24dp"
+      android:ellipsize="end"
+      android:paddingTop="16dp"
+      android:text="Revenue: 0$"/>
 
     <TextView
       android:id="@+id/text_movie_description"
