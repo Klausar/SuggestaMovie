@@ -112,11 +112,7 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
       if (!showBtnFavorite) {
         holder.btnFavorite.setVisibility(View.GONE);
       }
-      if (watchlist.contains(movie)) {
-        holder.btnFavorite.setLiked(true);
-      } else {
-        holder.btnFavorite.setLiked(false);
-      }
+      holder.btnFavorite.setLiked(watchlist.contains(movie));
       holder.btnFavorite.setOnLikeListener(new OnLikeListener() {
         @Override
         public void liked(LikeButton likeButton) {

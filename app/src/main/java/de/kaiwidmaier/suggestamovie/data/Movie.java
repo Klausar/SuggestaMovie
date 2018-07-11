@@ -20,7 +20,6 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class Movie implements Parcelable, Serializable{
 
-
   private static final long serialVersionUID = -3321935085974625347L;
 
   @SerializedName("poster_path")
@@ -51,26 +50,6 @@ public class Movie implements Parcelable, Serializable{
   private Boolean video;
   @SerializedName("vote_average")
   private Double voteAverage;
-
-
-  public Movie(String posterPath, boolean adult, String overview, String releaseDate, List<Integer> genreIds, Integer id,
-               String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity,
-               Integer voteCount, Boolean video, Double voteAverage) {
-    this.posterPath = posterPath;
-    this.adult = adult;
-    this.overview = overview;
-    this.releaseDate = releaseDate;
-    this.genreIds = genreIds;
-    this.id = id;
-    this.originalTitle = originalTitle;
-    this.originalLanguage = originalLanguage;
-    this.title = title;
-    this.backdropPath = backdropPath;
-    this.popularity = popularity;
-    this.voteCount = voteCount;
-    this.video = video;
-    this.voteAverage = voteAverage;
-  }
 
   public String getPosterPath() {
     return posterPath;
@@ -191,7 +170,6 @@ public class Movie implements Parcelable, Serializable{
     this.voteAverage = voteAverage;
   }
 
-
   protected Movie(Parcel in) {
     posterPath = in.readString();
     adult = in.readByte() != 0x00;
@@ -271,7 +249,7 @@ public class Movie implements Parcelable, Serializable{
   @Override
   public boolean equals(final Object o){
     if(this == o) return true;
-    if(o == null || getClass() != o.getClass()) return false;
+    if(o == null || !(o instanceof Movie)) return false;
     Movie movie = (Movie) o;
     return movie.getId().equals(id);
   }

@@ -2,6 +2,7 @@ package de.kaiwidmaier.suggestamovie.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,7 @@ import de.kaiwidmaier.suggestamovie.adapters.RecyclerGenreChipAdapter;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Genre;
 import de.kaiwidmaier.suggestamovie.data.Movie;
+import de.kaiwidmaier.suggestamovie.data.MovieDetail;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
@@ -36,13 +38,26 @@ import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 public class MovieActivity extends BaseMenuActivity {
 
   private Movie movie;
+
+  /*
+   *  This information is already contained in the "movie" object
+   *  and doesn't require an instance of "MovieDetail"
+   */
   private TextView textTitle;
   private TextView textDescription;
   private TextView textRating;
   private TextView textRelease;
   private ImageView imgPoster;
+
+  /*
+   *  This information is loaded by "loadMovieDetails"
+   */
+  private TextView textBudget;
+  private TextView textRevenue;
+
   private LikeButton btnFavorite;
   private ArrayList<Movie> watchlist;
+  private RecyclerView recyclerGenreChips;
   Serializer serializer = new Serializer(MovieActivity.this);
   public static final String TAG = MovieActivity.class.getSimpleName();
 
@@ -51,25 +66,20 @@ public class MovieActivity extends BaseMenuActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_movie);
 
-
     Intent intent = getIntent();
     movie = intent.getParcelableExtra("movie");
-    ArrayList<Genre> movieGenres = new ArrayList<>();
-
-    if(movie.getGenreIds() != null){
-      for(Integer i : movie.getGenreIds()){
-        movieGenres.add(((DataHelper) this.getApplication()).getGenre(i));
-      }
-    }
 
     textTitle = findViewById(R.id.text_movie_title);
     textDescription = findViewById(R.id.text_movie_description);
     textRating = findViewById(R.id.text_movie_rating);
     textRelease = findViewById(R.id.text_movie_release);
+
+    textBudget = findViewById(R.id.text_budget);
+    textRevenue = findViewById(R.id.text_revenue);
+
     imgPoster = findViewById(R.id.img_thumbnail_movie);
     btnFavorite = findViewById(R.id.btn_favorite);
-    RecyclerView recyclerGenreChips = findViewById(R.id.recycler_genre_chips);
-    recyclerGenreChips.setAdapter(new RecyclerGenreChipAdapter(this, movieGenres));
+    recyclerGenreChips = findViewById(R.id.recycler_genre_chips);
     watchlist = ((DataHelper) this.getApplicationContext()).getWatchlist();
     Button btnFindSimilar = findViewById(R.id.btn_find_similar);
     btnFindSimilar.setOnClickListener(new View.OnClickListener() {
@@ -84,12 +94,15 @@ public class MovieActivity extends BaseMenuActivity {
       }
     });
 
-    //Refresh serialized movies in watchlist
-    if(watchlist.contains(movie)){
+    //Refresh serialized movie data (Object instance of "Movie") in watchlist in case something changed
+    if(watchlist.contains(movie)) {
       refreshMovieData();
     }
 
-    //Fill Activity views with data
+    //Load more information by creating object of instance "MoveDetail" (Different API Call than Movie)
+    loadMovieDetails();
+
+    //Fill views with data that's already contained in "movie" object
     fillData();
   }
 
@@ -107,12 +120,7 @@ public class MovieActivity extends BaseMenuActivity {
     String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
     Picasso.with(this).load(imgUrlBasePath + movie.getPosterPath()).fit().centerCrop().placeholder(R.drawable.placeholder_thumbnail).error(R.drawable.placeholder_thumbnail).into(imgPoster);
 
-    if(watchlist.contains(movie)){
-      btnFavorite.setLiked(true);
-    }
-    else{
-      btnFavorite.setLiked(false);
-    }
+    btnFavorite.setLiked(watchlist.contains(movie));
     btnFavorite.setOnLikeListener(new OnLikeListener() {
       @Override
       public void liked(LikeButton likeButton) {
@@ -129,10 +137,50 @@ public class MovieActivity extends BaseMenuActivity {
   }
 
   //If movie data changes, replace movie object
+  private void loadMovieDetails(){
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
+    MovieApiService movieApiService = retrofit.create(MovieApiService.class);
+    Call<MovieDetail> call = movieApiService.getMovieDetails(movie.getId(), API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry());
+
+    assert call != null;
+    call.enqueue(new Callback<MovieDetail>() {
+      @Override
+      public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
+        MovieDetail movieDetail = response.body();
+        recyclerGenreChips.setAdapter(new RecyclerGenreChipAdapter(MovieActivity.this, movieDetail.getGenres()));
+
+        if(movie == null){
+          Log.d(TAG, "Movie not found");
+          return;
+        }
+
+        textBudget.setText(String.format(getString(R.string.budget), movieDetail.getBudgetFormatted()));
+        textRevenue.setText(String.format(getString(R.string.revenue), movieDetail.getRevenueFormatted()));
+
+        Log.d(TAG, "Request URL: " + response.raw().request().url());
+        Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));
+        movie = movieDetail;
+        fillData();
+      }
+
+      @Override
+      public void onFailure(Call<MovieDetail> call, Throwable throwable) {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.unable_connect_movie_detail), Snackbar.LENGTH_INDEFINITE)
+          .setAction(getString(R.string.retry), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              loadMovieDetails();
+            }
+          });
+        snackbar.show();
+      }
+    });
+  }
+
   private void refreshMovieData(){
     Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
-    Call<Movie> call = movieApiService.getMovieDetails(movie.getId(), API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry());
+    Call<Movie> call = movieApiService.getMovieDetailsAsMovie(movie.getId(), API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry());
 
     assert call != null;
     call.enqueue(new Callback<Movie>() {
@@ -147,18 +195,13 @@ public class MovieActivity extends BaseMenuActivity {
         }
 
         //Replace movie in watchlist with new movie
-        for(int i = 0; i < watchlist.size(); i++){
-          if(watchlist.get(i).equals(movie)){
-            watchlist.set(i, newMovie);
-            Log.d(TAG, "Movie replaced");
-            serializer.writeWatchlist(watchlist);
-          }
-        }
+        watchlist.set(watchlist.indexOf(movie), newMovie);
+        Log.d(TAG, "Movie replaced");
+        serializer.writeWatchlist(watchlist);
+
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));
-        movie = newMovie;
-        fillData();
       }
 
       @Override

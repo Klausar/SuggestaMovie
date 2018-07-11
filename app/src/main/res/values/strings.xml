@@ -11,6 +11,7 @@
   <string name="genres">Genres</string>
   <string name="release_format">Release: %s</string>
   <string name="unable_connect">Unable to connect</string>
+  <string name="unable_connect_movie_detail">Unable to load movie data. Are you connected to the internet?</string>
   <string name="retry">RETRY</string>
   <string name="transition_movie">transition_movie</string>
   <string name="content_descr_genre">Genre icon</string>
@@ -100,6 +101,9 @@
   <string name="pref_header_network">Network</string>
   <string name="title_thumbnail_loading">Load thumbnails without Wi-Fi</string>
   <string name="summary_thumbnail_loading">Disabling this can reduce data usage if you are not connected to a Wi-Fi network.</string>
+
+  <string name="budget">Budget: %s</string>
+  <string name="revenue">Revenue: %s</string>
 
   <!-- Strings related to Settings -->
 

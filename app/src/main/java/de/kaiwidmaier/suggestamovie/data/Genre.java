@@ -3,6 +3,8 @@ package de.kaiwidmaier.suggestamovie.data;
 import android.os.Parcel;
 import android.support.annotation.DrawableRes;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Kai on 16.03.2018.
  */
@@ -11,7 +13,9 @@ public class Genre{
 
   private static final long serialVersionUID = 8614403915122234634L;
 
+  @SerializedName("name")
   private String name;
+  @SerializedName("id")
   private int id;
   @DrawableRes
   private int drawableResId;

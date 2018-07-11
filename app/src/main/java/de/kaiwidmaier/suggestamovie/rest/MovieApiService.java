@@ -1,6 +1,7 @@
 package de.kaiwidmaier.suggestamovie.rest;
 
 import de.kaiwidmaier.suggestamovie.data.Movie;
+import de.kaiwidmaier.suggestamovie.data.MovieDetail;
 import de.kaiwidmaier.suggestamovie.data.MovieResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,7 +21,10 @@ public interface MovieApiService {
     Call<MovieResponse> getRecommendedMovies(@Path("id") int id, @Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region);
 
     @GET("movie/{id}")
-    Call<Movie> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region);
+    Call<MovieDetail> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region);
+
+    @GET("movie/{id}")
+    Call<Movie> getMovieDetailsAsMovie(@Path("id") int id, @Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region);
 
     @GET("movie/upcoming")
     Call<MovieResponse> getUpcomingMovies(@Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region);
@@ -38,5 +42,5 @@ public interface MovieApiService {
     Call<MovieResponse> getSimilarMovies(@Path("id") int id, @Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region, @Query("page") int page);
 
     @GET("search/movie")
-  Call<MovieResponse> getMoviesByName(@Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region, @Query("query") String query, @Query("page") int page);
+    Call<MovieResponse> getMoviesByName(@Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region, @Query("query") String query, @Query("page") int page);
 }
