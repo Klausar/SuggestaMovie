@@ -31,7 +31,6 @@ public class WatchlistFragment extends Fragment implements SearchView.OnQueryTex
   private LinearLayout layoutWatchlistEmpty;
   private SimpleItemTouchHelperCallback callback;
 
-
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

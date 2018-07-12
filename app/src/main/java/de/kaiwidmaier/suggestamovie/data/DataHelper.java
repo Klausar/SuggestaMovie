@@ -16,6 +16,8 @@ public class DataHelper extends Application{
 
   //TheMovieDB API Key
   public final static String API_KEY = BuildConfig.API_KEY;
+  //Youtube API Key
+  public final static String API_KEY_YOUTUBE = BuildConfig.API_KEY_YOUTUBE;
   //Holds watchlist to make it accessible from every activity
   private ArrayList<Movie> watchlist = new ArrayList<>();
   private ArrayList<Genre> genres = new ArrayList<>();

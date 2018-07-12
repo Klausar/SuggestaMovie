@@ -60,6 +60,13 @@
       android:layout_height="wrap_content"
       android:paddingTop="16dp"/>
 
+    <fragment
+      android:id="@+id/youtube_fragment"
+      android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+      android:layout_marginTop="16dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
 
     <ImageView
       android:layout_width="wrap_content"

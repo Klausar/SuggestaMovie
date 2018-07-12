@@ -5,16 +5,25 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerGenreChipAdapter;
@@ -33,8 +42,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
+import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY_YOUTUBE;
 
-public class MovieActivity extends BaseMenuActivity {
+public class MovieActivity extends BaseMenuActivity{
 
   private Movie movie;
 
@@ -77,6 +87,21 @@ public class MovieActivity extends BaseMenuActivity {
     textBudget = findViewById(R.id.text_budget);
     textRevenue = findViewById(R.id.text_revenue);
     textRuntime = findViewById(R.id.text_runtime);
+
+    YouTubePlayerSupportFragment frag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
+    frag.initialize(API_KEY_YOUTUBE, new YouTubePlayer.OnInitializedListener() {
+      @Override
+      public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+        if (!b) {
+          youTubePlayer.cueVideo("fhWaJi1Hsfo");
+        }
+      }
+
+      @Override
+      public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+        Snackbar.make(findViewById(android.R.id.content), "There was a problem loading Youtube", Snackbar.LENGTH_SHORT).show();
+      }
+    });
 
     imgPoster = findViewById(R.id.img_thumbnail_movie);
     btnFavorite = findViewById(R.id.btn_favorite);

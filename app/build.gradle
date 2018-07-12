@@ -17,6 +17,7 @@ android {
         }
         applicationVariants.all { variant ->
             variant.buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
+            variant.buildConfigField "String", "API_KEY_YOUTUBE", "\"" + getApiKeyYt() + "\""
         }
     }
 }
@@ -27,7 +28,14 @@ def getApiKey() {
     return props['API_KEY']
 }
 
+def getApiKeyYt() {
+  def Properties props = new Properties()
+  props.load(new FileInputStream(new File('config.properties')))
+  return props['API_KEY_YOUTUBE']
+}
+
 dependencies {
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
