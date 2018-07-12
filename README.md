@@ -13,5 +13,5 @@ This product uses the TMDb API but is not endorsed or certified by TMDb
 
 ## How to set up:
 1. Create a file `config.properties` in the root directory of the project
-2. Make a new key called API_KEY with your API key as value e.g. `API_KEY=12345` where `12345` is your API key
-3. You can now Access the API key within the project by using `BuildConfig.API_KEY`
+2. Make a new key called API_KEY with your TMDB API key as value e.g. `API_KEY=12345` where `12345` is your TMDB API key and one called API_KEY_YOUTUBE with your Youtube API Key as value e.g. `API_KEY_YOUTUBE=67890`.
+3. You can now Access the TMDB API key within the project by using `BuildConfig.API_KEY`and the Youtube API Key by using `BuildConfig.API_KEY_YOUTUBE`
