@@ -44,7 +44,7 @@ import static de.kaiwidmaier.suggestamovie.activities.MainActivity.BASE_URL;
 import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY;
 import static de.kaiwidmaier.suggestamovie.data.DataHelper.API_KEY_YOUTUBE;
 
-public class MovieActivity extends BaseMenuActivity{
+public class MovieActivity extends BaseMenuActivity {
 
   private Movie movie;
 
@@ -64,6 +64,8 @@ public class MovieActivity extends BaseMenuActivity{
   private TextView textBudget;
   private TextView textRevenue;
   private TextView textRuntime;
+
+  private YouTubePlayerSupportFragment frag;
 
   private LikeButton btnFavorite;
   private ArrayList<Movie> watchlist;
@@ -88,20 +90,7 @@ public class MovieActivity extends BaseMenuActivity{
     textRevenue = findViewById(R.id.text_revenue);
     textRuntime = findViewById(R.id.text_runtime);
 
-    YouTubePlayerSupportFragment frag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
-    frag.initialize(API_KEY_YOUTUBE, new YouTubePlayer.OnInitializedListener() {
-      @Override
-      public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-        if (!b) {
-          youTubePlayer.cueVideo("fhWaJi1Hsfo");
-        }
-      }
-
-      @Override
-      public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-        Snackbar.make(findViewById(android.R.id.content), "There was a problem loading Youtube", Snackbar.LENGTH_SHORT).show();
-      }
-    });
+    frag = (YouTubePlayerSupportFragment) getSupportFragmentManager().findFragmentById(R.id.youtube_fragment);
 
     imgPoster = findViewById(R.id.img_thumbnail_movie);
     btnFavorite = findViewById(R.id.btn_favorite);
@@ -121,7 +110,7 @@ public class MovieActivity extends BaseMenuActivity{
     });
 
     //Refresh serialized movie data (Object instance of "Movie") in watchlist in case something changed
-    if(watchlist.contains(movie)) {
+    if (watchlist.contains(movie)) {
       refreshMovieData();
     }
 
@@ -132,15 +121,14 @@ public class MovieActivity extends BaseMenuActivity{
     fillData();
   }
 
-  private void fillData(){
+  private void fillData() {
     textTitle.setText(movie.getTitle(this));
     textDescription.setText(movie.getOverview());
     textRating.setText(String.format(getString(R.string.rating_format), movie.getVoteAverage()));
-    if(movie.getReleaseDate().length() >= 4){
+    if (movie.getReleaseDate().length() >= 4) {
       //textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
       textRelease.setText(String.format(getString(R.string.release_format), LocalizationUtils.getLocalDateFormat(movie.getReleaseDate(), this)));
-    }
-    else{
+    } else {
       textRelease.setText(String.format(getString(R.string.release_format), "?"));
     }
     String imgUrlBasePath = "http://image.tmdb.org/t/p/w342//";
@@ -163,7 +151,7 @@ public class MovieActivity extends BaseMenuActivity{
   }
 
   //If movie data changes, replace movie object
-  private void loadMovieDetails(){
+  private void loadMovieDetails() {
     Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
     Call<MovieDetail> call = movieApiService.getMovieDetails(movie.getId(), API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry());
@@ -173,23 +161,40 @@ public class MovieActivity extends BaseMenuActivity{
       @Override
       public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
         MovieDetail movieDetail = response.body();
-        if(movieDetail.getGenres() != null){
+        if (movieDetail.getGenres() != null) {
           recyclerGenreChips.setAdapter(new RecyclerGenreChipAdapter(MovieActivity.this, movieDetail.getGenres()));
         }
 
-        if(movie == null){
+        if (movie == null) {
           Log.d(TAG, "Movie not found");
           return;
         }
 
-        if(movieDetail.getBudget() != 0){
+        if (movieDetail.getBudget() != 0) {
           textBudget.setText(String.format(getString(R.string.budget), movieDetail.getBudgetFormatted()));
         }
-        if(movieDetail.getRevenue() != 0){
+        else{
+          textBudget.setText(getString(R.string.no_budget));
+        }
+        if (movieDetail.getRevenue() != 0) {
           textRevenue.setText(String.format(getString(R.string.revenue), movieDetail.getRevenueFormatted()));
         }
-        if(movieDetail.getRuntime() != 0){
+        else{
+          textRevenue.setText(getString(R.string.no_revenue));
+        }
+        if (movieDetail.getRuntime() != 0) {
           textRuntime.setText(String.format(getString(R.string.runtime), movieDetail.getRuntime()));
+        }
+        else{
+          textRuntime.setText(getString(R.string.no_runtime));
+        }
+
+        if(movieDetail.getVideos() != null && !movieDetail.getVideos().isEmpty()){
+          Log.d(TAG, "First video: " + movieDetail.getVideos().get(0).getName());
+          loadYoutubeVideo(movieDetail.getVideos().get(0).getKey());
+        }
+        else{
+          Objects.requireNonNull(frag.getView()).setVisibility(View.INVISIBLE);
         }
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
@@ -210,7 +215,7 @@ public class MovieActivity extends BaseMenuActivity{
     });
   }
 
-  private void refreshMovieData(){
+  private void refreshMovieData() {
     Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
     Call<Movie> call = movieApiService.getMovieDetailsAsMovie(movie.getId(), API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry());
@@ -222,7 +227,7 @@ public class MovieActivity extends BaseMenuActivity{
         Movie newMovie = response.body();
         newMovie.setGenreIds(movie.getGenreIds());
 
-        if(movie == null){
+        if (movie == null) {
           Log.d(TAG, "Movie not found");
           return;
         }
@@ -241,6 +246,22 @@ public class MovieActivity extends BaseMenuActivity{
       @Override
       public void onFailure(Call<Movie> call, Throwable throwable) {
         //Do nothing
+      }
+    });
+  }
+
+  private void loadYoutubeVideo(final String videoKey){
+    frag.initialize(API_KEY_YOUTUBE, new YouTubePlayer.OnInitializedListener() {
+      @Override
+      public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+        if (!b) {
+          youTubePlayer.cueVideo(videoKey);
+        }
+      }
+
+      @Override
+      public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+        Snackbar.make(findViewById(android.R.id.content), "There was a problem loading Youtube", Snackbar.LENGTH_SHORT).show();
       }
     });
   }

@@ -20,7 +20,7 @@ public interface MovieApiService {
     @GET("movie/{id}/recommendations")
     Call<MovieResponse> getRecommendedMovies(@Path("id") int id, @Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region);
 
-    @GET("movie/{id}")
+    @GET("movie/{id}?append_to_response=videos")
     Call<MovieDetail> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey, @Query("language") String language, @Query("region") String region);
 
     @GET("movie/{id}")

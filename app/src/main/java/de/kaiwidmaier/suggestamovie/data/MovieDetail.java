@@ -21,9 +21,15 @@ public class MovieDetail extends Movie {
   private int revenue;
   @SerializedName("runtime")
   private int runtime;
+  @SerializedName("videos")
+  private VideoListWrapper videoListWrapper;
 
   protected MovieDetail(Parcel in) {
     super(in);
+  }
+
+  public ArrayList<Video> getVideos(){
+    return videoListWrapper == null ? null : videoListWrapper.getVideos();
   }
 
   public int getRuntime() {
