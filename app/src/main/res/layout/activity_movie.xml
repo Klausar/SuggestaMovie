@@ -1,62 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.NestedScrollView
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
   tools:context="de.kaiwidmaier.suggestamovie.activities.MovieActivity">
 
-<LinearLayout
-  android:id="@+id/layout_movie"
-  android:orientation="vertical"
-  android:padding="16dp"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content">
-
-  <include layout="@layout/recyclerview_movie_item"/>
-
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/recycler_genre_chips"
+  <LinearLayout
+    android:id="@+id/layout_movie"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <include layout="@layout/recyclerview_movie_item"/>
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/recycler_genre_chips"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
     <TextView
-    android:id="@+id/text_budget"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:drawableStart="@drawable/ic_budget_24dp"
-    android:ellipsize="end"
-    android:paddingTop="16dp"
-    android:text="Budget: 0$"/>
+      android:id="@+id/text_budget"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:drawablePadding="8dp"
+      android:drawableStart="@drawable/ic_budget_24dp"
+      android:ellipsize="end"
+      android:paddingTop="16dp"
+      android:text="Budget: 0$"/>
 
     <TextView
       android:id="@+id/text_revenue"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:drawablePadding="8dp"
       android:drawableStart="@drawable/ic_attach_money_black_24dp"
       android:ellipsize="end"
-      android:paddingTop="16dp"
+      android:paddingTop="8dp"
       android:text="Revenue: 0$"/>
 
     <TextView
-      android:id="@+id/text_movie_description"
-      android:paddingTop="16dp"
+      android:id="@+id/text_runtime"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:drawablePadding="8dp"
+      android:drawableStart="@drawable/ic_access_time_black_24dp"
+      android:ellipsize="end"
+      android:paddingTop="8dp"
+      android:text="Runtime: 0 minutes"/>
+
+    <TextView
+      android:id="@+id/text_movie_description"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingTop="16dp"/>
 
 
-  <ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|center_horizontal"
-    android:contentDescription="TMDB Logo"
-    android:scaleType="fitEnd"
-    android:src="@drawable/ic_tmdb"/>
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|center_horizontal"
+      android:contentDescription="TMDB Logo"
+      android:scaleType="fitEnd"
+      android:src="@drawable/ic_tmdb"/>
 
-</LinearLayout>
+  </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

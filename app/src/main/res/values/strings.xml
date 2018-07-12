@@ -105,6 +105,7 @@
 
   <string name="budget">Budget: %s</string>
   <string name="revenue">Revenue: %s</string>
+  <string name="runtime">Runtime: %d minutes</string>
 
   <!-- Strings related to Settings -->
 

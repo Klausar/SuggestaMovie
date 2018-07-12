@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerGenreChipAdapter;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
-import de.kaiwidmaier.suggestamovie.data.Genre;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieDetail;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
@@ -54,6 +53,7 @@ public class MovieActivity extends BaseMenuActivity {
    */
   private TextView textBudget;
   private TextView textRevenue;
+  private TextView textRuntime;
 
   private LikeButton btnFavorite;
   private ArrayList<Movie> watchlist;
@@ -76,6 +76,7 @@ public class MovieActivity extends BaseMenuActivity {
 
     textBudget = findViewById(R.id.text_budget);
     textRevenue = findViewById(R.id.text_revenue);
+    textRuntime = findViewById(R.id.text_runtime);
 
     imgPoster = findViewById(R.id.img_thumbnail_movie);
     btnFavorite = findViewById(R.id.btn_favorite);
@@ -156,8 +157,15 @@ public class MovieActivity extends BaseMenuActivity {
           return;
         }
 
-        textBudget.setText(String.format(getString(R.string.budget), movieDetail.getBudgetFormatted()));
-        textRevenue.setText(String.format(getString(R.string.revenue), movieDetail.getRevenueFormatted()));
+        if(movieDetail.getBudget() != 0){
+          textBudget.setText(String.format(getString(R.string.budget), movieDetail.getBudgetFormatted()));
+        }
+        if(movieDetail.getRevenue() != 0){
+          textRevenue.setText(String.format(getString(R.string.revenue), movieDetail.getRevenueFormatted()));
+        }
+        if(movieDetail.getRuntime() != 0){
+          textRuntime.setText(String.format(getString(R.string.runtime), movieDetail.getRuntime()));
+        }
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));

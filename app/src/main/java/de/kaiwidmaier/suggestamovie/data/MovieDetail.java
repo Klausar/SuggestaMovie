@@ -19,9 +19,19 @@ public class MovieDetail extends Movie {
   private String homepage;
   @SerializedName("revenue")
   private int revenue;
+  @SerializedName("runtime")
+  private int runtime;
 
   protected MovieDetail(Parcel in) {
     super(in);
+  }
+
+  public int getRuntime() {
+    return runtime;
+  }
+
+  public void setRuntime(int runtime) {
+    this.runtime = runtime;
   }
 
   public int getBudget() {
