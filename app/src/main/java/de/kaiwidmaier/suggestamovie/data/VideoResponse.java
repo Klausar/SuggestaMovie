@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /*
  * Used to hold videos of movie
  */
-public class VideoListWrapper {
+public class VideoResponse {
 
   @SerializedName("results")
   private ArrayList<Video> videos;

@@ -60,10 +60,20 @@
       android:layout_height="wrap_content"
       android:paddingTop="16dp"/>
 
+    <TextView
+      android:id="@+id/text_videos"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:text="@string/video"
+      android:textColor="@color/colorBlack"
+      android:textSize="16sp"
+      android:textStyle="bold"/>
+
     <fragment
       android:id="@+id/youtube_fragment"
+      android:layout_marginTop="8dp"
       android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
-      android:layout_marginTop="16dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
 

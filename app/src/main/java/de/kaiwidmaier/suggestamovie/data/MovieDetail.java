@@ -4,7 +4,6 @@ import android.os.Parcel;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -22,14 +21,14 @@ public class MovieDetail extends Movie {
   @SerializedName("runtime")
   private int runtime;
   @SerializedName("videos")
-  private VideoListWrapper videoListWrapper;
+  private VideoResponse videoResponse;
 
   protected MovieDetail(Parcel in) {
     super(in);
   }
 
   public ArrayList<Video> getVideos(){
-    return videoListWrapper == null ? null : videoListWrapper.getVideos();
+    return videoResponse == null ? null : videoResponse.getVideos();
   }
 
   public int getRuntime() {

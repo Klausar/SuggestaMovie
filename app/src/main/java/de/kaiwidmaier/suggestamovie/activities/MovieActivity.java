@@ -9,8 +9,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -30,6 +33,7 @@ import de.kaiwidmaier.suggestamovie.adapters.RecyclerGenreChipAdapter;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieDetail;
+import de.kaiwidmaier.suggestamovie.data.Video;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
@@ -56,6 +60,7 @@ public class MovieActivity extends BaseMenuActivity {
   private TextView textDescription;
   private TextView textRating;
   private TextView textRelease;
+  private TextView textVideos;
   private ImageView imgPoster;
 
   /*
@@ -85,6 +90,7 @@ public class MovieActivity extends BaseMenuActivity {
     textDescription = findViewById(R.id.text_movie_description);
     textRating = findViewById(R.id.text_movie_rating);
     textRelease = findViewById(R.id.text_movie_release);
+    textVideos = findViewById(R.id.text_videos);
 
     textBudget = findViewById(R.id.text_budget);
     textRevenue = findViewById(R.id.text_revenue);
@@ -165,11 +171,6 @@ public class MovieActivity extends BaseMenuActivity {
           recyclerGenreChips.setAdapter(new RecyclerGenreChipAdapter(MovieActivity.this, movieDetail.getGenres()));
         }
 
-        if (movie == null) {
-          Log.d(TAG, "Movie not found");
-          return;
-        }
-
         if (movieDetail.getBudget() != 0) {
           textBudget.setText(String.format(getString(R.string.budget), movieDetail.getBudgetFormatted()));
         }
@@ -192,9 +193,11 @@ public class MovieActivity extends BaseMenuActivity {
         if(movieDetail.getVideos() != null && !movieDetail.getVideos().isEmpty()){
           Log.d(TAG, "First video: " + movieDetail.getVideos().get(0).getName());
           loadYoutubeVideo(movieDetail.getVideos().get(0).getKey());
+          textVideos.setText(movieDetail.getVideos().get(0).getType());
         }
         else{
-          Objects.requireNonNull(frag.getView()).setVisibility(View.INVISIBLE);
+          Objects.requireNonNull(frag.getView()).setVisibility(View.GONE);
+          textVideos.setVisibility(View.GONE);
         }
 
         Log.d(TAG, "Request URL: " + response.raw().request().url());
@@ -226,11 +229,6 @@ public class MovieActivity extends BaseMenuActivity {
       public void onResponse(Call<Movie> call, Response<Movie> response) {
         Movie newMovie = response.body();
         newMovie.setGenreIds(movie.getGenreIds());
-
-        if (movie == null) {
-          Log.d(TAG, "Movie not found");
-          return;
-        }
 
         //Replace movie in watchlist with new movie
         watchlist.set(watchlist.indexOf(movie), newMovie);
