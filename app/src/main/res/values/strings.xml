@@ -75,6 +75,7 @@
   <string name="now_playing_descr">These movies are in the movie theaters right now</string>
   <string name="sort_by">Sort by</string>
   <string name="video">Video</string>
+  <string name="cast">Cast</string>
 
   <!-- Sort By -->
   <string name="sort_popularity">Popularity</string>

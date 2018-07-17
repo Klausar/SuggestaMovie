@@ -3,6 +3,7 @@ package de.kaiwidmaier.suggestamovie.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -29,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import de.kaiwidmaier.suggestamovie.R;
+import de.kaiwidmaier.suggestamovie.adapters.RecyclerActorAdapter;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerGenreChipAdapter;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
@@ -61,7 +65,11 @@ public class MovieActivity extends BaseMenuActivity {
   private TextView textRating;
   private TextView textRelease;
   private TextView textVideos;
+  private TextView textCast;
   private ImageView imgPoster;
+
+  private LinearLayout layoutMovie;
+  private ProgressBar progress;
 
   /*
    *  This information is loaded by "loadMovieDetails"
@@ -91,6 +99,10 @@ public class MovieActivity extends BaseMenuActivity {
     textRating = findViewById(R.id.text_movie_rating);
     textRelease = findViewById(R.id.text_movie_release);
     textVideos = findViewById(R.id.text_videos);
+    textCast = findViewById(R.id.text_cast);
+
+    layoutMovie = findViewById(R.id.layout_movie);
+    progress = findViewById(R.id.progress);
 
     textBudget = findViewById(R.id.text_budget);
     textRevenue = findViewById(R.id.text_revenue);
@@ -166,7 +178,7 @@ public class MovieActivity extends BaseMenuActivity {
     call.enqueue(new Callback<MovieDetail>() {
       @Override
       public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {
-        MovieDetail movieDetail = response.body();
+        final MovieDetail movieDetail = response.body();
         if (movieDetail.getGenres() != null) {
           recyclerGenreChips.setAdapter(new RecyclerGenreChipAdapter(MovieActivity.this, movieDetail.getGenres()));
         }
@@ -200,16 +212,33 @@ public class MovieActivity extends BaseMenuActivity {
           textVideos.setVisibility(View.GONE);
         }
 
+        RecyclerView recyclerActors = findViewById(R.id.recycler_actors);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(MovieActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerActors.setLayoutManager(layoutManager);
+        if(movieDetail.getCast() != null){
+          recyclerActors.setAdapter(new RecyclerActorAdapter(MovieActivity.this, movieDetail.getCast()));
+        }
+        else {
+          recyclerActors.setVisibility(View.GONE);
+          textCast.setVisibility(View.GONE);
+        }
+
+        progress.setVisibility(View.GONE);
+        layoutMovie.setVisibility(View.VISIBLE);
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));
       }
 
       @Override
       public void onFailure(Call<MovieDetail> call, Throwable throwable) {
+        progress.setVisibility(View.GONE);
+        layoutMovie.setVisibility(View.VISIBLE);
         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.unable_connect_movie_detail), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+              progress.setVisibility(View.VISIBLE);
+              layoutMovie.setVisibility(View.GONE);
               loadMovieDetails();
             }
           });

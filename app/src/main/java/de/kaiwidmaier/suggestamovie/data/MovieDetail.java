@@ -22,6 +22,8 @@ public class MovieDetail extends Movie {
   private int runtime;
   @SerializedName("videos")
   private VideoResponse videoResponse;
+  @SerializedName("credits")
+  private CreditResponse creditResponse;
 
   protected MovieDetail(Parcel in) {
     super(in);
@@ -29,6 +31,14 @@ public class MovieDetail extends Movie {
 
   public ArrayList<Video> getVideos(){
     return videoResponse == null ? null : videoResponse.getVideos();
+  }
+
+  public ArrayList<Actor> getCast(){
+    return creditResponse == null ? null : creditResponse.getCast();
+  }
+
+  public ArrayList<CrewMember> getCrew(){
+    return creditResponse == null ? null : creditResponse.getCrew();
   }
 
   public int getRuntime() {
