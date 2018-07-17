@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.NestedScrollView
+<android.support.constraint.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:fillViewport="true"
   tools:context="de.kaiwidmaier.suggestamovie.activities.MovieActivity">
 
-  <android.support.constraint.ConstraintLayout
+  <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -111,6 +110,8 @@
 
   </LinearLayout>
 
+  </android.support.v4.widget.NestedScrollView>
+
     <ProgressBar
       android:id="@+id/progress"
       android:layout_width="200dp"
@@ -121,5 +122,4 @@
       app:layout_constraintBottom_toBottomOf="parent"
       android:indeterminateDrawable="@drawable/progressbar_movie"/>
 
-  </android.support.constraint.ConstraintLayout>
-</android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

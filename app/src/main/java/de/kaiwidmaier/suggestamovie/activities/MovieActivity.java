@@ -68,8 +68,12 @@ public class MovieActivity extends BaseMenuActivity {
   private TextView textCast;
   private ImageView imgPoster;
 
+  private boolean dataLoaded;
+
   private LinearLayout layoutMovie;
   private ProgressBar progress;
+
+  private boolean activityCreated;
 
   /*
    *  This information is loaded by "loadMovieDetails"
@@ -83,7 +87,7 @@ public class MovieActivity extends BaseMenuActivity {
   private LikeButton btnFavorite;
   private ArrayList<Movie> watchlist;
   private RecyclerView recyclerGenreChips;
-  Serializer serializer = new Serializer(MovieActivity.this);
+  private Serializer serializer = new Serializer(MovieActivity.this);
   public static final String TAG = MovieActivity.class.getSimpleName();
 
   @Override
@@ -103,6 +107,7 @@ public class MovieActivity extends BaseMenuActivity {
 
     layoutMovie = findViewById(R.id.layout_movie);
     progress = findViewById(R.id.progress);
+    progress.setVisibility(View.GONE);
 
     textBudget = findViewById(R.id.text_budget);
     textRevenue = findViewById(R.id.text_revenue);
@@ -144,7 +149,6 @@ public class MovieActivity extends BaseMenuActivity {
     textDescription.setText(movie.getOverview());
     textRating.setText(String.format(getString(R.string.rating_format), movie.getVoteAverage()));
     if (movie.getReleaseDate().length() >= 4) {
-      //textRelease.setText(String.format(getString(R.string.release_format), movie.getReleaseDate().substring(0, 4)));
       textRelease.setText(String.format(getString(R.string.release_format), LocalizationUtils.getLocalDateFormat(movie.getReleaseDate(), this)));
     } else {
       textRelease.setText(String.format(getString(R.string.release_format), "?"));
@@ -170,6 +174,7 @@ public class MovieActivity extends BaseMenuActivity {
 
   //If movie data changes, replace movie object
   private void loadMovieDetails() {
+    progress.setVisibility(View.VISIBLE);
     Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
     MovieApiService movieApiService = retrofit.create(MovieApiService.class);
     Call<MovieDetail> call = movieApiService.getMovieDetails(movie.getId(), API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry());
@@ -215,7 +220,7 @@ public class MovieActivity extends BaseMenuActivity {
         RecyclerView recyclerActors = findViewById(R.id.recycler_actors);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MovieActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerActors.setLayoutManager(layoutManager);
-        if(movieDetail.getCast() != null){
+        if(movieDetail.getCast() != null && !movieDetail.getCast().isEmpty()){
           recyclerActors.setAdapter(new RecyclerActorAdapter(MovieActivity.this, movieDetail.getCast()));
         }
         else {
@@ -225,6 +230,7 @@ public class MovieActivity extends BaseMenuActivity {
 
         progress.setVisibility(View.GONE);
         layoutMovie.setVisibility(View.VISIBLE);
+        dataLoaded = true;
         Log.d(TAG, "Request URL: " + response.raw().request().url());
         Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));
       }
@@ -233,11 +239,11 @@ public class MovieActivity extends BaseMenuActivity {
       public void onFailure(Call<MovieDetail> call, Throwable throwable) {
         progress.setVisibility(View.GONE);
         layoutMovie.setVisibility(View.VISIBLE);
+        dataLoaded = true;
         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.unable_connect_movie_detail), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              progress.setVisibility(View.VISIBLE);
               layoutMovie.setVisibility(View.GONE);
               loadMovieDetails();
             }
@@ -297,5 +303,8 @@ public class MovieActivity extends BaseMenuActivity {
   protected void onResume() {
     super.onResume();
     fillData();
+    if(dataLoaded){
+      progress.setVisibility(View.GONE); //Temporary bug fix
+    }
   }
 }
