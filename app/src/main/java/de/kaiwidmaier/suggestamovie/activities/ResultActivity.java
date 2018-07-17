@@ -151,4 +151,11 @@ public class ResultActivity extends BaseMenuActivity implements EndlessAPILoader
     });
   }
 
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if(movieAdapter != null){
+      movieAdapter.notifyDataSetChanged(); //In case a movie was added to watchlist in MovieActivity
+    }
+  }
 }
