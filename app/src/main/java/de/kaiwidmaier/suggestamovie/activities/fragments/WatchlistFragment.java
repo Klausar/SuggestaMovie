@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -77,10 +78,10 @@ public class WatchlistFragment extends Fragment implements SearchView.OnQueryTex
 
   @Override
   public void onResume() {
+    super.onResume();
     if (movieAdapter != null) {
       movieAdapter.notifyDataSetChanged();
     }
-    super.onResume();
     checkEmpty();
   }
 
@@ -113,4 +114,6 @@ public class WatchlistFragment extends Fragment implements SearchView.OnQueryTex
     }
     return false;
   }
+
+
 }

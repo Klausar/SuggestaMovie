@@ -87,6 +87,7 @@ public class MainActivity extends BaseMenuActivity {
 
     if(savedInstanceState == null){
       setFragment(new WatchlistFragment());
+      Log.d("MainActivity", "Saved instance is null");
     }
 
   }

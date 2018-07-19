@@ -6,24 +6,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.google.android.youtube.player.YouTubePlayerView;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
@@ -37,7 +29,6 @@ import de.kaiwidmaier.suggestamovie.adapters.RecyclerGenreChipAdapter;
 import de.kaiwidmaier.suggestamovie.data.DataHelper;
 import de.kaiwidmaier.suggestamovie.data.Movie;
 import de.kaiwidmaier.suggestamovie.data.MovieDetail;
-import de.kaiwidmaier.suggestamovie.data.Video;
 import de.kaiwidmaier.suggestamovie.persistence.Serializer;
 import de.kaiwidmaier.suggestamovie.rest.MovieApiService;
 import de.kaiwidmaier.suggestamovie.rest.ResultType;
@@ -70,10 +61,11 @@ public class MovieActivity extends BaseMenuActivity {
 
   private boolean dataLoaded;
 
+  private YouTubePlayer youTubePlayer;
+
   private LinearLayout layoutMovie;
   private ProgressBar progress;
 
-  private boolean activityCreated;
 
   /*
    *  This information is loaded by "loadMovieDetails"
@@ -286,9 +278,11 @@ public class MovieActivity extends BaseMenuActivity {
   private void loadYoutubeVideo(final String videoKey){
     frag.initialize(API_KEY_YOUTUBE, new YouTubePlayer.OnInitializedListener() {
       @Override
-      public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-        if (!b) {
+      public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
+        if (!wasRestored) {
           youTubePlayer.cueVideo(videoKey);
+          MovieActivity.this.youTubePlayer = youTubePlayer;
+
         }
       }
 
@@ -306,5 +300,13 @@ public class MovieActivity extends BaseMenuActivity {
     if(dataLoaded){
       progress.setVisibility(View.GONE); //Temporary bug fix
     }
+  }
+
+  @Override
+  public void onBackPressed() {
+    if(youTubePlayer != null){
+      youTubePlayer.release();
+    }
+    super.onBackPressed();
   }
 }

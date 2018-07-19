@@ -55,7 +55,6 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
   private WatchlistFilter filter;
   private ArrayList<Movie> filterList;
 
-
   public RecyclerMovieAdapter(Context context, List<Movie> movies, boolean showBtnFavorite) {
     this.inflater = LayoutInflater.from(context);
     this.movies = movies;
