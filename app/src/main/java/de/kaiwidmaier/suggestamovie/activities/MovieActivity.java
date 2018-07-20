@@ -74,6 +74,7 @@ public class MovieActivity extends BaseMenuActivity {
   private TextView textRevenue;
   private TextView textRuntime;
 
+  //TODO: Minimize youtube player on back pressed
   private YouTubePlayerSupportFragment frag;
 
   private LikeButton btnFavorite;

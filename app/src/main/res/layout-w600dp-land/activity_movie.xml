@@ -17,7 +17,13 @@
       android:visibility="gone"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:orientation="horizontal"
+      android:baselineAligned="false"
       android:padding="16dp">
 
     <LinearLayout
@@ -72,14 +78,6 @@
         android:layout_height="wrap_content"
         android:paddingTop="16dp"/>
 
-      <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:contentDescription="TMDB Logo"
-        android:scaleType="fitEnd"
-        android:src="@drawable/ic_tmdb"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -124,6 +122,16 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:orientation="horizontal" />
     </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|center_horizontal"
+      android:contentDescription="TMDB Logo"
+      android:scaleType="fitEnd"
+      android:src="@drawable/ic_tmdb"/>
 
     </LinearLayout>
 

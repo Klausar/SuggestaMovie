@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -167,11 +168,17 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
       itemView.setOnClickListener(this);
     }
 
+    private long lastClickTime;
     @Override
     public void onClick(View view) {
       Movie movie = movies.get(getAdapterPosition());
       Log.d(TAG, "Clicked on: " + movie.getTitle(context));
+      if (SystemClock.elapsedRealtime() - lastClickTime < 1000){ //Prevent double click
+        return;
+      }
+      lastClickTime = SystemClock.elapsedRealtime();
       Intent intent = new Intent(context, MovieActivity.class);
+      intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
       intent.putExtra("movie", (Parcelable) movie);
       ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, view, context.getString(R.string.transition_movie));
       ActivityCompat.startActivity(context, intent, options.toBundle());

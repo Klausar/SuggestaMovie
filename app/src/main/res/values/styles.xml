@@ -8,9 +8,6 @@
     <item name="colorAccent">@color/colorAccent</item>
     <item name="android:windowContentTransitions">true</item>
     <item name="android:windowSharedElementsUseOverlay">false</item>
-
-    <!-- This somehow fixes a bug where recyclerview gets glitchy with invisible items after rotation changes and stuff. Don't ask me why it works as I have no idea -->
-    <item name="android:windowIsTranslucent">true</item>
   </style>
 
 </resources>
