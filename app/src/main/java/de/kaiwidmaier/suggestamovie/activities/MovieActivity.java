@@ -62,6 +62,7 @@ public class MovieActivity extends BaseMenuActivity {
   private boolean dataLoaded;
 
   private YouTubePlayer youTubePlayer;
+  private boolean ytIsFullscreen;
 
   private LinearLayout layoutMovie;
   private ProgressBar progress;
@@ -282,9 +283,15 @@ public class MovieActivity extends BaseMenuActivity {
       public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         if (!wasRestored) {
           youTubePlayer.cueVideo(videoKey);
-          MovieActivity.this.youTubePlayer = youTubePlayer;
-
         }
+        youTubePlayer.setShowFullscreenButton(true);
+        youTubePlayer.setOnFullscreenListener(new YouTubePlayer.OnFullscreenListener() {
+          @Override
+          public void onFullscreen(boolean isFullScreen) {
+            ytIsFullscreen = isFullScreen;
+          }
+        });
+        MovieActivity.this.youTubePlayer = youTubePlayer;
       }
 
       @Override
@@ -305,9 +312,15 @@ public class MovieActivity extends BaseMenuActivity {
 
   @Override
   public void onBackPressed() {
-    if(youTubePlayer != null){
-      youTubePlayer.release();
+    if(ytIsFullscreen){
+      youTubePlayer.pause();
+      youTubePlayer.setFullscreen(false);
     }
-    super.onBackPressed();
+    else{
+      if(youTubePlayer != null){
+        youTubePlayer.release();
+      }
+      super.onBackPressed();
+    }
   }
 }

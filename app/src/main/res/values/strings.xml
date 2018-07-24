@@ -106,11 +106,11 @@
   <string name="summary_thumbnail_loading">Disabling this can reduce data usage if you are not connected to a Wi-Fi network.</string>
 
   <string name="budget">Budget: %s</string>
-  <string name="no_budget">Budget not yet known</string>
+  <string name="no_budget">Budget unknown</string>
   <string name="revenue">Revenue: %s</string>
-  <string name="no_revenue">Revenue not yet known</string>
+  <string name="no_revenue">Revenue unknown</string>
   <string name="runtime">Runtime: %d minutes</string>
-  <string name="no_runtime">Runtime not yet known</string>
+  <string name="no_runtime">Runtime unknown</string>
 
   <string name="player_error">Error initializing YouTube player: %s</string>
   <string name="seek_to">Jump To</string>

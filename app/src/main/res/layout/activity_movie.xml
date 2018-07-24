@@ -26,6 +26,7 @@
   <LinearLayout
     android:id="@+id/layout_movie"
     android:visibility="gone"
+    tools:visibility="visible"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -71,6 +72,7 @@
       android:id="@+id/text_movie_description"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."
       android:paddingTop="16dp"/>
 
     <TextView
@@ -123,6 +125,7 @@
       android:layout_width="150dp"
       android:layout_height="150dp"
       android:layout_marginTop="16dp"
+      tools:visibility="gone"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"

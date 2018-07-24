@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,6 +32,7 @@ public class MainActivity extends BaseMenuActivity {
   public static final String BASE_URL = "http://api.themoviedb.org/3/";
   private FrameLayout frameLayout;
   private FloatingActionMenu fabMenu;
+  private BottomNavigation bottomNavigation;
 
 
   @Override
@@ -38,7 +40,7 @@ public class MainActivity extends BaseMenuActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    BottomNavigation bottomNavigation = findViewById(R.id.bottom_navigation);
+    bottomNavigation = findViewById(R.id.bottom_navigation);
     bottomNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
       @Override
       public void onMenuItemSelect(int i, int i1, boolean b) {
@@ -96,6 +98,18 @@ public class MainActivity extends BaseMenuActivity {
   protected void onResume() {
     super.onResume();
     fabMenu.close(false);
+  }
+
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    //Necessary because of android:configChanges="keyboardHidden|orientation|screenSize" in manifest for MainActivity.
+    if(bottomNavigation.getSelectedIndex() == 1) {
+      setFragment(new NowPlayingFragment());
+    }
+    else if(bottomNavigation.getSelectedIndex() == 2){
+      setFragment(new RecommendationsFragment());
+    }
   }
 
   @Override
