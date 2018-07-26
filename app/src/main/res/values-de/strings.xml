@@ -1,0 +1,194 @@
+<resources>
+  <string name="app_name">Filmvorschlag</string>
+  <string name="now_playing">Im Kino</string>
+  <string name="suggestion">Vorschlag</string>
+  <string name="content_descr_thumbnail">Filmposter</string>
+  <string name="rating_format">Bewertung: %.1f/10</string>
+  <string name="btn_find">Entdecken</string>
+  <string name="include_adult">18+ Inhalte einbeziehen</string>
+  <string name="release_year">Erscheinungsjahr</string>
+  <string name="rating">Bewertung</string>
+  <string name="genres">Genres</string>
+  <string name="release_format">Veröffentlichung: %s</string>
+  <string name="unable_connect">Verbindung nicht möglich</string>
+  <string name="unable_connect_movie_detail">Filmdaten können nicht geladen werden. Bist du mit dem Internet verbunden?</string>
+  <string name="retry">WIEDERHOLEN</string>
+  <string name="transition_movie">transition_movie</string>
+  <string name="transition_movie_img">transition_movie_img</string>
+  <string name="content_descr_genre">Genre icon</string>
+
+  <string name="genre_action">Action</string>
+  <string name="genre_adventure">Abenteuer</string>
+  <string name="genre_animation">Animation</string>
+  <string name="genre_comedy">Komödie</string>
+  <string name="genre_crime">Krimi</string>
+  <string name="genre_documentary">Dokumentarfilm</string>
+  <string name="genre_drama">Drama</string>
+  <string name="genre_family">Familie</string>
+  <string name="genre_fantasy">Fantasy</string>
+  <string name="genre_history">Geschichte</string>
+  <string name="genre_horror">Horror</string>
+  <string name="genre_music">Musik</string>
+  <string name="genre_mystery">Mystery</string>
+  <string name="genre_romance">Romanze</string>
+  <string name="genre_scifi">Science Fiction</string>
+  <string name="genre_thriller">Thriller</string>
+  <string name="genre_tv_movie">TV Movie</string>
+  <string name="genre_war">Kriegsfilm</string>
+  <string name="genre_western">Western</string>
+
+  <string name="select_release_rating">1. SELECT RELEASE AND RATING</string>
+  <string name="select_genres">2. SELECT GENRES</string>
+
+  <string name="filter">Filterergebnisse</string>
+  <string name="filter_descr">Diese Filme treffen auf deine Filtereinstellungen zu</string>
+
+  <string name="watchlist">Watchlist</string>
+  <string name="watchlist_descr">Filme die du magst</string>
+
+  <string name="similar">Ähnliche Filme</string>
+  <string name="similar_descr">Diese Filme sind ähnlich wie %s</string>
+
+  <string name="search">Suchergebnisse</string>
+  <string name="search_descr">Diese Filme passen zu \'%s\'</string>
+
+  <string name="movie_removed">%s entfernt</string>
+  <string name="undo">RÜCKGÄNGIG</string>
+
+  <string name="watchlist_empty1">Deine Watchlist ist leer</string>
+  <string name="watchlist_empty2">Drück den Knopf um neue Filme zu entdecken</string>
+
+  <string name="search_empty1">Konnte keine Suchergebnisse finden</string>
+  <string name="search_empty2">Ändere deine Sucheinstellungen oder stelle sicher, dass du mit dem Internet verbunden bist</string>
+
+  <string name="enter_movie">Filmtitel eingeben</string>
+
+  <string name="input_empty">Die Eingabe darf nicht leer sein</string>
+
+  <string name="fab_search_by_name">Nach Filmtitel suchen</string>
+  <string name="fab_search_by_filter">Mit Filtereinstellungen suchen</string>
+
+  <string name="recommendations">Empfehlungen</string>
+  <string name="recommendations_descr">Basierend auf dem Film </string>
+  <string name="recommendations_descr_alt">Empfehlungen basierend auf deiner Watchlist</string>
+
+  <string name="now_playing_descr">Diese Filme sind gerade im Kino</string>
+  <string name="sort_by">Sortieren nach</string>
+  <string name="video">Video</string>
+  <string name="cast">Besetzung</string>
+
+  <!-- Sort By -->
+  <string name="sort_popularity">Beliebtheit</string>
+  <string name="sort_release_date">Erscheinungsdatum</string>
+  <string name="sort_vote_average">Bewertungsdurchschnitt</string>
+
+  <string name="settings">Einstellungen</string>
+  <string name="title_activity_settings">Einstellungen</string>
+
+  <string name="pref_header_formatting">Formatierung</string>
+  <string name="pref_formatting_date">Datumsformat</string>
+
+  <string-array name="pref_date_format_titles">
+    <item>Kurz</item>
+    <item>Mittel</item>
+    <item>Lang</item>
+  </string-array>
+  <string-array name="pref_date_format_values">
+    <item>short</item>
+    <item>medium</item>
+    <item>long</item>
+  </string-array>
+  <string name="summary_original_title">Wenn du diese Einstellung aktivierst, wird der lokale Filmtitel durch den Originaltitel ersetzt. Je nach Sprache gibt es eventuell keinen Unterschied zwischen lokalem und originalem Titel.</string>
+  <string name="title_show_original_title">Zeige Originaltitel</string>
+
+  <string name="pref_header_network">Netzwerk</string>
+  <string name="title_thumbnail_loading">Filmposter ohne Wlan laden</string>
+  <string name="summary_thumbnail_loading">Das deaktivieren dieser Einstellung kann die mobile Datennutzung reduzieren, wenn du nicht mit einem WLAN-Netzwerk verbunden bist.</string>
+  
+  <string name="budget">Budget: %s</string>
+  <string name="no_budget">Budget unbekannt</string>
+  <string name="revenue">Erlös: %s</string>
+  <string name="no_revenue">Erlös unbekannt</string>
+  <string name="runtime">Laufzeit: %d Minuten</string>
+  <string name="no_runtime">Laufzeit unbekannt</string>
+
+  <string name="problem_youtube">Es gab ein Problem beim Laden von YouTube</string>
+
+  <string name="player_error">Es gab ein Problem beim Laden des YouTube-Players: %s</string>
+  <string name="seek_to">Springe zu</string>
+  <string name="seek_to_hint">Sekunden</string>
+  
+  <string name="find_similar">ÄHNLICHE FINDEN</string>
+
+  <!-- Strings related to Settings -->
+
+  <!-- Example General settings -->
+  <string name="pref_header_general">General</string>
+
+  <string name="pref_title_social_recommendations">Enable social recommendations</string>
+  <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+  <string name="pref_title_display_name">Display name</string>
+  <string name="pref_default_display_name">John Smith</string>
+
+  <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+  <string-array name="pref_example_list_titles">
+    <item>Always</item>
+    <item>When possible</item>
+    <item>Never</item>
+  </string-array>
+  <string-array name="pref_example_list_values">
+    <item>1</item>
+    <item>0</item>
+    <item>-1</item>
+  </string-array>
+
+  <!-- Example settings for Data & Sync -->
+  <string name="pref_header_data_sync">Data &amp; sync</string>
+
+  <string name="pref_title_sync_frequency">Sync frequency</string>
+  <string-array name="pref_sync_frequency_titles">
+    <item>15 minutes</item>
+    <item>30 minutes</item>
+    <item>1 hour</item>
+    <item>3 hours</item>
+    <item>6 hours</item>
+    <item>Never</item>
+  </string-array>
+  <string-array name="pref_sync_frequency_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+    <item>180</item>
+    <item>360</item>
+    <item>-1</item>
+  </string-array>
+
+  <string-array name="list_preference_entries">
+    <item>Entry 1</item>
+    <item>Entry 2</item>
+    <item>Entry 3</item>
+  </string-array>
+
+  <string-array name="list_preference_entry_values">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+  </string-array>
+
+  <string-array name="multi_select_list_preference_default_value"/>
+
+  <string name="pref_title_system_sync_settings">System sync settings</string>
+
+  <!-- Example settings for Notifications -->
+  <string name="pref_header_notifications">Notifications</string>
+
+  <string name="pref_title_new_message_notifications">New message notifications</string>
+
+  <string name="pref_title_ringtone">Ringtone</string>
+  <string name="pref_ringtone_silent">Silent</string>
+
+  <string name="pref_title_vibrate">Vibrate</string>
+</resources>
