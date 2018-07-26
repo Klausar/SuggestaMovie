@@ -112,9 +112,13 @@
   <string name="runtime">Runtime: %d minutes</string>
   <string name="no_runtime">Runtime unknown</string>
 
+  <string name="problem_youtube">There was a problem loading Youtube</string>
+
   <string name="player_error">Error initializing YouTube player: %s</string>
   <string name="seek_to">Jump To</string>
   <string name="seek_to_hint">Seconds</string>
+
+  <string name="find_similar">FIND SIMILAR</string>
 
   <!-- Strings related to Settings -->
 

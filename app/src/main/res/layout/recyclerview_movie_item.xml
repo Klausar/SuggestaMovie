@@ -68,7 +68,6 @@
 
     </LinearLayout>
 
-
       <Button
         android:id="@+id/btn_find_similar"
         style="?android:attr/borderlessButtonStyle"
@@ -76,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/img_thumbnail_movie"
         android:layout_alignParentBottom="true"
-        android:text="Find Similar"
+        android:text="@string/find_similar"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
         android:textColor="@color/colorBlue"/>

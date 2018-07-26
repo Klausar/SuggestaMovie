@@ -234,6 +234,9 @@ public class MovieActivity extends BaseMenuActivity {
         progress.setVisibility(View.GONE);
         layoutMovie.setVisibility(View.VISIBLE);
         dataLoaded = true;
+        textBudget.setText(getString(R.string.no_budget));
+        textRevenue.setText(getString(R.string.no_revenue));
+        textRuntime.setText(getString(R.string.no_runtime));
         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.unable_connect_movie_detail), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
@@ -296,7 +299,7 @@ public class MovieActivity extends BaseMenuActivity {
 
       @Override
       public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-        Snackbar.make(findViewById(android.R.id.content), "There was a problem loading Youtube", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(android.R.id.content), getString(R.string.problem_youtube), Snackbar.LENGTH_SHORT).show();
       }
     });
   }
