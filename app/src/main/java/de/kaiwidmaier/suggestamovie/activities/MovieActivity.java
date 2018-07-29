@@ -21,7 +21,6 @@ import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import de.kaiwidmaier.suggestamovie.R;
 import de.kaiwidmaier.suggestamovie.adapters.RecyclerActorAdapter;
@@ -202,12 +201,13 @@ public class MovieActivity extends BaseMenuActivity {
         }
 
         if(movieDetail.getVideos() != null && !movieDetail.getVideos().isEmpty()){
-          Log.d(TAG, "First video: " + movieDetail.getVideos().get(0).getName());
           loadYoutubeVideo(movieDetail.getVideos().get(0).getKey());
           textVideos.setText(movieDetail.getVideos().get(0).getType());
         }
         else{
-          Objects.requireNonNull(frag.getView()).setVisibility(View.GONE);
+          if(frag.getView() != null){
+            frag.getView().setVisibility(View.GONE);
+          }
           textVideos.setVisibility(View.GONE);
         }
 
@@ -225,8 +225,6 @@ public class MovieActivity extends BaseMenuActivity {
         progress.setVisibility(View.GONE);
         layoutMovie.setVisibility(View.VISIBLE);
         dataLoaded = true;
-        Log.d(TAG, "Request URL: " + response.raw().request().url());
-        Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));
       }
 
       @Override
@@ -264,13 +262,9 @@ public class MovieActivity extends BaseMenuActivity {
 
         //Replace movie in watchlist with new movie
         watchlist.set(watchlist.indexOf(movie), newMovie);
-        Log.d(TAG, "Movie replaced");
         serializer.writeWatchlist(watchlist);
 
         fillData();
-
-        Log.d(TAG, "Request URL: " + response.raw().request().url());
-        Log.d(TAG, "For Movie: " + movie.getTitle(MovieActivity.this));
       }
 
       @Override

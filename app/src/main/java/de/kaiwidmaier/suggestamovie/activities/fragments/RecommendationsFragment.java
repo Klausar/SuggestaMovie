@@ -114,9 +114,6 @@ public class RecommendationsFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
         movieAdapter = new RecyclerThumbnailAdapter(getActivity(), movies);
         recycler.setAdapter(movieAdapter);
-        Log.d(TAG, "Request URL: " + response.raw().request().url());
-        Log.d(TAG, "Current Page: " + response.body().getPage());
-        Log.d(TAG, "Number of movies received: " + movies.size());
       }
 
       @Override
@@ -125,7 +122,6 @@ public class RecommendationsFragment extends Fragment {
           return;
         }
         progressBar.setVisibility(View.GONE);
-        Log.e(TAG, throwable.toString());
         connectionFailedSnackbar = Snackbar.make(recycler, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
@@ -142,7 +138,6 @@ public class RecommendationsFragment extends Fragment {
   @Override
   public void onDestroy() {
     super.onDestroy();
-    Log.d(TAG, "Fragment Destroied");
     if(connectionFailedSnackbar != null && connectionFailedSnackbar.isShown()){
       connectionFailedSnackbar.dismiss();
     }

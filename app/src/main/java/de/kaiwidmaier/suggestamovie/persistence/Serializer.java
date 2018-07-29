@@ -48,7 +48,6 @@ public class Serializer {
       return watchlist;
     }
     catch(IOException | ClassNotFoundException e){
-      e.printStackTrace();
       return new ArrayList<>();
     }
   }

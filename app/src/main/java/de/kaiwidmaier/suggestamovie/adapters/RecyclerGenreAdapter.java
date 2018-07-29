@@ -72,7 +72,6 @@ public class RecyclerGenreAdapter extends RecyclerView.Adapter<RecyclerGenreAdap
         }
 
         holder.layoutGenre.setBackgroundColor(color);
-        Log.d(TAG, "Clicked on: " + genre.getName() + " " + genre.getSelection());
       }
     });
   }

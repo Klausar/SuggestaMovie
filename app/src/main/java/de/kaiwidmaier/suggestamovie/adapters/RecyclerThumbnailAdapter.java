@@ -76,7 +76,6 @@ public class RecyclerThumbnailAdapter extends RecyclerView.Adapter<RecyclerThumb
 
   public void addAll(List<Movie> movies){
     this.movies.addAll(movies);
-    Log.d(TAG, "Movies added: " + movies.size());
     notifyDataSetChanged();
   }
 
@@ -94,7 +93,6 @@ public class RecyclerThumbnailAdapter extends RecyclerView.Adapter<RecyclerThumb
     @Override
     public void onClick(View view) {
       Movie movie = movies.get(getAdapterPosition());
-      Log.d(TAG, "Clicked on: " + movie.getTitle(context));
       Intent intent = new Intent(context, MovieActivity.class);
       intent.putExtra("movie", (Parcelable) movie);
       ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, view, context.getString(R.string.transition_movie));

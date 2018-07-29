@@ -98,9 +98,6 @@ public class ResultActivity extends BaseMenuActivity implements EndlessAPILoader
       call = movieApiService.getMoviesByName(API_KEY, LocalizationUtils.getLanguage(), LocalizationUtils.getCountry(), intent.getStringExtra("searchString"), page);
     }
 
-    Log.d(TAG, "Current language: " + Locale.getDefault().toString());
-    Log.d(TAG, "Current region: " + Locale.getDefault().getCountry());
-
     assert call != null;
     call.enqueue(new Callback<MovieResponse>() {
       @Override
@@ -127,15 +124,11 @@ public class ResultActivity extends BaseMenuActivity implements EndlessAPILoader
         }
         recyclerResults.setPage(recyclerResults.getPage() + 1);
         recyclerResults.setLoading(false);
-        Log.d(TAG, "Request URL: " + response.raw().request().url());
-        Log.d(TAG, "Current Page: " + response.body().getPage());
-        Log.d(TAG, "Number of movies received: " + movies.size());
         checkEmpty();
       }
 
       @Override
       public void onFailure(Call<MovieResponse> call, Throwable throwable) {
-        Log.e(TAG, throwable.toString());
         progressBar.setVisibility(View.GONE);
         Snackbar snackbar = Snackbar.make(recyclerResults, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {

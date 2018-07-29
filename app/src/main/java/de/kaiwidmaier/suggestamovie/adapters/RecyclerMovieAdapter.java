@@ -135,7 +135,6 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
 
   public void addMovies(List<Movie> movies){
     this.movies.addAll(movies);
-    Log.d(TAG, "Movies added: " + movies.size());
     notifyDataSetChanged();
   }
 
@@ -172,7 +171,6 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
     @Override
     public void onClick(View view) {
       Movie movie = movies.get(getAdapterPosition());
-      Log.d(TAG, "Clicked on: " + movie.getTitle(context));
       if (SystemClock.elapsedRealtime() - lastClickTime < 1000){ //Prevent double click
         return;
       }
@@ -197,9 +195,6 @@ public class RecyclerMovieAdapter extends RecyclerView.Adapter<RecyclerMovieAdap
   public void onItemDismiss(final int position) {
     final Movie movie = getItem(position);
     final int watchlistPosition = watchlist.indexOf(movie);
-    Log.d(TAG + " Movie removed ", movie.toString());
-    Log.d(TAG + " Movies ", Arrays.toString(movies.toArray()));
-    Log.d(TAG + " Filterlist ", Arrays.toString(filterList.toArray()));
     Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),
       String.format(context.getString(R.string.movie_removed), movie.getTitle(context)), Snackbar.LENGTH_LONG)
       .setAction(context.getString(R.string.undo), new View.OnClickListener() {

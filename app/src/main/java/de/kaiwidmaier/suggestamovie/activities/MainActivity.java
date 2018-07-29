@@ -47,15 +47,12 @@ public class MainActivity extends BaseMenuActivity {
         switch(i1){
           case 0: //Watchlist
             setFragment(new WatchlistFragment());
-            Log.d("Fragmentselection", "Switched to watchlist");
             break;
           case 1: //Now Playing
             setFragment(new NowPlayingFragment());
-            Log.d("Fragmentselection", "Switched to now playing");
             break;
           case 2: //Recommendations
             setFragment(new RecommendationsFragment());
-            Log.d("Fragmentselection", "Switched to now playing");
             break;
         }
       }
@@ -89,7 +86,6 @@ public class MainActivity extends BaseMenuActivity {
 
     if(savedInstanceState == null){
       setFragment(new WatchlistFragment());
-      Log.d("MainActivity", "Saved instance is null");
     }
 
   }

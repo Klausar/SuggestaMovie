@@ -112,9 +112,6 @@ public class NowPlayingFragment extends Fragment implements EndlessAPILoader{
         }
         recyclerView.setPage(recyclerView.getPage() + 1);
         recyclerView.setLoading(false);
-        Log.d(TAG, "Request URL: " + response.raw().request().url());
-        Log.d(TAG, "Current Page: " + response.body().getPage());
-        Log.d(TAG, "Number of movies received: " + movies.size());
       }
 
       @Override
@@ -123,7 +120,6 @@ public class NowPlayingFragment extends Fragment implements EndlessAPILoader{
           return;
         }
         progressBar.setVisibility(View.GONE);
-        Log.e(TAG, throwable.toString());
         connectionFailedSnackbar = Snackbar.make(recyclerView, getString(R.string.unable_connect), Snackbar.LENGTH_INDEFINITE)
           .setAction(getString(R.string.retry), new View.OnClickListener() {
             @Override
@@ -140,7 +136,6 @@ public class NowPlayingFragment extends Fragment implements EndlessAPILoader{
   @Override
   public void onDestroy() {
     super.onDestroy();
-    Log.d(TAG, "Fragment Destroied");
     if(connectionFailedSnackbar != null && connectionFailedSnackbar.isShown()){
       connectionFailedSnackbar.dismiss();
     }
