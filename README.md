@@ -4,7 +4,7 @@ Suggest a Movie is an Android app that helps you to find a movie to watch. It us
 
 This product uses the TMDb API but is not endorsed or certified by TMDb
 
-## Planned Features:
+## Features:
 - Get suggestions based on values specified by the user
 - Let user add movies to a watchlist that's displayed in MainActivity
 - Search function to search through watchlist
